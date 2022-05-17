@@ -11,11 +11,13 @@ const mg996rServo = {
 const options = {
   name: 'ThortBot',
   version,
-  servo: mg996rServo
+  hipServo: mg996rServo,
+  femurServo: mg996rServo,
+  kneeServo: mg996rServo
 }
 
 const thortBot = new Thortoise(options)
 
 console.log('thortBot: ', thortBot)
 
-thortBot.start()
+// thortBot.start()
