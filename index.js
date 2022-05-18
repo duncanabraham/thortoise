@@ -22,4 +22,4 @@ const thortBot = new Thortoise(options)
 
 console.log('thortBot: ', thortBot)
 
-// thortBot.start()
+thortBot.start()
