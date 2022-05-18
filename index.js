@@ -3,9 +3,8 @@ const Thortoise = require('./lib/thortoise')
 
 // Define settings for this specific servo
 const mg996rServo = {
-  maxRotation: 120,
   ms: 1000,
-  steps: 0.02,
+  steps: 0.2,
   minPos: 20,
   maxPos: 60
 }
