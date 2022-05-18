@@ -6,7 +6,7 @@ const mg996rServo = {
   ms: 1000,
   steps: 0.2,
   minPos: 60,
-  maxPos: 120
+  maxPos: 90
 }
 
 const options = {
