@@ -10,7 +10,9 @@ const ms = 1000
 const mg996r = {
   maxRotation: 120,
   ms: 1000,
-  steps: 0.02
+  steps: 0.02,
+  minPos: 20,
+  maxPos: 60
 }
 
 // Define the servos to form leg0

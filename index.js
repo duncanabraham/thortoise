@@ -5,7 +5,9 @@ const Thortoise = require('./lib/thortoise')
 const mg996rServo = {
   maxRotation: 120,
   ms: 1000,
-  steps: 0.02
+  steps: 0.02,
+  minPos: 20,
+  maxPos: 60
 }
 
 const options = {
