@@ -17,7 +17,7 @@ const delay = (ms = 3000) => {
   })
 }
 
-const testServo = new Servo({ id: 2, name: 'Test Servo', ...mg996rServo }, driver)
+const testServo = new Servo({ id: 2, name: 'Test Servo', ...mg996rServo }, driver) // id:2 is the knee joint
 
 const run = async () => {
   console.log('1) ', new Date().toISOString())
