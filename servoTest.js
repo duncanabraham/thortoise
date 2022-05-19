@@ -11,7 +11,7 @@ const mg996rServo = {
   maxPos: 60
 }
 
-const delay = (ms = 1000) => {
+const delay = (ms = 3000) => {
   return new Promise(resolve => {
     setTimeout(resolve, ms)
   })
@@ -20,12 +20,16 @@ const delay = (ms = 1000) => {
 const testServo = new Servo({ id: 2, name: 'Test Servo', ...mg996rServo }, driver)
 
 const run = async () => {
-  testServo.setPosition(0)
+  console.log('1) ', new Date().toISOString())
+  await testServo.setPosition(0)
   await delay()
-  testServo.setPosition(1)
+  console.log('2) ', new Date().toISOString())
+  await testServo.setPosition(1)
   await delay()
-  testServo.setPosition(2)
+  console.log('3) ', new Date().toISOString())
+  await testServo.setPosition(2)
   await delay()
+  console.log('4) ', new Date().toISOString())
   process.exit()
 }
 
