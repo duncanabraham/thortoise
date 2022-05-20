@@ -11,6 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "i2c-bus": "^5.2.2",
+    "johnny-five": "^2.1.0",
+    "raspi-io": "^11.0.0",
     "pca9685": "^5.0.0"
   }
 }
