@@ -33,8 +33,20 @@ describe('calculating positions', () => {
       const result = nextPos(step, limbLength, position)
 
       const expectedPostion = new Triplet(182.18956965174016, 315.5615912459227, 50.58453246162577)
-      
+
       expect(result.equals(expectedPostion))
+    })
+  })
+  describe('the cw method:', () => {
+    it('should convert the newly calculated position to the corresponding servo angles', () => {
+      const angles = new Triplet(60, 30, 140)
+      const limbLength = 155
+      const startPoint = 0
+      const ticks = 36
+      for (let tick = 0; tick < ticks; tick++) {
+        const result = cw(angles, startPoint, ticks, tick, limbLength, limbLength)
+        console.log(result)
+      }
     })
   })
 })
