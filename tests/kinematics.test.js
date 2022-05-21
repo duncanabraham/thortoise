@@ -41,12 +41,13 @@ describe('calculating positions', () => {
     it('should convert the newly calculated position to the corresponding servo angles', () => {
       const angles = new Triplet(60, 30, 140)
       const limbLength = 155
-      const startPoint = 0
-      const ticks = 36
-      for (let tick = 0; tick < ticks; tick++) {
-        const result = cw(angles, startPoint, ticks, tick, limbLength, limbLength)
-        console.log(result)
-      }
+      const startPoint = Math.PI / 4
+      const ticks = 72
+      const tick = 36
+      const result = cw(angles, startPoint, ticks, tick, limbLength, limbLength)
+
+      expect(result.t2).to.equal(37)
+      expect(result.t3).to.equal(57)
     })
   })
 })
