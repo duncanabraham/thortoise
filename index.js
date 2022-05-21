@@ -2,19 +2,30 @@ const { version } = require('./package.json')
 const Thortoise = require('./lib/thortoise')
 
 // Define settings for this specific servo
-const mg996rServo = {
-  ms: 1000,
-  steps: 0.02,
-  minPos: 0,
-  maxPos: 60
+const hipMg996rServo = {
+  range: [40, 90],
+  pin: 0,
+  startAt: 90
+}
+
+const femurMg996rServo = {
+  range: [20, 120],
+  pin: 0,
+  startAt: 120
+}
+
+const kneeMg996rServo = {
+  range: [40, 90],
+  pin: 0,
+  startAt: 90
 }
 
 const options = {
   name: 'ThortBot',
   version,
-  hipServo: mg996rServo,
-  femurServo: mg996rServo,
-  kneeServo: mg996rServo
+  hipServo: hipMg996rServo,
+  femurServo: femurMg996rServo,
+  kneeServo: kneeMg996rServo
 }
 
 const thortBot = new Thortoise(options)

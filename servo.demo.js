@@ -1,7 +1,7 @@
 const ServoDriver = require('./lib/servoDriver')
 const Leg = require('./lib/leg')
 const Servo = require('./lib/servo')
-const Triplet = require('./lib/triplet')
+const { Triplet } = require('./lib/triplet')
 
 const driver = new ServoDriver()
 
