@@ -9,7 +9,7 @@ describe('the Kinematics class:', () => {
       const limbLength = 155
       const position = new Pos(60, 30, 140, 'test leg', 0, limbLength, limbLength)
       const result = calculateXyz(position)
-      const expectedPositions = new Triplet(143.43956965174016, 248.4446224526287, 50.58453246162577)
+      const expectedPositions = new Triplet(143, 248, 51)
       expect(result.equals(expectedPositions)).to.equal(true)
     })
   })
