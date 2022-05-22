@@ -19,7 +19,7 @@ class mockServo {
     this.stopCount++
   }
 
-  to(pos){
+  to(pos) {
     this.toValue = pos
   }
 }
@@ -30,21 +30,28 @@ class mockDriver {
   }
 }
 
-const legId = 3
-
 describe('The Leg class: ', () => {
   let leg
+  let legSettings
   beforeEach(() => {
-    leg = new Leg({ id: legId, name: 'test leg', driver: new mockDriver(), hipServoSettings: servoSettings, femurServoSettings: servoSettings, kneeServoSettings: servoSettings })
+    legSettings = {
+      id: 3,
+      name: 'test leg',
+      driver: new mockDriver(),
+      hipServoSettings: servoSettings,
+      femurServoSettings: servoSettings,
+      kneeServoSettings: servoSettings
+    }
+    leg = new Leg(legSettings)
   })
   it('should return an instance of the Leg class', () => {
     expect(leg).to.be.an.instanceOf(Leg)
   })
   it('should set the leg id from the settings', () => {
-    expect(leg.id).to.equal(legId)
+    expect(leg.id).to.equal(legSettings.id)
   })
   it('should set the baseId to 3 times the id', () => {
-    expect(leg.baseId).to.equal(legId * 3)
+    expect(leg.baseId).to.equal(legSettings.id * 3)
   })
   it('should set the name from the settings', () => {
     expect(leg.name).to.equal('test leg')
@@ -56,9 +63,9 @@ describe('The Leg class: ', () => {
   describe('the servos:', () => {
     it('should have an id based on the leg id', () => {
       const servos = Object.keys(leg.servos)
-      expect(leg.servos.hip.id).to.equal(legId * 3 + 0)
-      expect(leg.servos.femur.id).to.equal(legId * 3 + 1)
-      expect(leg.servos.knee.id).to.equal(legId * 3 + 2)
+      expect(leg.servos.hip.id).to.equal(legSettings.id * 3 + 0)
+      expect(leg.servos.femur.id).to.equal(legSettings.id * 3 + 1)
+      expect(leg.servos.knee.id).to.equal(legSettings.id * 3 + 2)
     })
     it('when stop is called, each servo\'s stop method is called', () => {
       leg.stop()
