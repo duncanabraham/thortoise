@@ -30,6 +30,6 @@ const options = {
 
 const thortBot = new Thortoise(options)
 
-console.log('thortBot: ', thortBot)
+console.info('thortBot: ', thortBot)
 
 thortBot.start()

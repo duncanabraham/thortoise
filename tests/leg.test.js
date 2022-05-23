@@ -62,7 +62,6 @@ describe('The Leg class: ', () => {
   })
   describe('the servos:', () => {
     it('should have a pin number based on the leg id', () => {
-      console.log('leg: ', leg, ' ', leg.servos)
       expect(leg.servos.hip.pin).to.equal(leg.baseId + 0)
       expect(leg.servos.femur.pin).to.equal(leg.baseId + 1)
       expect(leg.servos.knee.pin).to.equal(leg.baseId + 2)
