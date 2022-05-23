@@ -1,3 +1,4 @@
+const { describe, it } = require('mocha')
 const { Triplet } = require('../lib/triplet')
 const { expect } = require('chai')
 
@@ -27,7 +28,7 @@ describe('the Triplet class: ', () => {
       expect(testRad.t1).to.equal(0)
       expect(testRad.t2).to.equal(Math.PI * 0.25)
       expect(testRad.t3).to.equal(Math.PI * 0.5)
-      expect(testValue.equals(new Triplet(0,45,90))).to.equal(true)
+      expect(testValue.equals(new Triplet(0, 45, 90))).to.equal(true)
     })
   })
   describe('the toDegrees method:', () => {

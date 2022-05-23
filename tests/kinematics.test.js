@@ -1,3 +1,4 @@
+const { describe, it } = require('mocha')
 const { Triplet } = require('../lib/triplet')
 const { Pos } = require('../lib/pos')
 const { move, calculateXyz, nextPos } = require('../lib/kinematics')
@@ -32,8 +33,8 @@ describe('the Kinematics class:', () => {
   describe('the move method:', () => {
     it('should convert the newly calculated position to the corresponding servo angles', () => {
       const limbLength = 155
-      const angles = new Pos(60, 30, 140, 'test leg', 0, limbLength, limbLength)
       const startPoint = Math.PI / 4
+      const angles = new Pos(60, 30, 140, 'test leg', startPoint, limbLength, limbLength)
       const ticks = 72
       const tick = 36
       const result = move(angles, ticks, tick)

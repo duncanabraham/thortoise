@@ -1,17 +1,18 @@
+const { describe, it, beforeEach } = require('mocha')
 const { Pos } = require('../lib/pos')
 const { Triplet } = require('../lib/triplet')
 const { expect } = require('chai')
 
 describe('the Pos class:', () => {
   let pos
-  beforeEach(()=>{
-    pos = new Pos(60,30,140, 'test', 0, 155, 155)
+  beforeEach(() => {
+    pos = new Pos(60, 30, 140, 'test', 0, 155, 155)
   })
   it('should create an object with known attributes', () => {
     const attrs = ['t1', 't2', 't3', 'name', 'startPos', 'distanceFromHipToFoot', 'angleAtFemur', 'angleAtKnee', 'angleAtHip', 'femurLength', 'tibiaLength', 'groundClearance']
     let hasAllAttributes = true
     attrs.forEach(a => {
-      if (!a in pos) {
+      if (!(a in pos)) {
         hasAllAttributes = false
       }
     })
@@ -30,7 +31,7 @@ describe('the Pos class:', () => {
     it('should work out the mm positions based on the angles and limb lengths', () => {
       // See this video for calculations and soltions
       /// https://www.youtube.com/watch?v=NRgNDlVtmz0
-      const { position: {t1, t2, t3} } = pos
+      const { position: { t1, t2, t3 } } = pos
       expect(t1).to.equal(143)
       expect(t2).to.equal(248)
       expect(t3).to.equal(51)

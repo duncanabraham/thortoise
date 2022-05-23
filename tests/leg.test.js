@@ -1,3 +1,4 @@
+const { describe, it, beforeEach } = require('mocha')
 const { Triplet } = require('../lib/triplet')
 const { expect } = require('chai')
 const Leg = require('../lib/leg')
@@ -8,25 +9,25 @@ const servoSettings = {
   startAt: 90
 }
 
-class mockServo {
-  constructor(options) {
+class MockServo {
+  constructor (options) {
     Object.assign(this, options)
     this.stopCount = 0
     this.toValue = 0
   }
 
-  stop() {
+  stop () {
     this.stopCount++
   }
 
-  to(pos) {
+  to (pos) {
     this.toValue = pos
   }
 }
 
-class mockDriver {
-  makeServo(options) {
-    return new mockServo(options)
+class MockDriver {
+  makeServo (options) {
+    return new MockServo(options)
   }
 }
 
@@ -37,7 +38,7 @@ describe('The Leg class: ', () => {
     legSettings = {
       id: 3,
       name: 'test leg',
-      driver: new mockDriver(),
+      driver: new MockDriver(),
       hipServoSettings: servoSettings,
       femurServoSettings: servoSettings,
       kneeServoSettings: servoSettings
@@ -62,7 +63,6 @@ describe('The Leg class: ', () => {
   })
   describe('the servos:', () => {
     it('should have an id based on the leg id', () => {
-      const servos = Object.keys(leg.servos)
       expect(leg.servos.hip.id).to.equal(legSettings.id * 3 + 0)
       expect(leg.servos.femur.id).to.equal(legSettings.id * 3 + 1)
       expect(leg.servos.knee.id).to.equal(legSettings.id * 3 + 2)
