@@ -1,4 +1,4 @@
-const { describe, it } = require('mocha')
+/* global describe, it */
 const { Triplet } = require('../lib/triplet')
 const { expect } = require('chai')
 

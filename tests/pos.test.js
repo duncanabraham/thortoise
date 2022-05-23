@@ -1,4 +1,4 @@
-const { describe, it, beforeEach } = require('mocha')
+/* global describe, it */
 const { Pos } = require('../lib/pos')
 const { Triplet } = require('../lib/triplet')
 const { expect } = require('chai')

@@ -8,20 +8,17 @@ const controller = 'PCA9685'
 
 const a = new Servo({ // hip
   controller,
-  range: [40, 90],
-  pin: 0
+  range: [40, 90]
 })
 
 const b = new Servo({ // femur
   controller,
-  range: [20, 120],
-  pin: 1
+  range: [20, 120]
 })
 
 const c = new Servo({ // knee
   controller,
-  range: [40, 90],
-  pin: 2
+  range: [40, 90]
 })
 
 const servos = [a, b, c]

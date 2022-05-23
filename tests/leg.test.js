@@ -1,11 +1,10 @@
-const { describe, it, beforeEach } = require('mocha')
+/* global describe, it */
 const { Triplet } = require('../lib/triplet')
 const { expect } = require('chai')
 const Leg = require('../lib/leg')
 
 const servoSettings = {
   range: [40, 90],
-  pin: 0,
   startAt: 90
 }
 
@@ -62,10 +61,11 @@ describe('The Leg class: ', () => {
     expect(servos.length).to.equal(3)
   })
   describe('the servos:', () => {
-    it('should have an id based on the leg id', () => {
-      expect(leg.servos.hip.id).to.equal(legSettings.id * 3 + 0)
-      expect(leg.servos.femur.id).to.equal(legSettings.id * 3 + 1)
-      expect(leg.servos.knee.id).to.equal(legSettings.id * 3 + 2)
+    it('should have a pin number based on the leg id', () => {
+      console.log('leg: ', leg, ' ', leg.servos)
+      expect(leg.servos.hip.pin).to.equal(leg.baseId + 0)
+      expect(leg.servos.femur.pin).to.equal(leg.baseId + 1)
+      expect(leg.servos.knee.pin).to.equal(leg.baseId + 2)
     })
     it('when stop is called, each servo\'s stop method is called', () => {
       leg.stop()

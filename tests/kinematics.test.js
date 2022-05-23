@@ -1,4 +1,4 @@
-const { describe, it } = require('mocha')
+/* global describe, it */
 const { Triplet } = require('../lib/triplet')
 const { Pos } = require('../lib/pos')
 const { move, calculateXyz, nextPos } = require('../lib/kinematics')
@@ -38,8 +38,8 @@ describe('the Kinematics class:', () => {
       const ticks = 72
       const tick = 36
       const result = move(angles, ticks, tick)
-      expect(result.t2).to.equal(4)
-      expect(result.t3).to.equal(92)
+      expect(result.t2).to.equal(22)
+      expect(result.t3).to.equal(86)
     })
   })
 })
