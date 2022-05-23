@@ -4,17 +4,20 @@ const Thortoise = require('./lib/thortoise')
 // Define settings for this specific servo
 const hipMg996rServo = {
   range: [40, 90],
-  startAt: 90
+  startAt: 90,
+  controller: 'PCA9685'
 }
 
 const femurMg996rServo = {
   range: [20, 120],
-  startAt: 120
+  startAt: 120,
+  controller: 'PCA9685'
 }
 
 const kneeMg996rServo = {
   range: [40, 90],
-  startAt: 90
+  startAt: 90,
+  controller: 'PCA9685'
 }
 
 const options = {
