@@ -33,13 +33,12 @@ describe('the Kinematics class:', () => {
   describe('the move method:', () => {
     it('should convert the newly calculated position to the corresponding servo angles', () => {
       const limbLength = 155
-      const startPoint = Math.PI / 4
+      const startPoint = Math.PI / 2
       const angles = new Pos(60, 30, 140, 'test leg', startPoint, limbLength, limbLength)
-      const ticks = 72
-      const tick = 36
-      const result = move(angles, ticks, tick)
-      expect(result.t2).to.equal(22)
-      expect(result.t3).to.equal(86)
+      const tick = 4
+      const result = move(angles, tick)
+      expect(result.t2).to.equal(32)
+      expect(result.t3).to.equal(-12)
     })
   })
 })

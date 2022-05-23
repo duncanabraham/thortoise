@@ -73,22 +73,9 @@ describe('The Leg class: ', () => {
         expect(servo.stopCount).to.equal(1)
       })
     })
-    it('should set servo positions when setAngles is called', () => {
-      const position = new Triplet(10, 20, 30)
-      leg.setAngles(position)
-      expect(leg.servos.hip.toValue).to.equal(10)
-      expect(leg.servos.femur.toValue).to.equal(20)
-      expect(leg.servos.knee.toValue).to.equal(30)
-    })
-    it('store the set position in the leg', () => {
-      const position = new Triplet(10, 20, 30)
-      leg.setAngles(position)
-      expect(leg.position).to.equal(position)
-    })
     it('should reset the servos when "home" is called', () => {
       const position = new Triplet(10, 20, 30)
       const expectedPosition = new Triplet(90, 90, 90)
-      leg.setAngles(position)
       leg.home()
       expect(leg.position.equals(expectedPosition)).to.equal(true)
     })

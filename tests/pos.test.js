@@ -21,7 +21,7 @@ describe('the Pos class:', () => {
   describe('the angles setter', () => {
     it('should accept a Triplet and set the current t1,t2 and t3 values', () => {
       const newPosition = new Triplet(10, 20, 30)
-      pos.angles = newPosition
+      pos.setAngles(newPosition)
       expect(pos.t1).to.equal(10)
       expect(pos.t2).to.equal(20)
       expect(pos.t3).to.equal(30)
