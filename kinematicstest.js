@@ -17,7 +17,6 @@ const position = new Pos(
 
 console.log('position: ', position)
 const { t1, t2, t3 } = position
-console.log(pad('Test: ', 12, false), pad(t1, 6), pad(t2, 6), pad(t3, 6))
 for (let tick = 0; tick < 72; tick++) {
   position.setAngles(kineMove(position, tick))
   const { t1, t2, t3 } = position
