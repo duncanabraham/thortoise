@@ -1,6 +1,6 @@
 const { version } = require('./package.json')
 const Thortoise = require('./lib/thortoise')
-const JohnnyDriver = require('./lib/mockJohnny')
+const JohnnyDriver = require('./lib/johnnyDriver')
 const driver = new JohnnyDriver() // allows direct communication with the hardware
 
 const init = async () => {
