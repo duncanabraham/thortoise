@@ -1,50 +1,98 @@
 <html>
-  <head>
-    <style>
-      body,
-      document {
-        margin: 0;
-        padding: 0;
-      }
-      .main {
-        width: 100%;
-        height: 100%;
-        position: relative;
-      }
-      .thing {
-        width: 20px;
-        height: 20px;
-        background-color: #0f0;
-        border-radius: 50%;
-        position: absolute;
-      }
-    </style>
-  </head>
-  <body>
-    <div id="main" class="main"></div>
 
-    <script>
-      const x = 200;
-      const y = 200;
-      const r = 100;
-      const page = document.getElementById('main')
+<head>
+  <style>
+    body,
+    document {
+      margin: 0;
+      padding: 0;
+    }
+
+    .main {
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    .thing {
+      width: 20px;
+      height: 20px;
+      background-color: #0f0;
+      border-radius: 50%;
+      position: absolute;
+    }
+  </style>
+
+  <script src="/lib/triplet.js"></script>
+  <script src="/lib/pos.js"></script>
+  <script src="/lib/kinematics.js"></script>
+</head>
+
+<body>
+  <div id="main" class="main"></div>
+
+  <script>
+    let x = 200;
+    let y = 200;
+    let z = 100;
+    const limbLength = 100;
+    const page = document.getElementById('main')
+    const d = document.createElement('div')
+    const newContent = document.createTextNode('Hi there and greetings!')
+
+    const delay = (ms) => {
+      return new Promise(resolve => {
+        setTimeout(resolve, ms)
+      })
+    }
+
+    const drawDot = (x1, y1) => {
       const d = document.createElement('div')
-      const newContent = document.createTextNode('Hi there and greetings!')
-
-      // add the text node to the newly created div
-      d.appendChild(newContent)
-
+      d.className = 'thing'
+      d.style.left = (x1 * 4) + 'px'
+      d.style.top = (y1 * 4) + 'px'
+      console.log(`${x1},${y1}`)
       page.appendChild(d)
-      for (let l = 0; l < 60; l++) {
-        const d = document
-          .createElement('div')
-        d.className='thing'
-        const a = (Math.sin(l) * r)
-        const b = (Math.cos(l) * r)
-        d.style.left = (x + a) + 'px'
-        d.style.top = (y + b) + 'px'
-        page.appendChild(d)
+    }
+
+    const run = async () => {
+      const steps = 18
+      const stepSize = (Math.PI * 2) / steps
+      for (let step = 0; step < steps; step++) {
+
+        // const a = (Math.sin(step * stepSize) * limbLength)
+        // const b = (Math.cos(step * stepSize) * limbLength)
+        const xyz = { t1: x, t2: y, t3: z }
+        const np = nextPos(xyz, step, stepSize, limbLength)
+        // x = x + np.t1
+        // y = y + np.t2
+        console.log('np: ', np)
+        drawDot(x + np.t1, y + np.t2)
+        await delay(200)
       }
-    </script>
-  </body>
+    }
+
+    const testMove = async () => {
+      const angles = new Pos(60, 30, 140, 'test', 0, 100, 100)
+      const origin = calculateXyz(angles)
+      const steps = 36
+      const stepSize = (Math.PI * 2) / steps
+      for (let step = 0; step < steps; step++) {
+        const newAngles = move(angles, step) // Triplet
+        const newPos = angles.clone()
+        newPos.setAngles(newAngles)
+        const xyz = calculateXyz(newPos)
+        // console.log('new xyz: ', xyz)
+        const { t1: a, t2: b } = xyz
+        const { t1: x, t2: y } = origin
+        drawDot(x + a, y + b)
+        await delay(200)
+      }
+    }
+
+    // run()
+    testMove()
+  </script>
+</body>
+
 </html>
