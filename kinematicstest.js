@@ -29,7 +29,7 @@ const delay = (ms) => {
 
 const servoSettings = {
   range: [40, 90],
-  startAt: 90,
+  startAt: 60,
   controller: 'PCA9685'
 }
 
@@ -60,7 +60,7 @@ const run = async () => {
     // const angles = anglesFromPosition(posAngles, radius)
 
     thisLeg.nextStep('forward', step)
-    delay(2000)
+    await delay(500)
   }
 }
 
