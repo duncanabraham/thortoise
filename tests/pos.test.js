@@ -1,4 +1,4 @@
-/* global describe, it */
+/* global describe, it, beforeEach */
 const { Pos } = require('../lib/pos')
 const { Triplet } = require('../lib/triplet')
 const { expect } = require('chai')
@@ -6,7 +6,7 @@ const { expect } = require('chai')
 describe('the Pos class:', () => {
   let pos
   beforeEach(() => {
-    pos = new Pos(60, 30, 140, 'test', 0, 155, 155)
+    pos = new Pos(45, 50, 75, 'test', 0, 155, 155)
   })
   it('should create an object with known attributes', () => {
     const attrs = ['t1', 't2', 't3', 'name', 'startPos', 'distanceFromHipToFoot', 'angleAtFemur', 'angleAtKnee', 'angleAtHip', 'femurLength', 'tibiaLength', 'groundClearance']
@@ -29,12 +29,10 @@ describe('the Pos class:', () => {
   })
   describe('the calculated xyz position', () => {
     it('should work out the mm positions based on the angles and limb lengths', () => {
-      // See this video for calculations and solutions
-      /// https://www.youtube.com/watch?v=NRgNDlVtmz0
       const { position: { t1: x, t2: y, t3: z } } = pos
-      expect(x).to.equal(143) // don't change these values, if the test is broken
-      expect(y).to.equal(248) // its because you broke the maths in POS or
-      expect(z).to.equal(34) // in kinematics.js
+      expect(x).to.equal(189) // don't change these values, if the test is broken
+      expect(y).to.equal(133) // its because you broke the maths in POS or
+      expect(z).to.equal(8) // in kinematics.js - see google sheets for how to work it out!
     })
   })
 })

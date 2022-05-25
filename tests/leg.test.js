@@ -1,4 +1,4 @@
-/* global describe, it */
+/* global describe, it, beforeEach */
 const { Triplet } = require('../lib/triplet')
 const { expect } = require('chai')
 const Leg = require('../lib/leg')
@@ -7,7 +7,7 @@ const { mockDriver, counters } = require('./mocks')
 
 const servoSettings = {
   range: [40, 90],
-  startAt: 90
+  startAt: 45
 }
 
 describe('The Leg class: ', () => {
@@ -53,8 +53,7 @@ describe('The Leg class: ', () => {
       expect(counters.stopCount).to.equal(3)
     })
     it('should reset the servos when "home" is called', () => {
-      const position = new Triplet(10, 20, 30)
-      const expectedPosition = new Triplet(90, 90, 90)
+      const expectedPosition = new Triplet(45, 45, 45)
       leg.home()
       expect(leg.position.equals(expectedPosition)).to.equal(true)
     })

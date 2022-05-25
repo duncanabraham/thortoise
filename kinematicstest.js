@@ -28,18 +28,18 @@ const delay = (ms) => {
 }
 
 const servoSettings = {
-  range: [40, 90],
-  startAt: 60,
+  range: [20, 160],
+  startAt: 45,
   controller: 'PCA9685'
 }
 
 const legConfig = {
-  femurLength: 100,
-  tibiaLength: 100,
+  femurLength: 155,
+  tibiaLength: 155,
   driver,
   hipServoSettings: servoSettings,
-  femurServoSettings: servoSettings,
-  kneeServoSettings: servoSettings
+  femurServoSettings: { ...servoSettings, startAt: 50 },
+  kneeServoSettings: { ...servoSettings, startAt: 75 }
 }
 const thisLeg = new Leg({ ...legConfig, id: 0, name: 'front-left', startPos: 0 })
 
@@ -60,7 +60,7 @@ const run = async () => {
     // const angles = anglesFromPosition(posAngles, radius)
 
     thisLeg.nextStep(step)
-    // await delay(500)
+    await delay(10)
   }
 }
 
