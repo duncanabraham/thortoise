@@ -11,16 +11,6 @@ const init = async () => {
 
 init()
 
-// const position = new Pos(
-//   30,
-//   60,
-//   90,
-//   'test',
-//   0,
-//   100,
-//   100
-// )
-
 const delay = (ms) => {
   return new Promise(resolve => {
     setTimeout(resolve, ms)
@@ -44,24 +34,12 @@ const legConfig = {
 const thisLeg = new Leg({ ...legConfig, id: 0, name: 'front-left', startPos: 0 })
 
 const steps = 72
-// const stepSize = (Math.PI * 2) / steps
-// const radius = 100
 
+step = 0
 const run = async () => {
-  for (let step = 0; step < steps; step++) {
-    // const centreX = position.footPosition
-    // const centreY = position.groundClearance * 0.75
-    // const a = Math.sin(step * stepSize) * radius
-    // const b = Math.cos(step * stepSize) * radius
-    // const t1 = centreX + a
-    // const t2 = centreY + b
-    // const t3 = 0
-    // const posAngles = new Triplet(t1, t2, t3)
-    // const angles = anglesFromPosition(posAngles, radius)
-
-    thisLeg.nextStep(step)
-    await delay(10)
-  }
+  thisLeg.nextStep(step)
+  step++
+  if (step === steps) { step = 0 }
 }
 
-run()
+setInterval(run, 20)
