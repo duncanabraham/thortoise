@@ -48,8 +48,8 @@ describe('the Kinematics class:', () => {
       const tick = 18
       const result = move(angles, tick)
       // console.log('result: ', result)
-      expect(result.t2).to.equal(17)
-      expect(result.t3).to.equal(-3)
+      expect(result.t2).to.equal(25)
+      expect(result.t3).to.equal(-10)
     })
   })
 })

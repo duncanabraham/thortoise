@@ -43,7 +43,7 @@ const legConfig = {
 }
 const thisLeg = new Leg({ ...legConfig, id: 0, name: 'front-left', startPos: 0 })
 
-const steps = 36
+const steps = 72
 // const stepSize = (Math.PI * 2) / steps
 // const radius = 100
 
@@ -59,8 +59,8 @@ const run = async () => {
     // const posAngles = new Triplet(t1, t2, t3)
     // const angles = anglesFromPosition(posAngles, radius)
 
-    thisLeg.nextStep('forward', step)
-    await delay(500)
+    thisLeg.nextStep(step)
+    // await delay(500)
   }
 }
 

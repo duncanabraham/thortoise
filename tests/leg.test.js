@@ -3,31 +3,11 @@ const { Triplet } = require('../lib/triplet')
 const { expect } = require('chai')
 const Leg = require('../lib/leg')
 
+const { mockDriver, counters } = require('./mocks')
+
 const servoSettings = {
   range: [40, 90],
   startAt: 90
-}
-
-class MockServo {
-  constructor (options) {
-    Object.assign(this, options)
-    this.stopCount = 0
-    this.toValue = 0
-  }
-
-  stop () {
-    this.stopCount++
-  }
-
-  to (pos) {
-    this.toValue = pos
-  }
-}
-
-class MockDriver {
-  makeServo (options) {
-    return new MockServo(options)
-  }
 }
 
 describe('The Leg class: ', () => {
@@ -37,7 +17,7 @@ describe('The Leg class: ', () => {
     legSettings = {
       id: 3,
       name: 'test leg',
-      driver: new MockDriver(),
+      driver: mockDriver,
       hipServoSettings: servoSettings,
       femurServoSettings: servoSettings,
       kneeServoSettings: servoSettings
@@ -68,10 +48,9 @@ describe('The Leg class: ', () => {
     })
     it('when stop is called, each servo\'s stop method is called', () => {
       leg.stop()
-      Object.keys(leg.servos).forEach(key => {
-        const servo = leg.servos[key]
-        expect(servo.stopCount).to.equal(1)
-      })
+      counters.stopCount = 0
+      leg.stop()
+      expect(counters.stopCount).to.equal(3)
     })
     it('should reset the servos when "home" is called', () => {
       const position = new Triplet(10, 20, 30)

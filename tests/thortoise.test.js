@@ -1,34 +1,11 @@
 /* global describe, it */
 const Thortoise = require('../lib/thortoise')
+const { mockDriver } = require('./mocks')
 
 const mockServoSettings = {
   range: [40, 90],
   startAt: 90,
   controller: 'PCA9685'
-}
-
-const counters = {
-  makeServo: 0,
-  exitHandler: 0,
-  sweep: 0,
-  to: 0
-}
-
-const mockDriver = {
-  makeServo: () => {
-    counters.makeServo++
-    return {
-      sweep: () => {
-        counters.sweep++
-      },
-      to: () => {
-        counters.to++
-      }
-    }
-  },
-  exitHandler: () => { 
-    counters.exitHandler++
-  }
 }
 
 const mockOptions = {

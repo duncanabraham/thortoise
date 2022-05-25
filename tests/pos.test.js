@@ -29,12 +29,12 @@ describe('the Pos class:', () => {
   })
   describe('the calculated xyz position', () => {
     it('should work out the mm positions based on the angles and limb lengths', () => {
-      // See this video for calculations and soltions
+      // See this video for calculations and solutions
       /// https://www.youtube.com/watch?v=NRgNDlVtmz0
-      const { position: { t1, t2, t3 } } = pos
-      expect(t1).to.equal(143)
-      expect(t2).to.equal(248)
-      expect(t3).to.equal(51)
+      const { position: { t1: x, t2: y, t3: z } } = pos
+      expect(x).to.equal(143) // don't change these values, if the test is broken
+      expect(y).to.equal(248) // its because you broke the maths in POS or
+      expect(z).to.equal(34) // in kinematics.js
     })
   })
 })
