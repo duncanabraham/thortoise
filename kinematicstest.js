@@ -42,4 +42,4 @@ const run = async () => {
   if (step === steps) { step = 0 }
 }
 
-setInterval(run, 20)
+setInterval(run, 500)
