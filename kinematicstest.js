@@ -2,7 +2,7 @@
 
 const Leg = require('./lib/leg')
 
-const JohnnyDriver = require('./lib/johnnyDriver')
+const JohnnyDriver = require('./lib/mockJohnny')
 const driver = new JohnnyDriver() // allows direct communication with the hardware
 
 const init = async () => {
@@ -48,4 +48,4 @@ const run = async () => {
   if (step === steps) { process.exit() } // step = 0 }
 }
 
-setInterval(run, 50)
+setInterval(run, 20)
