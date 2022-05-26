@@ -2,7 +2,7 @@
 
 const Leg = require('./lib/leg')
 
-const JohnnyDriver = require('./lib/mockJohnny')
+const JohnnyDriver = require('./lib/johnnyDriver')
 const driver = new JohnnyDriver() // allows direct communication with the hardware
 
 const init = async () => {
@@ -24,8 +24,8 @@ const servoSettings = {
 }
 
 const legConfig = {
-  femurLength: 155,
-  tibiaLength: 155,
+  femurLength: 110,
+  tibiaLength: 110,
   driver,
   hipServoSettings: servoSettings,
   femurServoSettings: { ...servoSettings, startAt: 50 },
@@ -35,7 +35,7 @@ const thisLeg = new Leg({ ...legConfig, id: 0, name: 'front-left', startPos: 0 }
 
 const steps = 72
 
-step = 0
+let step = 0
 const run = async () => {
   thisLeg.nextStep(step)
   step++
