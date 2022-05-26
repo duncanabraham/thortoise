@@ -2,7 +2,7 @@
 
 const Leg = require('./lib/leg')
 
-const JohnnyDriver = require('./lib/johnnyDriver')
+const JohnnyDriver = require('./lib/mockJohnny')
 const driver = new JohnnyDriver() // allows direct communication with the hardware
 
 const init = async () => {
@@ -11,15 +11,21 @@ const init = async () => {
 
 init()
 
-const delay = (ms) => {
-  return new Promise(resolve => {
-    setTimeout(resolve, ms)
-  })
+const servoSettingsHip = {
+  range: [60, 120],
+  startAt: 60,
+  controller: 'PCA9685'
 }
 
-const servoSettings = {
+const servoSettingsFemur = {
   range: [20, 160],
-  startAt: 45,
+  startAt: 55,
+  controller: 'PCA9685'
+}
+
+const servoSettingsKnee = {
+  range: [20, 160],
+  startAt: 75,
   controller: 'PCA9685'
 }
 
@@ -27,9 +33,9 @@ const legConfig = {
   femurLength: 110,
   tibiaLength: 110,
   driver,
-  hipServoSettings: servoSettings,
-  femurServoSettings: { ...servoSettings, startAt: 50 },
-  kneeServoSettings: { ...servoSettings, startAt: 75 }
+  hipServoSettings: servoSettingsHip,
+  femurServoSettings: servoSettingsFemur,
+  kneeServoSettings: servoSettingsKnee
 }
 const thisLeg = new Leg({ ...legConfig, id: 0, name: 'front-left', startPos: 0 })
 
@@ -39,7 +45,7 @@ let step = 0
 const run = async () => {
   thisLeg.nextStep(step)
   step++
-  if (step === steps) { step = 0 }
+  if (step === steps) { process.exit() } // step = 0 }
 }
 
-setInterval(run, 500)
+setInterval(run, 50)
