@@ -2,8 +2,8 @@ require('dotenv').config()
 const { version } = require('./package.json')
 
 const legDefaults = {
-  femurLength: 150,
-  tibiaLength: 150,
+  femurLength: 115,
+  tibiaLength: 130,
   hipServoSettings: this.hipServo,
   femurServoSettings: this.femurServo,
   kneeServoSettings: this.kneeServo,
@@ -30,7 +30,8 @@ const legSettings = [
 const options = {
   name: 'ThortBot',
   version,
-  legSettings
+  legSettings,
+  verbose: env.VERBOSE === true
 }
 
 const api = {
