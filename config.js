@@ -7,7 +7,7 @@ const legDefaults = {
   hipServoSettings: this.hipServo,
   femurServoSettings: this.femurServo,
   kneeServoSettings: this.kneeServo,
-  direction: 'forward'
+  direction: 'stopped'
 }
 
 const env = {
