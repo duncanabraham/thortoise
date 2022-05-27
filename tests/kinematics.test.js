@@ -21,11 +21,11 @@ describe('the Kinematics class:', () => {
       const angles = new Pos(45, 50, 75, 'test leg', 0, limbLength, limbLength)
       const position = calculateXyz(angles)
       const startPoint = 0 // start at the top
-      const stepSize = (Math.PI * 2) / 36 // Each step is 10 degrees
+      const stepSize = (Math.PI * 2) / 72 // Each step is 5 degrees
 
       const step = 3 * stepSize + startPoint // 3rd step which is 30 degrees
       const result = nextPos(position, step, limbLength)
-      const expectedPosition = new Triplet(174, 95, 75)
+      const expectedPosition = new Triplet(158, 95, 69)
 
       expect(result.equals(expectedPosition)).to.equal(true)
     })
