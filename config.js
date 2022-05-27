@@ -29,11 +29,11 @@ const legSettings = [
 
 const options = {
   name: 'ThortBot',
-  version
+  version,
+  legSettings
 }
 
 module.exports = {
   env,
-  legSettings,
   options
 }

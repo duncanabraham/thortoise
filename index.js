@@ -1,19 +1,16 @@
-const config = require('./config')
+const { options, env: { JOHNNY_DRIVER } } = require('./config')
 const Thortoise = require('./lib/thortoise')
-const { JOHNNY_DRIVER } = process.env
-const JohnnyDriver = require(`./lib/${JOHNNY_DRIVER}.js`)
-const driver = new JohnnyDriver() // allows direct communication with the hardware
+const JohnnyDriver = require(`./lib/${JOHNNY_DRIVER}.js`) // Allow development on a mock driver and running on the actual driver
+const driver = new JohnnyDriver()
 
 const init = async () => {
-  await driver.initBoard() // wait for the board to initialise before we use it
+  await driver.initBoard()
 }
 
 (async () => {
   init()
 
-  const { options } = config
   const thortBot = new Thortoise({ ...options, driver })
-
   console.info('thortBot: ', thortBot)
 
   thortBot.start()
