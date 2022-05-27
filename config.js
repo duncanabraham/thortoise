@@ -31,7 +31,7 @@ const options = {
   name: 'ThortBot',
   version,
   legSettings,
-  verbose: env.VERBOSE === true
+  verbose: env.VERBOSE === 'true'
 }
 
 const api = {
