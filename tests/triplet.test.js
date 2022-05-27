@@ -50,4 +50,12 @@ describe('the Triplet class: ', () => {
       expect(roundedValues.t3).to.equal(90)
     })
   })
+  describe('the Inverse mehtod:', () => {
+    it('should move all the angles by 180 degrees', () => {
+      const testAngles = new Triplet(90, 180, 270).inverse()
+      expect(testAngles.t1).to.equal(270)
+      expect(testAngles.t2).to.equal(0)
+      expect(testAngles.t3).to.equal(90)
+    })
+  })
 })
