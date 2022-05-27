@@ -17,11 +17,17 @@ npm i
 ```
 
 After this you need to create your .env file:
+
 ```
 cp .env-default .env
 ```
 By default the code will use the mock driver which can be used without the physical hardware being connected.
 
+If you want to see lots of numbers relating to the servo angles you need to add this to your .env file:
+
+```
+VERBOSE=true
+```
 
 ## Hardware
 Servo driven quadruped with solar charger.
