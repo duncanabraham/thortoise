@@ -36,5 +36,5 @@ Servo driven quadruped with solar charger.
 ## Software
 Lets buck the trend and not use ROS! How about some custom robot code with a pub/sub (redis) channel
 to allow communication between component parts which could be written in different languages
-depending on the task at hand.
+depending on the task at hand ... or maybe just write it all in good ol' JS!
 
