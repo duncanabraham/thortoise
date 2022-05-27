@@ -33,11 +33,11 @@ describe('the Kinematics class:', () => {
   describe('the anglesFromPosition method:', () => {
     it('should calculate the servo angles for the 3 leg servos', () => {
       // const testData = new Triplet(70,104,152)
-      const testData = new Triplet(152,104,70)
+      const testData = new Triplet(152, 104, 70)
       const limb1 = 110
       const limb2 = 110
       const newAngles = anglesFromPosition(testData, limb1, limb2).rounded()
-      
+
       expect(newAngles.t1).to.equal(56)
       expect(newAngles.t2).to.equal(65)
       expect(newAngles.t3).to.equal(99)

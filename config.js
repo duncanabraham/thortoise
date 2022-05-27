@@ -14,10 +14,10 @@ const env = {
   ...process.env
 }
 
-const servos = {
-  hipServoSettings: { range: [40, 90], startAt: 90, controller: 'PCA9685' },
-  femurServoSettings: { range: [20, 120], startAt: 120, controller: 'PCA9685' },
-  kneeServoSettings: { range: [40, 90], startAt: 90, controller: 'PCA9685' }
+const servos = { // https://www.electronicoscaldas.com/datasheet/MG996R_Tower-Pro.pdf
+  hipServoSettings: { range: [40, 90], startAt: 90, sleepAt: 0, controller: 'PCA9685' },
+  femurServoSettings: { range: [20, 120], startAt: 120, sleepAt: 0, controller: 'PCA9685' },
+  kneeServoSettings: { range: [40, 90], startAt: 90, sleepAt: 0, controller: 'PCA9685' }
 }
 
 const legSettings = [
@@ -33,7 +33,12 @@ const options = {
   legSettings
 }
 
+const api = {
+  port: 3000
+}
+
 module.exports = {
   env,
-  options
+  options,
+  api
 }
