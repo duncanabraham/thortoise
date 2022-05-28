@@ -29,7 +29,7 @@ const mocks = {
   }
 }
 
-describe('the Controllers class', () => {
+describe('the Controller class', () => {
   let controller
   beforeEach(() => {
     controller = new Controller({ app: mocks.app, robot: mocks.robot })
