@@ -41,12 +41,12 @@ const mockOptions = {
 const thort = new Thortoise(mockOptions)
 
 describe('The Thortoise class: ', () => {
-  describe('onn instantiation', () => {
-    it('should initialise 4 legs', () => {
+  describe('on instantiation', () => {
+    xit('should initialise 4 legs', () => {
 
     })
-    it('should add a grid', () => {})
-    it('should set the start poisition on the grid', () => {})
-    it('should define leg positions for each leg', () => {})
+    xit('should add a grid', () => {})
+    xit('should set the start poisition on the grid', () => {})
+    xit('should define leg positions for each leg', () => {})
   })
 })
