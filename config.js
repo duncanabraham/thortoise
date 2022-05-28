@@ -38,8 +38,14 @@ const api = {
   port: 3000
 }
 
+const navigationSettings = {
+  gridWidth: 500,
+  gridLength: 500
+}
+
 module.exports = {
   env,
   options,
-  api
+  api,
+  navigationSettings
 }
