@@ -32,7 +32,7 @@ describe('the Pos class:', () => {
       const { position: { t1: x, t2: y, t3: z } } = pos
       expect(x).to.equal(189) // don't change these values, if the test is broken
       expect(y).to.equal(133) // its because you broke the maths in POS or
-      expect(z).to.equal(8) // in kinematics.js - see google sheets for how to work it out!
+      expect(z).to.equal(8) // in kinematics.js
     })
   })
 })

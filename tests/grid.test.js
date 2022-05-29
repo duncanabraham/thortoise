@@ -1,5 +1,5 @@
 const { expect } = require('chai')
-const { coords, Grid, GridItem } = require('../lib/grid')
+const { coords, Grid, GridItem, Coords } = require('../lib/grid')
 
 describe('the Grid class', () => {
   describe('the coords factory', () => {
@@ -16,42 +16,36 @@ describe('the Grid class', () => {
   })
   describe('the GridItem class', () => {
     it('should allow values to be stored as a gridItem', () => {
-      const values = { type: 'lawn', coords: coords(10, 20), items: ['dandelion', 'grass', 'stone', 'bare patch'] }
+      const values = { type: 'lawn', items: ['dandelion', 'grass', 'stone', 'bare patch'] }
       const gridItem = new GridItem(values)
       expect(gridItem.type).to.equal('lawn')
     })
     describe('when match() is called', () => {
       it('should return a library of matching fields when comparing two items', () => {
-        const values = { type: 'lawn', coords: coords(10, 20), items: ['dandelion', 'grass', 'stone', 'bare patch'] }
+        const values = { type: 'lawn', items: ['dandelion', 'grass', 'stone', 'bare patch'] }
         const gridItem = new GridItem(values)
         const testItem = new GridItem(values)
-        const expectedMatchValue = {
-          type: 'matched',
-          coords: 'matched',
-          items: 'matched',
-          count: 3
-        }
-        expect(gridItem.match(testItem).type).to.equal('matched')
-        expect(gridItem.match(testItem).coords).to.equal('matched')
-        expect(gridItem.match(testItem).items).to.equal('matched')
+        const matchedItem = gridItem.match(testItem)
+        expect(matchedItem.type).to.equal('matched')
+        expect(matchedItem.items).to.equal('matched')
       })
       it('should return a library count field showing how many matches there were', () => {
-        const values = { type: 'lawn', coords: coords(10, 20), items: ['dandelion', 'grass', 'stone', 'bare patch'] }
+        const values = { type: 'lawn', items: ['dandelion', 'grass', 'stone', 'bare patch'] }
         const gridItem = new GridItem(values)
         const testItem = new GridItem(values)
-        expect(gridItem.match(testItem).count).to.equal(3)
+        expect(gridItem.match(testItem).count).to.equal(2)
       })
     })
     describe('when equals() is called', () => {
       it('should return true if the provided item matches the current item', () => {
-        const values = { type: 'lawn', coords: coords(10, 20), items: ['dandelion', 'grass', 'stone', 'bare patch'] }
+        const values = { type: 'lawn', items: ['dandelion', 'grass', 'stone', 'bare patch'] }
         const gridItem = new GridItem(values)
         const testItem = gridItem
         expect(gridItem.equals(testItem)).to.equal(true)
       })
       it('should return false if the provided item do not match the current item', () => {
-        const values1 = { type: 'lawn1', coords: coords(10, 20), items: ['dandelion', 'grass', 'stone', 'bare patch'] }
-        const values2 = { type: 'lawn2', coords: coords(10, 20), items: ['dandelion', 'grass', 'stone', 'bare patch'] }
+        const values1 = { type: 'lawn1', items: ['dandelion', 'grass', 'stone', 'bare patch'] }
+        const values2 = { type: 'lawn2', items: ['dandelion', 'grass', 'stone', 'bare patch'] }
         const gridItem = new GridItem(values1)
         const testItem = new GridItem(values2)
         expect(gridItem.equals(testItem)).to.equal(false)
@@ -59,15 +53,15 @@ describe('the Grid class', () => {
     })
     describe('when like() is called', () => {
       it('should return true if the provided item matches 1 or more fields from the current item', () => {
-        const values1 = { type: 'lawn1', coords: coords(10, 20), items: ['dandelion', 'grass', 'stone', 'bare patch'] }
-        const values2 = { type: 'lawn2', coords: coords(10, 20), items: [] }
+        const values1 = { type: 'lawn1', items: ['dandelion', 'grass', 'stone', 'bare patch'] }
+        const values2 = { type: 'lawn2', items: [] }
         const gridItem = new GridItem(values1)
         const testItem = new GridItem(values2)
         expect(gridItem.like(testItem)).to.equal(true)
       })
       it('should return false if the provided item does not match any fields from the the current item', () => {
-        const values1 = { type: 'lawn1', coords: coords(10, 20), items: ['dandelion', 'grass', 'stone', 'bare patch'] }
-        const values2 = { type: 'lawn2', coords: coords(15, 20), items: ['grass', 'stone', 'bare patch'] }
+        const values1 = { type: 'lawn1', items: ['dandelion', 'grass', 'stone', 'bare patch'] }
+        const values2 = { type: 'lawn2', items: ['grass', 'stone', 'bare patch'] }
         const gridItem = new GridItem(values1)
         const testItem = new GridItem(values2)
         expect(gridItem.equals(testItem)).to.equal(false)
@@ -78,11 +72,13 @@ describe('the Grid class', () => {
     let item
     let grid
     let position
+    let gridX = 3
+    let gridY = 3
     beforeEach(() => {
       // override the id value as we need to test for it later
-      item = new GridItem({ type: 'lawn1', coords: coords(10, 20), items: ['dandelion', 'grass', 'stone', 'bare patch'], id: 'fdf9a21ca27731b86a239e2deea9cbc9'})
+      item = new GridItem({ type: 'lawn1', items: ['dandelion', 'grass', 'stone', 'bare patch'], id: 'fdf9a21ca27731b86a239e2deea9cbc9'})
       grid = new Grid(10, 10)
-      position = coords(3, 3)
+      position = coords(gridX, gridY)
       grid.add(position, item)
     })
     it('should instantiate with a grid the size of the supplied width and length values', () => {
@@ -114,20 +110,26 @@ describe('the Grid class', () => {
       })
     })
     describe('when hasFeature() is called', () => {
-      it('should return true if the grid contains a matching GridItem', () => {
+      it('should return a GridItem if the grid contains a matching GridItem', () => {
         const result = grid.hasFeature(item)
-        expect(result).to.equal(true)
+        expect(result).to.be.an.instanceOf(GridItem)
       })
-      it('should return false if the grid does not contain a matching GridItem', () => {
+      it('should return undefined if there are no matching items', () => {
         const testItem = new GridItem({})
         const result = grid.hasFeature(testItem)
-        expect(result).to.equal(false)
+        expect(result).to.equal(undefined)
+      })
+      it('should return the x,y position of the found item', () => {
+        const result = grid.hasFeature(item)
+        expect(result.position).to.be.an.instanceOf(Coords)
+        expect(result.position.x).to.equal(gridX)
+        expect(result.position.y).to.equal(gridY)
       })
     })
     describe('when export() is called', () => {
       it('should return a JSON string representing the whole grid', () => {
         const result = grid.export()
-        const expectedResult = '[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,{"id":"fdf9a21ca27731b86a239e2deea9cbc9","type":"lawn1","coords":{"x":10,"y":20},"items":["dandelion","grass","stone","bare patch"]},null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]'
+        const expectedResult = '[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,{"id":"fdf9a21ca27731b86a239e2deea9cbc9","type":"lawn1","items":["dandelion","grass","stone","bare patch"]},null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]'
         expect(result).to.equal(expectedResult)
       })
     })
