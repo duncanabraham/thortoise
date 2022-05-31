@@ -62,8 +62,8 @@ describe('the Navigation class', () => {
       expect(result).to.deep.equal(gridItem)
     })
   })
-  describe('when solve is called', () => {
-    it('should work out a route from a start to an end position', () => {
+  describe('when solve() is called', () => {
+    it('should work out a route from a start to an end position in 9 steps', () => {
       const fixedItem = new GridItem({ fixed: true, type: 'wall' })
       nav.add(coords(3, 3), fixedItem)
       nav.add(coords(3, 4), fixedItem)
@@ -75,7 +75,7 @@ describe('the Navigation class', () => {
       const end = coords(6, 2)
       const result = nav.solve(start, end)
 
-      console.log(result)
+      expect(result.length).to.equal(9)
     })
   })
 })
