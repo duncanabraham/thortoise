@@ -65,15 +65,34 @@ describe('the Navigation class', () => {
   describe('when solve() is called', () => {
     it('should work out a route from a start to an end position in 9 steps', () => {
       const fixedItem = new GridItem({ fixed: true, type: 'wall' })
+      nav.add(coords(3, 2), fixedItem)
       nav.add(coords(3, 3), fixedItem)
       nav.add(coords(3, 4), fixedItem)
-      nav.add(coords(3, 5), fixedItem)
-      nav.add(coords(4, 5), fixedItem)
-      nav.add(coords(5, 5), fixedItem)
+      nav.add(coords(2, 4), fixedItem)
+      nav.add(coords(1, 4), fixedItem)
 
-      const start = coords(4, 4)
-      const end = coords(6, 2)
+      nav.add(coords(3, 8), fixedItem)
+      nav.add(coords(3, 7), fixedItem)
+      nav.add(coords(3, 6), fixedItem)
+      nav.add(coords(2, 6), fixedItem)
+      nav.add(coords(1, 6), fixedItem)
+
+      nav.add(coords(6, 8), fixedItem)
+      nav.add(coords(6, 7), fixedItem)
+      nav.add(coords(6, 6), fixedItem)
+      nav.add(coords(7, 6), fixedItem)
+      nav.add(coords(8, 6), fixedItem)
+
+      nav.add(coords(6, 2), fixedItem)
+      nav.add(coords(6, 3), fixedItem)
+      nav.add(coords(6, 4), fixedItem)
+      nav.add(coords(7, 4), fixedItem)
+      nav.add(coords(8, 4), fixedItem)
+
+      const start = coords(5, 5)
+      const end = coords(2, 4)
       const result = nav.solve(start, end)
+      // nav.solver.show()
 
       expect(result.length).to.equal(9)
     })
