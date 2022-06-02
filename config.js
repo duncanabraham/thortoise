@@ -43,6 +43,14 @@ const navigationSettings = {
   gridLength: 500
 }
 
+const cameraSettings = {
+  mode: 'photo',
+  output: `${__dirname}/image.jpg`,
+  width: 640,
+  height: 480,
+  nopreview: true,
+}
+
 module.exports = {
   env,
   options,
