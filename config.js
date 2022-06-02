@@ -55,5 +55,6 @@ module.exports = {
   env,
   options,
   api,
-  navigationSettings
+  navigationSettings,
+  cameraSettings
 }
