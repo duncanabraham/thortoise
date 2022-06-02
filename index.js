@@ -1,3 +1,4 @@
+const Store = require('./lib/store')
 const { options, env: { JOHNNY_DRIVER }, api } = require('./config')
 const Thortoise = require('./lib/thortoise')
 const Controller = require('./lib/controller')
@@ -5,6 +6,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const JohnnyDriver = require(`./lib/${JOHNNY_DRIVER}.js`) // Allow development on a mock driver and running on the actual driver
 const driver = new JohnnyDriver()
+const store = new Store()
 
 const init = async () => {
   await driver.initBoard()
@@ -21,8 +23,8 @@ app.listen(api.port, () => {
 
 (async () => {
   init()
-  const thortBot = new Thortoise({ ...options, driver })
-  this.controller = new Controller({ robot: thortBot, app })
+  const thortBot = new Thortoise({ ...options, driver, store })
+  this.controller = new Controller({ robot: thortBot, app, store })
 
   console.info('thortBot: ', thortBot)
 
