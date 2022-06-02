@@ -21,7 +21,6 @@ app.listen(api.port, () => {
 
 (async () => {
   init()
-
   const thortBot = new Thortoise({ ...options, driver })
   this.controller = new Controller({ robot: thortBot, app })
 

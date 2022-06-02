@@ -149,7 +149,7 @@ describe('the Grid class', () => {
         const expected1 = [0, 0, 0, 1, 1, 1, 0, 0, 0, 0]
         const expected2 = [0, 0, 0, 0, 0, 1, 0, 0, 0, 0]
         const expected3 = [0, 0, 0, 0, 0, 1, 0, 0, 0, 0]
-        console.log(result)
+
         expect(result[3]).to.deep.equal(expected1)
         expect(result[4]).to.deep.equal(expected2)
         expect(result[5]).to.deep.equal(expected3)
