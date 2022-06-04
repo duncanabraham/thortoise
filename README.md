@@ -34,6 +34,7 @@ Servo driven quadruped with solar charger.
   * Raspberry Pi Zero 2W with
       - servo driver hat
       - GPS hat
+      - maybe a sound hat!!
   * 3d printed limbs
   * Lead acid battery
   * Solar cells etc for changing
