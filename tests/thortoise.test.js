@@ -26,10 +26,22 @@ const servos = {
   kneeServoSettings: { range: [40, 90], startAt: 90, controller: 'PCA9685' }
 }
 
+const cameraSettings = {
+  mode: 'photo',
+  output: `${__dirname}/image.jpg`,
+  width: 640,
+  height: 480,
+  nopreview: true,
+}
+
 const mockOptions = {
   name: 'testbot',
   version: 1,
   driver: mockDriver,
+  cameraSettings,
+  store: {
+    append: () => { }
+  },
   legSettings: [
     { id: 0, name: 'front-left', startPos: 0, ...legDefaults, ...servos },
     { id: 1, name: 'front-right', startPos: Math.PI / 2, ...legDefaults, ...servos },
@@ -38,19 +50,31 @@ const mockOptions = {
   ]
 }
 
-const thort = new Thortoise(mockOptions)
+// const thort = new Thortoise(mockOptions)
 
 describe('The Thortoise class: ', () => {
   let thortoise
   let oldConsole = console
-  after(()=>{
+  let setIntervalStore
+  let result = {}
+  before(() => {
+    setIntervalStore = setInterval
+    console = {
+      log: () => { },
+      info: () => { }
+    }
+    setInterval = (action, timer) => {
+      result.action = action
+      result.timer = timer
+      return true
+    }
+  })
+  after(() => {
     console = oldConsole
+    setInterval = setIntervalStore
   })
   beforeEach(() => {
-    console = { 
-      log: () => {},
-      info: () => {}
-    }
+    result = {}
     thortoise = new Thortoise(mockOptions)
   })
   describe('on instantiation', () => {
@@ -64,39 +88,32 @@ describe('The Thortoise class: ', () => {
       const { navigation } = thortoise
       expect(navigation).to.be.an.instanceOf(Navigation)
     })
-    it('should define leg settings for each leg', () => {
-      const { legSettings } = thortoise
-      expect(legSettings).to.be.an('Array')
-      expect(legSettings.length).to.equal(4)
-    })
     it('should set the timer value to 20', () => {
       expect(thortoise.loopSpeedMS).to.equal(20)
     })
   })
   describe('when sleep() is called', () => {
-    it('should set all legs to sleep mode', () => {})
+    it('should set all legs to sleep mode', () => { })
     it('should call the stop method', () => {
-      
+
     })
   })
   describe('when start() is called', () => {
     describe('when the bot is sleeping', () => {
       it('should come out of sleep mode', () => {
         thortoise.sleep()
-        
+
       })
     })
     describe('when the bot is NOT sleeping', () => {
-      xit('should start the running loop', () => {})
-      it('should set up the handler on an interval timer', () => {
-        oldSetInterval = setInterval
-        const result = {}
-        setInterval = (action, timer) => {
-          result.action = action
-          result.timer = timer
-        }
+      it('should start the running loop', () => {
+        delete thortoise.running
         thortoise.start()
-        setInterval = oldSetInterval
+        console.log('thortoise: ', thortoise)
+        expect(thortoise.running).to.equal(true)
+      })
+      it('should set up the handler on an interval timer', () => {
+        thortoise.start()
         const thortoiseLoopSpeedMS = 20
         expect(result.action).to.be.a('function')
         expect(result.action.name).to.equal('bound _runLoop')
@@ -104,6 +121,6 @@ describe('The Thortoise class: ', () => {
       })
     })
   })
-  describe('when stop() is called', () => {})
-  describe('when kill() is called', () => {})
+  describe('when stop() is called', () => { })
+  describe('when kill() is called', () => { })
 })

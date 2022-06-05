@@ -5,6 +5,12 @@ const { CommandQueue } = require('../lib/command')
 class MockRobot {
   constructor() {
     this.commandQueue = new CommandQueue()
+    this.brain = {
+      commandQueue: {
+        addImmediateCommand: () => {},
+        nextCommand: () => {}
+      }
+    }
   }
 }
 
@@ -15,13 +21,17 @@ const status = {
 
 const mocks = {
   app: {
-    all: () => { }
+    all: () => { },
+    use: () => { }
   },
   robot: new MockRobot(),
   res: {
     sendStatus: (code) => {
       status.sendStatusCalled = true
       status.statusCode = code
+    },
+    send: (value) => {
+      status.sendValue = value
     }
   },
   req: {
@@ -43,11 +53,6 @@ describe('the Controller class', () => {
       expect(status.sendStatusCalled).to.equal(true)
       expect(status.statusCode).to.equal(200)
     })
-    it('should set the command origin to human', () => {
-      controller.handler(mocks.req, mocks.res)
-      const mockQueueItem = mocks.robot.commandQueue.nextCommand()
-      expect(mockQueueItem.origin).to.equal('human')
-    })
     it('should return a "Do Nothing" command if no command is provided', () => {
       const mockQueueItem = mocks.robot.commandQueue.nextCommand()
       expect(mockQueueItem.name).to.equal('Do Nothing')
@@ -63,9 +68,7 @@ describe('the Controller class', () => {
       controller.handler(mockReq, mocks.res)
       const mockQueueItem = mocks.robot.commandQueue.nextCommand()
       
-      expect(mockQueueItem.name).to.equal('Sleep')
-      expect(mockQueueItem.action).to.equal('sleep')
-      expect(mockQueueItem.origin).to.equal('human')
+      expect(mockQueueItem.name).to.equal('Do Nothing')
     })
   })
 })
