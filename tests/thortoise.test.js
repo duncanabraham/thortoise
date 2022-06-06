@@ -3,7 +3,7 @@ const { expect } = require('chai')
 const Thortoise = require('../lib/thortoise')
 const { mockDriver } = require('./mocks')
 const Leg = require('../lib/leg')
-const Navigation = require('../lib/navigation')
+const Brain = require('../lib/brain')
 
 const mockServoSettings = {
   range: [40, 90],
@@ -84,9 +84,9 @@ describe('The Thortoise class: ', () => {
       expect(legs.length).to.equal(4)
       expect(legs[0]).to.be.an.instanceOf(Leg)
     })
-    it('should add an instance of Navigation', () => {
-      const { navigation } = thortoise
-      expect(navigation).to.be.an.instanceOf(Navigation)
+    it('should add an instance of Brain', () => {
+      const { brain } = thortoise
+      expect(brain).to.be.an.instanceOf(Brain)
     })
     it('should set the timer value to 20', () => {
       expect(thortoise.loopSpeedMS).to.equal(20)
