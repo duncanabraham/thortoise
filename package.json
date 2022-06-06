@@ -21,7 +21,9 @@
     "md5": "^2.3.0",
     "pi-camera": "^1.7.0",
     "redis": "^4.1.0",
-    "serve-favicon": "^2.5.0",
+    "serve-favicon": "^2.5.0"
+  },
+  "optionalDependencies": {
     "i2c-bus": "^5.2.2",
     "johnny-five": "^2.1.0",
     "pca9685": "^5.0.0",
