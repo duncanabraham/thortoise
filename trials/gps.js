@@ -1,8 +1,8 @@
-const SerialPort = require('serialport')
+const SerialPort = require('serialport').SerialPort
 const SerialPortParser = require('@serialport/parser-readline')
 const GPS = require('gps')
 
-const port = new SerialPort('/dev/ttyS0', { baudRate: 9600 })
+const port = new SerialPort('/dev/ttyAMA0', { baudRate: 9600 })
 const gps = new GPS()
 
 const parser = port.pipe(new SerialPortParser())
