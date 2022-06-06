@@ -1,3 +1,4 @@
+/* global beforeEach, describe, it */
 const Navigation = require('../lib/navigation')
 const { coords, GridItem } = require('../lib/grid')
 const { expect } = require('chai')
