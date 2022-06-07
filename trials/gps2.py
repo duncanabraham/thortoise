@@ -16,9 +16,9 @@ try:
 		while ser.inWaiting() > 0:
 			data += ser.read(ser.inWaiting())
 		if data != "":
-			print data
+			print(data)
 			if  num < 4:	# the string have ok
-				print num
+				print(num)
 				time.sleep(0.5)
 				ser.write(W_buff[num+1])
 				num =num +1
