@@ -51,10 +51,15 @@ const cameraSettings = {
   nopreview: true,
 }
 
+const ATCOMMANDS = {
+  status: 'AT\r'
+}
+
 module.exports = {
   env,
   options,
   api,
   navigationSettings,
-  cameraSettings
+  cameraSettings,
+  ATCOMMANDS
 }
