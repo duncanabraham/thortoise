@@ -2,6 +2,9 @@ const { SerialPort, ReadlineParser } = require('serialport')
 const { delay } = require('../lib/utils')
 
 const ser = new SerialPort({ path: '/dev/serial0', baudRate: 9600 })
+const parser = new ReadlineParser()
+ser.pipe(parser)
+parser.on('data', console.log)
 
 const getResponse = async (cmd) => {
   cmd = cmd + '\r'
