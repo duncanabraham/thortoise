@@ -1,5 +1,5 @@
 from gsmHat import GSMHat, SMS, GPS
-gsm = GSMHat('/dev/ttyS0', 115200)
+gsm = GSMHat('/dev/serial1', 115200)
 
 GPSObj = gsm.GetActualGPS()
 
