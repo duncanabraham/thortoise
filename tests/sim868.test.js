@@ -11,7 +11,7 @@ describe('the SIM868 class', () => {
   it('Should return "ok" when the status command is called', async () => {
     sim868.status()
     await delay(500)
-    expect(sim868.hasData).to.equal(true)
-    expect(sim868.data).to.equal('OK')
+    expect(sim868.hasData()).to.equal(true)
+    expect(sim868.getData()).to.equal('OK')
   })
 })
