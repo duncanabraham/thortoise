@@ -1,5 +1,6 @@
 const { SerialPort, ReadlineParser } = require('serialport')
 const { delay } = require('../lib/utils')
+const { env: SMSNUMBER } = require('../config')
 
 const ser = new SerialPort({ path: '/dev/serial0', baudRate: 9600 })
 const parser = new ReadlineParser()
@@ -27,6 +28,6 @@ const gsmEndCommand = async () => {
 
 getResponse('AT', 'OK', 2)
 getResponse('AT+CMGF=1', 'OK', 2)
-getResponse('AT+CMGS=\"xxxxxxxxxxxxxxx\"', 'OK', 2) // put your number replacing 'xxxxxxxxxxxxx'
+getResponse(`AT+CMGS=\"${SMSNUMBER}\"`, 'OK', 2) // put your number in your .env file SMSNUMBER=+NNNNNNNNNNNN
 gsmPrint('Tortoise says Hi @ 9600 on serial0', 2)
 gsmEndcommand()
