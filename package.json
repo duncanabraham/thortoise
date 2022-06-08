@@ -1,10 +1,10 @@
 {
   "name": "thortoise",
   "version": "0.0.1",
-  "description": "",
+  "description": "a thinking tortoise, who'd have thunk it?",
   "main": "index.js",
   "scripts": {
-    "test": "mocha ./tests/**/*.test.js",
+    "test": "nyc --reporter lcov --reporter text mocha tests/**/*.test.js",
     "start": "node index.js"
   },
   "keywords": [],
