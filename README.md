@@ -44,17 +44,22 @@ npm i -g mocha chai
 
 ## Hardware
 Servo driven quadruped with solar charger.
-  * Raspberry Pi Zero 2W with
-      - servo driver hat
-      - GPS hat
-      - maybe a sound hat!!
+  * Raspberry Pi Zero 2W with hats:
+      - servo driver
+      - GPS/GNSS
+      - Sound
+      - Canbus
+      - Motor driver (not connected yet)
+
   * 3d printed limbs
   * Lead acid battery
   * Solar cells etc for changing
 
 
 ## Software
-Lets buck the trend and not use ROS! How about some custom robot code with a pub/sub (redis) channel
+Lets buck the trend and not use ROS! How about some custom robot code with a redis channel
 to allow communication between component parts which could be written in different languages
 depending on the task at hand ... or maybe just write it all in good ol' JS!
+
+
 
