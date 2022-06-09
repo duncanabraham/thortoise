@@ -64,4 +64,6 @@ depending on the task at hand ... or maybe just write it all in good ol' JS!
 ## The basic components
 <img width="1163" alt="image" src="https://user-images.githubusercontent.com/5994927/172945143-e23b07fa-e9b9-4fef-9b6f-2a7bd01ad18b.png">
 
+## A still from a video of the leg moving in a circular gait:
+<img width="515" alt="image" src="https://user-images.githubusercontent.com/5994927/172945714-073bf0ee-97fe-405b-b94b-da21fb257d87.png">
 
