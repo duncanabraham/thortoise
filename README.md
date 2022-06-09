@@ -61,5 +61,7 @@ Lets buck the trend and not use ROS! How about some custom robot code with a red
 to allow communication between component parts which could be written in different languages
 depending on the task at hand ... or maybe just write it all in good ol' JS!
 
+## The basic components
+<img width="1163" alt="image" src="https://user-images.githubusercontent.com/5994927/172945143-e23b07fa-e9b9-4fef-9b6f-2a7bd01ad18b.png">
 
 
