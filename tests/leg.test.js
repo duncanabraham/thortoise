@@ -20,7 +20,14 @@ describe('The Leg class: ', () => {
       driver: mockDriver,
       hipServoSettings: servoSettings,
       femurServoSettings: servoSettings,
-      kneeServoSettings: servoSettings
+      kneeServoSettings: servoSettings,
+      startPos: 0,
+      distanceFromHipToFoot: 0,
+      angleAtFemur: 0,
+      angleAtKnee: 0,
+      angleAtHip: 0,
+      femurLength: 110,
+      tibiaLength: 110
     }
     leg = new Leg(legSettings)
   })
@@ -81,8 +88,8 @@ describe('The Leg class: ', () => {
       expect(leg.position.equals(expectedPosition)).to.equal(true)
     })
     describe('min()', () => {
-      let calls = {}
-      function mockMin() {
+      const calls = {}
+      function mockMin () {
         calls[this.name] = {
           minCalled: true
         }
@@ -103,8 +110,8 @@ describe('The Leg class: ', () => {
       })
     })
     describe('max()', () => {
-      let calls = {}
-      function mockMax() {
+      const calls = {}
+      function mockMax () {
         calls[this.name] = {
           maxCalled: true
         }
@@ -168,6 +175,26 @@ describe('The Leg class: ', () => {
             leg.directionFromStep(0)
             expect(leg.step).to.equal(leg.steps - 1)
           })
+        })
+      })
+    })
+    describe('the nextStep() method', () => {
+      describe('when the direction is "forward"', () => {
+        it('should increment the legs internal step position', () => {
+          leg.setDirection('forward')
+          leg.step = 1
+          const nextStepPosition = 1
+          leg.nextStep(nextStepPosition)
+          expect(leg.step).to.equal(2)
+        })
+      })
+      describe('when the direction is "backward"', () => {
+        it('should decrement the legs internal step position', () => {
+          leg.setDirection('backward')
+          leg.step = 10
+          const nextStepPosition = 1
+          leg.nextStep(nextStepPosition)
+          expect(leg.step).to.equal(9)
         })
       })
     })

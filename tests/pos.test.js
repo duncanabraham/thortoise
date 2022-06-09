@@ -35,4 +35,31 @@ describe('the Pos class:', () => {
       expect(z).to.equal(8) // in kinematics.js
     })
   })
+  describe('the addAngles() method', () => {
+    it('should accept a triplet and add the values to the current values', () => {
+      const newPosition = new Triplet(10, 20, 30)
+      pos.setAngles(newPosition)
+      const addPosition = new Triplet(10, 20, 30)
+
+      pos.addAngles(addPosition)
+      expect(pos.export()).to.equal('20,40,60')
+    })
+  })
+  describe('the clone() method', () => {
+    it('should return a new pos object which is the same as the current pos object', () => {
+      const newPos = pos.clone()
+      expect(newPos).to.deep.equal(pos)
+    })
+  })
+  describe('the getAngles() method', () => {
+    it('should return the current angle values as a Triplet', () => {
+      const newPosition = new Triplet(10, 20, 30)
+      pos.setAngles(newPosition)
+      const result = pos.getAngles()
+      expect(result).to.be.an.instanceOf(Triplet)
+      expect(result.t1).to.equal(10)
+      expect(result.t2).to.equal(20)
+      expect(result.t3).to.equal(30)
+    })
+  })
 })

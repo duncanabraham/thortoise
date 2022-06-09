@@ -60,11 +60,11 @@ describe('the Kinematics class:', () => {
   describe('the fixTick() method:', () => {
     it('should ensure an increasing tick stays within the circle', () => {
       const result = fixTick(7)
-      expect(result).to.equal(7 - (2*Math.PI))
+      expect(result).to.equal(7 - (2 * Math.PI))
     })
     it('should ensure a decreasing tick stays within the circle', () => {
       const result = fixTick(-2)
-      expect(result).to.equal(-2 + (2*Math.PI))
+      expect(result).to.equal(-2 + (2 * Math.PI))
     })
   })
 })
