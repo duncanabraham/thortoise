@@ -13,6 +13,13 @@ describe('the Grid class', () => {
       expect(point.x).to.equal(0)
       expect(point.y).to.equal(0)
     })
+    describe('when toArray() is called', () => {
+      it('should return the coords as an array', () => {
+        const point = coords(10, 20)
+        const result = point.toArray()
+        expect(result).to.deep.equal([10, 20])
+      })
+    })
   })
   describe('the GridItem class', () => {
     it('should allow values to be stored as a gridItem', () => {
@@ -65,6 +72,15 @@ describe('the Grid class', () => {
         const gridItem = new GridItem(values1)
         const testItem = new GridItem(values2)
         expect(gridItem.equals(testItem)).to.equal(false)
+      })
+    })
+    describe('when addPosition() is called', () => {
+      it('should accept x and y coords and set the current position to a coords object', () => {
+        const values1 = { type: 'lawn1', items: ['dandelion', 'grass', 'stone', 'bare patch'] }
+        const gridItem = new GridItem(values1)
+        gridItem.addPosition(20,30)
+        const expectedResult = new Coords(20,30)
+        expect(gridItem.position).to.deep.equal(expectedResult)
       })
     })
   })
