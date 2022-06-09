@@ -1,7 +1,7 @@
 /* global describe, it */
 const { Triplet } = require('../lib/triplet')
 const { Pos } = require('../lib/pos')
-const { move, calculateXyz, nextPos, anglesFromPosition } = require('../lib/kinematics')
+const { move, calculateXyz, nextPos, anglesFromPosition, fixTick } = require('../lib/kinematics')
 const { expect } = require('chai')
 
 describe('the Kinematics class:', () => {
@@ -55,6 +55,16 @@ describe('the Kinematics class:', () => {
 
         expect(result.equals(expectedPosition)).to.equal(true)
       }
+    })
+  })
+  describe('the fixTick() method:', () => {
+    it('should ensure an increasing tick stays within the circle', () => {
+      const result = fixTick(7)
+      expect(result).to.equal(7 - (2*Math.PI))
+    })
+    it('should ensure a decreasing tick stays within the circle', () => {
+      const result = fixTick(-2)
+      expect(result).to.equal(-2 + (2*Math.PI))
     })
   })
 })

@@ -58,4 +58,18 @@ describe('the Triplet class: ', () => {
       expect(testAngles.t3).to.equal(90)
     })
   })
+  describe('the value() method', () => {
+    it('should return an array of the current values', () => {
+      const testAngles = new Triplet(90, 180, 270)
+      const result = testAngles.value()
+      expect(result).to.deep.equal([90, 180, 270])
+    })
+  })
+  describe('the export() method', () => {
+    it('should return a string representation of the array value of the current values', () => {
+      const testAngles = new Triplet(90, 180, 270)
+      const result = testAngles.export()
+      expect(result).to.deep.equal('90,180,270')
+    })
+  })
 })
