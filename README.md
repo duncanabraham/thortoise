@@ -29,6 +29,19 @@ If you want to see lots of numbers relating to the servo angles you need to add 
 VERBOSE=true
 ```
 
+## Tests
+Hard to believe, I know, but there are tests available here:
+
+```
+npm test
+```
+
+You'll need mocha and chai installed globally:
+
+```
+npm i -g mocha chai
+```
+
 ## Hardware
 Servo driven quadruped with solar charger.
   * Raspberry Pi Zero 2W with
