@@ -17,19 +17,19 @@ const getResponse = async (cmd) => {
   cmd = cmd + '\r'
   console.log(`CPU: ${cmd}`)
   ser.write(cmd)
-  await delay(10)
+  await delay(2000)
 }
 
 const gsmPrint = async (cmd, timeout) => {
   cmd = cmd + '\r'
   console.log(`CPU: ${cmd}`)
   ser.write(cmd)
-  await delay(10)
+  await delay(2000)
 }
 
 const gsmEndCommand = async () => {
   ser.write(chr(26))
-  await delay(1000)
+  await delay(2000)
 }
 
 getResponse('AT', 'OK', 2)
