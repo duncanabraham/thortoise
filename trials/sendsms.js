@@ -7,6 +7,10 @@ const parser = new ReadlineParser()
 ser.pipe(parser)
 parser.on('data', console.log)
 
+const chr = (c) => {
+  return String.fromCharCode(c)
+}
+
 const getResponse = async (cmd) => {
   cmd = cmd + '\r'
   console.log(`CPU: ${cmd}`)
@@ -28,6 +32,6 @@ const gsmEndCommand = async () => {
 
 getResponse('AT', 'OK', 2)
 getResponse('AT+CMGF=1', 'OK', 2)
-getResponse(`AT+CMGS=\"${SMSNUMBER}\"`, 'OK', 2) // put your number in your .env file SMSNUMBER=+NNNNNNNNNNNN
+getResponse(`AT+CMGS="${SMSNUMBER}"`, 'OK', 2) // put your number in your .env file SMSNUMBER=+NNNNNNNNNNNN
 gsmPrint('Tortoise says Hi @ 9600 on serial0', 2)
-gsmEndcommand()
+gsmEndCommand()
