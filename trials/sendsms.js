@@ -1,3 +1,6 @@
+/**
+ * This works with the serial port!!
+ */
 const { SerialPort, ReadlineParser } = require('serialport')
 const { delay } = require('../lib/utils')
 require('../config')
@@ -32,8 +35,13 @@ const gsmEndCommand = async () => {
   await delay(2000)
 }
 
-getResponse('AT', 'OK', 2)
-getResponse('AT+CMGF=1', 'OK', 2)
-getResponse(`AT+CMGS="${SMSNUMBER}"`, 'OK', 2) // put your number in your .env file SMSNUMBER=+NNNNNNNNNNNN
-gsmPrint('Tortoise says Hi @ 9600 on serial0', 2)
-gsmEndCommand()
+const run = async () => {
+  await getResponse('AT', 'OK', 2)
+  await getResponse('AT+CMGF=1', 'OK', 2)
+  await getResponse(`AT+CMGS="${SMSNUMBER}"`, 'OK', 2) // put your number in your .env file SMSNUMBER=+NNNNNNNNNNNN
+  await gsmPrint('Tortoise says Hi @ 9600 on serial0', 2)
+  await gsmEndCommand()
+  process.exit()
+}
+
+run()
