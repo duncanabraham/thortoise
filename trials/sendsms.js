@@ -1,8 +1,9 @@
 const { SerialPort, ReadlineParser } = require('serialport')
 const { delay } = require('../lib/utils')
-const { env: SMSNUMBER } = require('../config')
 
-console.log('number: ', SMSNUMBER)
+const { env } = require('../config')
+
+console.log('number: ', env)
 
 const ser = new SerialPort({ path: '/dev/serial0', baudRate: 9600 })
 const parser = new ReadlineParser()
