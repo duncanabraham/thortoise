@@ -1,5 +1,6 @@
 require('dotenv').config()
 const { version } = require('./package.json')
+const path = require('path')
 
 const legDefaults = {
   femurLength: 115,
@@ -45,10 +46,10 @@ const navigationSettings = {
 
 const cameraSettings = {
   mode: 'photo',
-  output: `${__dirname}/image.jpg`,
+  output: path.join(__dirname, 'image.jpg'),
   width: 640,
   height: 480,
-  nopreview: true,
+  nopreview: true
 }
 
 const ATCOMMANDS = {
