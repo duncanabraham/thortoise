@@ -11,6 +11,7 @@ const ser = new SerialPort({ path: '/dev/serial0', baudRate: 9600 })
 const parser = new ReadlineParser()
 ser.pipe(parser)
 parser.on('data', console.log)
+parser.on('error', console.error)
 
 const chr = (c) => {
   return String.fromCharCode(c)
@@ -39,7 +40,7 @@ const run = async () => {
   await getResponse('AT', 'OK', 2)
   await getResponse('AT+CMGF=1', 'OK', 2)
   await getResponse(`AT+CMGS="${SMSNUMBER}"`, 'OK', 2) // put your number in your .env file SMSNUMBER=+NNNNNNNNNNNN
-  await gsmPrint('Tortoise says Hi @ 9600 on serial0', 2)
+  await gsmPrint('Tortoise says Hi @ 9600 on serial0 from NODE!!', 2)
   await gsmEndCommand()
   await parser.removeListener('data', console.log)
 }
