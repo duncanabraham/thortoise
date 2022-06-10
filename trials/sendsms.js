@@ -41,7 +41,7 @@ const run = async () => {
   await getResponse(`AT+CMGS="${SMSNUMBER}"`, 'OK', 2) // put your number in your .env file SMSNUMBER=+NNNNNNNNNNNN
   await gsmPrint('Tortoise says Hi @ 9600 on serial0', 2)
   await gsmEndCommand()
-  process.exit()
+  parser.removeAllListeners() // TODO: not sure about this, parser has removeListener('data') which may be more appropriate
 }
 
 run()
