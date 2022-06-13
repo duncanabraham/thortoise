@@ -8,7 +8,7 @@ const PressureRegL = 0x29
 const PressureRegH = 0x2A
 
 const toCelsius = rawData => {
-  console.log('rawData: ', rawData,'  First 2 numbers . next 2 numbers ie 2145 = 21.45C')
+  console.log('rawData: ', rawData, '  First 2 numbers . next 2 numbers ie 2145 = 21.45C')
   rawData = (rawData >> 8) + ((rawData & 0xff) << 8)
   let celsius = (rawData & 0x0fff) / 16
   if (rawData & 0x1000) {
@@ -21,7 +21,9 @@ const readPressure = (i2c1) => {
   const xl = i2c1.readByteSync(LPS22HB_ADDR, PressureRegXL)
   const l = i2c1.readByteSync(LPS22HB_ADDR, PressureRegL)
   const h = i2c1.readByteSync(LPS22HB_ADDR, PressureRegH)
-  console.log(`xl: ${xl}, l: ${l}, h: ${h}`)
+  const hl = h * 256 + l
+
+  console.log(`xl: ${xl}, l: ${l}, h: ${h}, hl: ${hl}`)
 }
 
 const i2c1 = i2c.openSync(1)
