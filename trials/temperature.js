@@ -21,7 +21,7 @@ const readPressure = (i2c1) => {
   const xl = i2c1.readByteSync(LPS22HB_ADDR, PressureRegXL)
   const l = i2c1.readByteSync(LPS22HB_ADDR, PressureRegL)
   const h = i2c1.readByteSync(LPS22HB_ADDR, PressureRegH)
-  const hl = h * 256 + l
+  const hl = ((h * 65536) + (l * 256) + xl) / 4096
 
   console.log(`xl: ${xl}, l: ${l}, h: ${h}, hl: ${hl}`)
 }
