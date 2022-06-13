@@ -4,6 +4,7 @@ const LPS22HB_ADDR = 0x5C
 const TEMP_REG = 0x2B
 
 const toCelsius = rawData => {
+  console.log('rawData: ', rawData)
   rawData = (rawData >> 8) + ((rawData & 0xff) << 8)
   let celsius = (rawData & 0x0fff) / 16
   if (rawData & 0x1000) {
