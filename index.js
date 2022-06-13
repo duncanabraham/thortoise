@@ -25,12 +25,12 @@ store.attachHandler('INFO', (data) => {
 
 const init = async () => {
   await driver.initBoard()
-  redisClient.on('error', (err) => {
-    store.append('ERRORS', REDIS_CLIENT_GENERAL_ERROR('index', err))
-  })
-  await redisClient.connect().catch(err => {
-    store.append('ERRORS', REDIS_CLIENT_CONNECT_ERROR('index', err))
-  })
+  // redisClient.on('error', (err) => {
+  //   store.append('ERRORS', REDIS_CLIENT_GENERAL_ERROR('index:1', err))
+  // })
+  // await redisClient.connect().catch(err => {
+  //   store.append('ERRORS', REDIS_CLIENT_CONNECT_ERROR('index:2', err))
+  // })
 }
 
 const app = express()
