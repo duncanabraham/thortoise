@@ -47,15 +47,15 @@ module batteryHolder() {
     {
       translate([0+wall,0+wall,zpos]) cube([boxOuterLength-walls, boxOuterWidth-walls, wall]); // base
       
-      translate([wall,0,zpos]) cube([boxOuterLength-walls, wall, boxOuterHeight]);
-      translate([0,wall,zpos]) cube([wall, boxOuterWidth-walls, boxOuterHeight]);
-      translate([wall,boxOuterWidth-wall,zpos]) cube([boxOuterLength-walls, wall, boxOuterHeight]);
-      translate([boxOuterLength-wall,wall,zpos]) cube([wall, boxOuterWidth-walls, boxOuterHeight]);
+      // translate([wall,0,zpos]) cube([boxOuterLength-walls, wall, boxOuterHeight]);
+      // translate([0,wall,zpos]) cube([wall, boxOuterWidth-walls, boxOuterHeight]);
+      // translate([wall,boxOuterWidth-wall,zpos]) cube([boxOuterLength-walls, wall, boxOuterHeight]);
+      // translate([boxOuterLength-wall,wall,zpos]) cube([wall, boxOuterWidth-walls, boxOuterHeight]);
       
-      translate([wall,wall,zpos]) cylinder(d=walls, h=boxOuterHeight, $fn=circSteps);
-      translate([boxOuterLength - wall,wall,zpos]) cylinder(d=walls, h=boxOuterHeight, $fn=circSteps);
-      translate([wall,boxOuterWidth-wall,zpos]) cylinder(d=walls, h=boxOuterHeight, $fn=circSteps);
-      translate([boxOuterLength - wall,boxOuterWidth-wall,zpos]) cylinder(d=walls, h=boxOuterHeight, $fn=circSteps);
+      // translate([wall,wall,zpos]) cylinder(d=walls, h=boxOuterHeight, $fn=circSteps);
+      // translate([boxOuterLength - wall,wall,zpos]) cylinder(d=walls, h=boxOuterHeight, $fn=circSteps);
+      // translate([wall,boxOuterWidth-wall,zpos]) cylinder(d=walls, h=boxOuterHeight, $fn=circSteps);
+      // translate([boxOuterLength - wall,boxOuterWidth-wall,zpos]) cylinder(d=walls, h=boxOuterHeight, $fn=circSteps);
     }
     union()
     {
@@ -382,10 +382,10 @@ module brace(s) {
   translate([midx-halfWall, midy-halfWall, topZ]) color([0,1,1]) rotate([0,0,r]) cube([200, wall, 40]);
 }
 
-// batteryHolder();
-batteryHolderRound();
+batteryHolder();
+// batteryHolderRound();
 // lid();
 // upperBox();
 // topLid();
-dome();
+// dome();
 
