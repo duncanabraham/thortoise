@@ -2,7 +2,7 @@ const SerialPort = require('serialport').SerialPort
 const SerialPortParser = require('@serialport/parser-readline')
 const GPS = require('gps')
 
-const port = new SerialPort({ path: '/dev/ttySC0', baudRate: 9600 })
+const port = new SerialPort({ path: '/dev/ttySC1', baudRate: 9600 })
 const gps = new GPS()
 
 const parser = port.pipe(new SerialPortParser())
@@ -20,3 +20,5 @@ gps.on('data', async data => { // when we get sent data from the port monitor, o
 parser.on('data', data => { // when we see data on the serial port, pass it to the gps module
   gps.update(data)
 })
+
+console.log('waiting for data ...')
