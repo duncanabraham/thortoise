@@ -1,4 +1,4 @@
-/* global exec */
+/* global describe, it, before, beforeEach, after, afterEach */
 const { expect } = require('chai')
 const mock = require('mock-require')
 const path = require('path')
@@ -12,14 +12,14 @@ const mockExecSuccess = {
   }
 }
 
+const mockError = 'error'
+
 const mockExecFailed = {
   exec: (command, cb) => {
     state.command = command
-    cb('error')
+    cb(mockError)
   }
 }
-
-const mockExec = 'test function'
 
 let result
 const oldConsole = console
