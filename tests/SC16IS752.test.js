@@ -1,4 +1,4 @@
-/* global describe, it, beforeEach, arguments */
+/* global describe, it, beforeEach, arguments, afterEach */
 const { expect } = require('chai')
 const mock = require('mock-require')
 const path = require('path')
@@ -26,6 +26,9 @@ describe('the SC16IS752 class', () => {
     SC16IS752 = require('../lib/SC16IS752')
     calls = {}
     extendedGpio = new SC16IS752()
+  })
+  afterEach(() => {
+    mock.stop('i2c-bus')
   })
   describe('on instantiation', () => {
     it('should set the ioDir register to 0x0A', () => {
