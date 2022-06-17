@@ -16,8 +16,14 @@ const env = {
 }
 
 // https://www.electronicoscaldas.com/datasheet/MG996R_Tower-Pro.pdf
-const servosFront = {
+const servosFrontLeft = {
   hipServoSettings: { range: [60, 70], startAt: 65, sleepAt: 0, controller: 'PCA9685' },
+  femurServoSettings: { range: [30, 90], startAt: 60, sleepAt: 0, controller: 'PCA9685' },
+  kneeServoSettings: { range: [30, 90], startAt: 60, sleepAt: 0, controller: 'PCA9685' }
+}
+
+const servosFrontRight = {
+  hipServoSettings: { range: [50, 60], startAt: 55, sleepAt: 0, controller: 'PCA9685' },
   femurServoSettings: { range: [30, 90], startAt: 60, sleepAt: 0, controller: 'PCA9685' },
   kneeServoSettings: { range: [30, 90], startAt: 60, sleepAt: 0, controller: 'PCA9685' }
 }
@@ -29,8 +35,8 @@ const servosBack = {
 }
 
 const legSettings = [
-  { id: 0, name: 'front-left', startPos: 0, ...legDefaults, ...servosFront },
-  { id: 1, name: 'front-right', startPos: Math.PI / 2, ...legDefaults, ...servosFront },
+  { id: 0, name: 'front-left', startPos: 0, ...legDefaults, ...servosFrontLeft },
+  { id: 1, name: 'front-right', startPos: Math.PI / 2, ...legDefaults, ...servosFrontRight },
   { id: 2, name: 'back-left', startPos: Math.PI, ...legDefaults, ...servosBack },
   { id: 3, name: 'back-right', startPos: Math.PI * 1.5, ...legDefaults, ...servosBack }
 ]
