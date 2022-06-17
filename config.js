@@ -23,22 +23,28 @@ const servosFrontLeft = {
 }
 
 const servosFrontRight = {
-  hipServoSettings: { range: [50, 60], startAt: 55, sleepAt: 0, controller: 'PCA9685' },
+  hipServoSettings: { range: [90, 100], startAt: 95, sleepAt: 0, controller: 'PCA9685' },
   femurServoSettings: { range: [30, 90], startAt: 60, sleepAt: 0, controller: 'PCA9685' },
   kneeServoSettings: { range: [30, 90], startAt: 60, sleepAt: 0, controller: 'PCA9685' }
 }
 
-const servosBack = {
-  hipServoSettings: { range: [100, 150], startAt: 90, sleepAt: 0, controller: 'PCA9685' },
-  femurServoSettings: { range: [10, 180], startAt: 120, sleepAt: 0, controller: 'PCA9685' },
-  kneeServoSettings: { range: [10, 180], startAt: 90, sleepAt: 0, controller: 'PCA9685' }
+const servosBackLeft = {
+  hipServoSettings: { range: [50, 70], startAt: 60, sleepAt: 0, controller: 'PCA9685' },
+  femurServoSettings: { range: [50, 70], startAt: 60, sleepAt: 0, controller: 'PCA9685' },
+  kneeServoSettings: { range: [50, 70], startAt: 60, sleepAt: 0, controller: 'PCA9685' }
+}
+
+const servosBackRight = {
+  hipServoSettings: { range: [50, 70], startAt: 60, sleepAt: 0, controller: 'PCA9685' },
+  femurServoSettings: { range: [50, 70], startAt: 60, sleepAt: 0, controller: 'PCA9685' },
+  kneeServoSettings: { range: [50, 70], startAt: 60, sleepAt: 0, controller: 'PCA9685' }
 }
 
 const legSettings = [
   { id: 0, name: 'front-left', startPos: 0, ...legDefaults, ...servosFrontLeft },
   { id: 1, name: 'front-right', startPos: Math.PI / 2, ...legDefaults, ...servosFrontRight },
-  { id: 2, name: 'back-left', startPos: Math.PI, ...legDefaults, ...servosBack },
-  { id: 3, name: 'back-right', startPos: Math.PI * 1.5, ...legDefaults, ...servosBack }
+  { id: 2, name: 'back-left', startPos: Math.PI, ...legDefaults, ...servosBackLeft },
+  { id: 3, name: 'back-right', startPos: Math.PI * 1.5, ...legDefaults, ...servosBackRight }
 ]
 
 const options = {
