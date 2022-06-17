@@ -15,7 +15,7 @@ const env = {
   ...process.env
 }
 
-// https://www.electronicoscaldas.com/datasheet/MG996R_Tower-Pro.pdf
+// https://components101.com/motors/mg996r-servo-motor-datasheet- max angle 180 degrees however I've measured it (roughly) at 200 degrees
 const servosFrontLeft = {
   hipServoSettings: { range: [60, 70], startAt: 65, sleepAt: 65, controller: 'PCA9685' },
   femurServoSettings: { range: [30, 90], startAt: 60, sleepAt: 60, controller: 'PCA9685' },
