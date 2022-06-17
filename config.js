@@ -17,9 +17,9 @@ const env = {
 
 // https://www.electronicoscaldas.com/datasheet/MG996R_Tower-Pro.pdf
 const servosFront = {
-  hipServoSettings: { range: [105, 165], startAt: 135, sleepAt: 0, controller: 'PCA9685' },
-  femurServoSettings: { range: [105, 165], startAt: 135, sleepAt: 0, controller: 'PCA9685' },
-  kneeServoSettings: { range: [105, 165], startAt: 135, sleepAt: 0, controller: 'PCA9685' }
+  hipServoSettings: { range: [60, 70], startAt: 65, sleepAt: 0, controller: 'PCA9685' },
+  femurServoSettings: { range: [30, 90], startAt: 60, sleepAt: 0, controller: 'PCA9685' },
+  kneeServoSettings: { range: [30, 90], startAt: 60, sleepAt: 0, controller: 'PCA9685' }
 }
 
 const servosBack = {
