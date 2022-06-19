@@ -72,4 +72,12 @@ describe('the Triplet class: ', () => {
       expect(result).to.deep.equal('90,180,270')
     })
   })
+  describe('the import() method', () => {
+    it('should take 3 numbers and set the values of the current triplet', () => {
+      const testAngles = new Triplet(90, 180, 270)
+      testAngles.import(10, 20, 30)
+      const result = testAngles.value()
+      expect(result).to.deep.equal([10, 20, 30])
+    })
+  })
 })

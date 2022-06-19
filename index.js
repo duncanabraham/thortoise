@@ -1,8 +1,3 @@
-const { createClient } = require('redis')
-const redisClient = createClient()
-
-const { REDIS_CLIENT_CONNECT_ERROR, REDIS_CLIENT_GENERAL_ERROR } = require('./lib/errors')
-
 const Store = require('./lib/store')
 const { options, env: { JOHNNY_DRIVER }, api } = require('./config')
 const Thortoise = require('./lib/thortoise')
@@ -25,12 +20,6 @@ store.attachHandler('INFO', (data) => {
 
 const init = async () => {
   await driver.initBoard()
-  // redisClient.on('error', (err) => {
-  //   store.append('ERRORS', REDIS_CLIENT_GENERAL_ERROR('index:1', err))
-  // })
-  // await redisClient.connect().catch(err => {
-  //   store.append('ERRORS', REDIS_CLIENT_CONNECT_ERROR('index:2', err))
-  // })
 }
 
 const app = express()
@@ -44,8 +33,8 @@ app.listen(api.port, () => {
 
 (async () => {
   init()
-  const thortBot = new Thortoise({ ...options, driver, store, redisClient })
-  this.controller = new Controller({ robot: thortBot, app, store, redisClient })
+  const thortBot = new Thortoise({ ...options, driver, store })
+  this.controller = new Controller({ robot: thortBot, app, store })
 
   console.info(thortBot)
 

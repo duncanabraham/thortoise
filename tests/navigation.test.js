@@ -2,6 +2,7 @@
 const Navigation = require('../lib/navigation')
 const { coords, GridItem } = require('../lib/grid')
 const { expect } = require('chai')
+const enums = require('../lib/enums')
 
 describe('the Navigation class', () => {
   let nav
@@ -96,6 +97,69 @@ describe('the Navigation class', () => {
       // nav.solver.show()
 
       expect(result.length).to.equal(9)
+    })
+  })
+  describe('when turnDirection() is called', () => {
+    it('should return -1 if we need to turn anti-clockwise from 0 to 270', () => {
+      nav.currentBearing = enums.NORTH
+      const turnDirection = nav.turnDirection(enums.WEST)
+      expect(turnDirection).to.equal(-1)
+    })
+    it('should return -1 if we need to turn anti-clockwise from 270 to 180', () => {
+      nav.currentBearing = enums.WEST
+      const turnDirection = nav.turnDirection(enums.SOUTH)
+      expect(turnDirection).to.equal(-1)
+    })
+    it('should return 1 if we need to turn clockwise from 0 to 90', () => {
+      nav.currentBearing = enums.NORTH
+      const turnDirection = nav.turnDirection(enums.EAST)
+      expect(turnDirection).to.equal(1)
+    })
+    it('should return 1 if we need to turn clockwise from 200 to 270', () => {
+      nav.currentBearing = 200
+      const turnDirection = nav.turnDirection(enums.WEST)
+      expect(turnDirection).to.equal(1)
+    })
+    it('should know to go positive when at 355 and going to 5', () => {
+      nav.currentBearing = 355
+      const turnDirection = nav.turnDirection(5)
+      expect(turnDirection).to.equal(1)
+    })
+    it('should know to go negative when at 5 and going to 355', () => {
+      nav.currentBearing = 5
+      const turnDirection = nav.turnDirection(355)
+      expect(turnDirection).to.equal(-1)
+    })
+    it('should return 0 if the desired bearing equals the current bearing', () => {
+      nav.currentBearing = enums.NORTH
+      const turnDirection = nav.turnDirection(enums.NORTH)
+      expect(turnDirection).to.equal(0)
+    })
+  })
+  describe('when matchedBearing() is called', () => {
+    it('should return true if the provided bearing equals the current bearing', () => {
+      const result = nav.matchedBearing(0)
+      expect(result).to.equal(true)
+    })
+    it('should return true if the provided bearing is one degree below the current bearing', () => {
+      const result = nav.matchedBearing(359)
+      expect(result).to.equal(true)
+    })
+    it('should return true if the provided bearing is one degree higher the current bearing', () => {
+      const result = nav.matchedBearing(1)
+      expect(result).to.equal(true)
+    })
+    it('should return false if the provied bearing is 2 degrees below the current bearing', () => {
+      const result = nav.matchedBearing(358)
+      expect(result).to.equal(false)
+    })
+    it('should return false if the provied bearing is 2 degrees below the current bearing', () => {
+      const result = nav.matchedBearing(360)
+      expect(result).to.equal(false)
+    })
+    it('should return false if the provied bearing is 2 degrees higher the current bearing', () => {
+      const result = nav.matchedBearing(2)
+      expect(result).to.equal(false)
     })
   })
 })

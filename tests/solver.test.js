@@ -1,9 +1,15 @@
+/* global describe, it, beforeEach */
 const { expect } = require('chai')
 const Solver = require('../lib/solver')
 
 const mockMaze = {
-  maze: [],
-  height: 10,
+  maze: [
+    '0010234100',
+    '0000000000',
+    '0010000100',
+    '0010000100'
+  ],
+  height: 4,
   width: 10,
   currentPos: { x: 0, y: 0 },
   endPos: { x: 9, y: 9 }
@@ -31,10 +37,8 @@ describe('the Solver class', () => {
   })
   describe('when the _rowAsMap() method is called', () => {
     it('should return the a string representation from the number array passed to it within bounding walls', () => {
-      const testMaze = [0, 1, 2, 3, 4]
-      const result = solver._rowAsMap(testMaze)
-      const expectedResult = '░ ░OX.░'
-      expect(result.length).to.equal(testMaze.length + 2)
+      const result = solver._rowAsMap(solver.maze[0])
+      const expectedResult = '░  ░ OX.░  ░'
       expect(result).to.equal(expectedResult)
     })
   })
@@ -53,30 +57,14 @@ describe('the Solver class', () => {
     })
   })
   describe('when the show() method is called', () => {
-    let oldConsole
-    let output = []
-    let write
-    let sequence = ''
     it('should output a string representation of the maze', () => {
-      solver.maze = [
-        '0010000100',
-        '0000000000'
-      ]
-      solver.width=10
-      solver.height=2
-      write = process.stdout.write
-      process.stdout.write = (seq) => { sequence = seq }
-      oldConsole = console
-      console = {
-        log: (s) => {
-          output.push(s)
-        }
-      }
+      solver._clearScreen = () => {}
+      const conlog = console.log
+      let output = ''
+      console.log = (s) => { output += s }
       solver.show()
-      console = oldConsole
-      process.stdout.write = write
-      oldConsole.log(solver)
-      
+      console.log = conlog
+      const expectedOutput = '░░░░░░░░░░░░░  ░ OX.░  ░░          ░░  ░    ░  ░░  ░    ░  ░░░░░░░░░░░░░'
       expect(output).to.equal(expectedOutput)
     })
   })
