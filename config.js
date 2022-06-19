@@ -15,24 +15,36 @@ const env = {
   ...process.env
 }
 
-// https://www.electronicoscaldas.com/datasheet/MG996R_Tower-Pro.pdf
-const servosFront = {
-  hipServoSettings: { range: [40, 90], startAt: 90, sleepAt: 0, controller: 'PCA9685' },
-  femurServoSettings: { range: [10, 180], startAt: 120, sleepAt: 0, controller: 'PCA9685' },
-  kneeServoSettings: { range: [10, 180], startAt: 90, sleepAt: 0, controller: 'PCA9685' }
+// https://components101.com/motors/mg996r-servo-motor-datasheet- max angle 180 degrees however I've measured it (roughly) at 200 degrees
+const servosFrontLeft = {
+  hipServoSettings: { range: [60, 70], startAt: 65, sleepAt: 65, controller: 'PCA9685' },
+  femurServoSettings: { range: [30, 90], startAt: 60, sleepAt: 60, controller: 'PCA9685' },
+  kneeServoSettings: { range: [30, 90], startAt: 60, sleepAt: 60, controller: 'PCA9685' }
 }
 
-const servosBack = {
-  hipServoSettings: { range: [100, 150], startAt: 90, sleepAt: 0, controller: 'PCA9685' },
-  femurServoSettings: { range: [10, 180], startAt: 120, sleepAt: 0, controller: 'PCA9685' },
-  kneeServoSettings: { range: [10, 180], startAt: 90, sleepAt: 0, controller: 'PCA9685' }
+const servosFrontRight = {
+  hipServoSettings: { range: [90, 100], startAt: 95, sleepAt: 95, controller: 'PCA9685' },
+  femurServoSettings: { range: [30, 90], startAt: 60, sleepAt: 60, controller: 'PCA9685' },
+  kneeServoSettings: { range: [30, 90], startAt: 60, sleepAt: 60, controller: 'PCA9685' }
+}
+
+const servosBackLeft = {
+  hipServoSettings: { range: [90, 100], startAt: 95, sleepAt: 95, controller: 'PCA9685' },
+  femurServoSettings: { range: [30, 90], startAt: 60, sleepAt: 60, controller: 'PCA9685' },
+  kneeServoSettings: { range: [30, 90], startAt: 60, sleepAt: 60, controller: 'PCA9685' }
+}
+
+const servosBackRight = {
+  hipServoSettings: { range: [60, 70], startAt: 65, sleepAt: 65, controller: 'PCA9685' },
+  femurServoSettings: { range: [30, 90], startAt: 60, sleepAt: 60, controller: 'PCA9685' },
+  kneeServoSettings: { range: [30, 90], startAt: 60, sleepAt: 60, controller: 'PCA9685' }
 }
 
 const legSettings = [
-  { id: 0, name: 'front-left', startPos: 0, ...legDefaults, ...servosFront },
-  { id: 1, name: 'front-right', startPos: Math.PI / 2, ...legDefaults, ...servosFront },
-  { id: 2, name: 'back-left', startPos: Math.PI, ...legDefaults, ...servosBack },
-  { id: 3, name: 'back-right', startPos: Math.PI * 1.5, ...legDefaults, ...servosBack }
+  { id: 0, name: 'front-left', startPos: 0, ...legDefaults, ...servosFrontLeft },
+  { id: 1, name: 'front-right', startPos: Math.PI / 2, ...legDefaults, ...servosFrontRight },
+  { id: 2, name: 'back-left', startPos: Math.PI, ...legDefaults, ...servosBackLeft },
+  { id: 3, name: 'back-right', startPos: Math.PI * 1.5, ...legDefaults, ...servosBackRight }
 ]
 
 const options = {
