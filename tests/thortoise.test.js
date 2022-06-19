@@ -7,7 +7,6 @@ const Brain = require('../lib/brain')
 const path = require('path')
 const mock = require('mock-require')
 const enums = require('../lib/enums')
-const Navigation = require('../lib/navigation')
 const { Command } = require('../lib/command')
 
 const state = {}
@@ -22,12 +21,6 @@ const mockExecSuccess = {
 mock('child_process', mockExecSuccess)
 delete require.cache[path.join(__dirname, '../lib/runCommand.js')]
 const Thortoise = require('../lib/thortoise')
-
-const mockServoSettings = {
-  range: [40, 90],
-  startAt: 90,
-  controller: 'PCA9685'
-}
 
 const legDefaults = {
   femurLength: 150,
@@ -78,10 +71,12 @@ describe('The Thortoise class: ', () => {
   let expectedCommand
   before(() => {
     setIntervalStore = setInterval
+    // eslint-disable-next-line no-global-assign
     console = {
       log: () => { },
       info: () => { }
     }
+    // eslint-disable-next-line no-global-assign
     setInterval = (action, timer) => {
       result.action = action
       result.timer = timer
@@ -89,7 +84,9 @@ describe('The Thortoise class: ', () => {
     }
   })
   after(() => {
+    // eslint-disable-next-line no-global-assign
     console = oldConsole
+    // eslint-disable-next-line no-global-assign
     setInterval = setIntervalStore
   })
   beforeEach(() => {
@@ -168,8 +165,10 @@ describe('The Thortoise class: ', () => {
         thortoise.running = 'running'
         const oldCI = clearInterval
         let clearIntervalCalled = ''
+        // eslint-disable-next-line no-global-assign
         clearInterval = (intervalName) => { clearIntervalCalled = intervalName }
         thortoise.stop()
+        // eslint-disable-next-line no-global-assign
         clearInterval = oldCI
         expect(clearIntervalCalled).to.equal('running')
         expect('running' in thortoise).to.equal(false)
