@@ -117,13 +117,33 @@ describe('The Thortoise class: ', () => {
     })
   })
   describe('when sleep() is called', () => {
-    xit('should set all legs to sleep mode', () => { })
-    it('should call the stop method', async () => {
-      let stopCalled = false
+    it('should set all legs to sleep mode', () => {
       thortoise.sleeping = undefined
-      thortoise.stop = () => { stopCalled = true }
-      await thortoise.sleep()
-      expect(stopCalled).to.equal(true)
+      const result = {}
+      function sleep () {
+        result[this.name] = 'leg sleep called'
+      }
+      thortoise.legs.forEach(leg => { leg.sleep = (sleep.bind(leg)) })
+      thortoise.sleep()
+      const expectedResult = {
+        'front-left': 'leg sleep called',
+        'front-right': 'leg sleep called',
+        'back-left': 'leg sleep called',
+        'back-right': 'leg sleep called'
+      }
+      expect(result).to.deep.equal(expectedResult)
+    })
+    describe('when the state is not sleeping', () => {
+      it('should update the INFO store with "Starting sleep loop..."', () => {
+        thortoise.sleeping = undefined
+        thortoise.sleep()
+        expect(mockStore.INFO).to.equal('Going to sleep')
+      })
+      it('should setup the sleeping loop', () => {
+        thortoise.sleeping = undefined
+        thortoise.sleep()
+        expect('sleeping' in thortoise).to.equal(true)
+      })
     })
   })
   describe('when start() is called', () => {
@@ -172,18 +192,6 @@ describe('The Thortoise class: ', () => {
         clearInterval = oldCI
         expect(clearIntervalCalled).to.equal('running')
         expect('running' in thortoise).to.equal(false)
-      })
-    })
-    describe('when the state is not sleeping', () => {
-      it('should update the INFO store with "Starting sleep loop..."', () => {
-        thortoise.sleeping = undefined
-        thortoise.stop()
-        expect(mockStore.INFO).to.equal('Starting sleep loop...')
-      })
-      it('should setup the sleeping loop', () => {
-        thortoise.sleeping = undefined
-        thortoise.stop()
-        expect('sleeping' in thortoise).to.equal(true)
       })
     })
   })
@@ -367,6 +375,21 @@ describe('The Thortoise class: ', () => {
       expect(tockCalled).to.equal(true)
     })
   })
+  describe('when _addAction() is called', () => {
+    it('should add an action to the commandQueue', () => {
+      thortoise._addAction('test')
+      const result = thortoise.brain.commandQueue.queue[0]
+      expect(result.name).to.equal('test')
+    })
+    it('should add the command to the end of the queue', () => {
+      thortoise._addAction('test')
+      thortoise._addAction('test')
+      thortoise._addAction('last')
+      expect(thortoise.brain.commandQueue.queue.length).to.equal(3)
+      const result = thortoise.brain.commandQueue.queue[2]
+      expect(result.name).to.equal('last')
+    })
+  })
   describe('when north() is called', () => {
     beforeEach(() => {
       expectedCommand.notes = 'north'
@@ -512,6 +535,64 @@ describe('The Thortoise class: ', () => {
       it('should set the desiredBearing to 0', () => {
         thortoise.west()
         expect(thortoise.desiredBearing).to.equal(270)
+      })
+    })
+  })
+  describe('when goto() is called', () => {
+    describe('and we haven\'t yet reached the destination', () => {
+      it('should call navigation.solve()', () => {
+        let navigationSolvedCalled = false
+        thortoise.brain.navigation.solve = () => { navigationSolvedCalled = true }
+        const mockAction = {
+          coords: { x: 9, y: 9 }
+        }
+        thortoise.goto(mockAction)
+        expect(navigationSolvedCalled).to.equal(true)
+      })
+    })
+    describe('and we have reached the destination', () => {
+      it('should return false', () => {
+        thortoise.brain.navigation.solve = () => { }
+        const mockAction = {
+          coords: { x: 5, y: 5 }
+        }
+        const result = thortoise.goto(mockAction)
+        expect(result).to.equal(false)
+      })
+    })
+    describe('and we have a solved answer from the solver', () => {
+      it('should call _goWhereYouAreNot()', () => {
+        let goWhereYouAreNotCalled = false
+        thortoise._goWhereYouAreNot = () => {
+          goWhereYouAreNotCalled = true
+        }
+        const mockAction = {
+          coords: { x: 3, y: 3 }
+        }
+        thortoise.goto(mockAction)
+        expect(goWhereYouAreNotCalled).to.equal(true)
+      })
+      it('should call _addImmediateAction("walk")', () => {
+        const addImmediateActionCalled = []
+        thortoise._addImmediateAction = (value) => {
+          addImmediateActionCalled.push(value)
+        }
+        const mockAction = {
+          coords: { x: 3, y: 3 }
+        }
+        thortoise.goto(mockAction)
+        expect(addImmediateActionCalled.indexOf('walk')).to.equal(1)
+      })
+      it('should call _addImmediateAction("goto")', () => {
+        const addImmediateActionCalled = []
+        thortoise._addImmediateAction = (value) => {
+          addImmediateActionCalled.push(value)
+        }
+        const mockAction = {
+          coords: { x: 3, y: 3 }
+        }
+        thortoise.goto(mockAction)
+        expect(addImmediateActionCalled.indexOf('goto')).to.equal(2)
       })
     })
   })
