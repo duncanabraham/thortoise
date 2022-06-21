@@ -9,8 +9,11 @@ const run = async () => {
     await delay(100)
     imu.readGyro()
     await delay(100)
+    delay(100)
+    imu.readCompass()
     console.log('Gyro:  ', imu.Gyro)
     console.log('Accel: ', imu.Accelerometer)
+    console.log('Compass: ', imu.Compass)
     await delay(1000)
   }
 }
