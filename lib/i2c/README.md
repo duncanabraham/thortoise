@@ -14,6 +14,7 @@ A base class exists to provide all the low level calls and a number of higher le
 | PCA9685  | PWM | A PWM controller for servos, motors and LEDs
 | QMC5883L | Direction | A magnetometer giving high precission compass readings |
 | TCA9548A | MUX | A multiplexor allowing up to 8 devices to share a single I2C address |
+| BH1750FVI | LIGHT | Light intensity sensor |
 
 None of these are complete or tested yet.  Most are translated from Python scripts or worked out from datasheets.
 
