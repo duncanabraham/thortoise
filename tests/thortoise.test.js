@@ -29,6 +29,7 @@ const commandOptions = {
 mock('child_process', mockExecSuccess)
 delete require.cache[path.join(__dirname, '../lib/runCommand.js')]
 const Thortoise = require('../lib/thortoise')
+const { coords } = require('../lib/grid')
 
 const legDefaults = {
   femurLength: 150,
@@ -347,7 +348,292 @@ describe('The Thortoise class: ', () => {
     })
   })
   describe('when _checkActions() is called', () => {
-    xit('should see what needs to happen next')
+    let command
+    beforeEach(() => {
+      const commandOptions = {
+        name: 'test',
+        action: 'test',
+        origin: 'human',
+        type: 'action',
+        notes: 'test action'
+      }
+      command = new Command(commandOptions)
+    })
+    describe('and there is a human command in the queue', () => {
+      it('should get the next human command from the queue and update the INFO log with the command details', () => {
+        thortoise.brain.commandQueue.addCommand(command)
+        expect(thortoise.brain.commandQueue.queue.length).to.equal(1)
+        thortoise._checkActions()
+        expect(thortoise.brain.commandQueue.queue.length).to.equal(0)
+        expect(mockStore.INFO).to.equal('action test test action')
+      })
+    })
+    describe('and there are no human commands in the queue', () => {
+      beforeEach(() => {
+        const commandOptions = {
+          name: 'test',
+          action: 'test',
+          origin: 'machine',
+          type: 'action',
+          notes: 'test action'
+        }
+        command = new Command(commandOptions)
+      })
+      it('should get the next machine command from the queue', () => {
+        thortoise.brain.commandQueue.addCommand(command)
+        expect(thortoise.brain.commandQueue.queue.length).to.equal(1)
+        thortoise._checkActions()
+        expect(thortoise.brain.commandQueue.queue.length).to.equal(0)
+        expect(mockStore.INFO).to.equal('action test test action')
+      })
+    })
+    describe('and there are no commands in the queue', () => {
+      beforeEach(() => {
+        thortoise.brain.commandQueue.clearCommands()
+      })
+      describe('and the thortoise is not sleeping', () => {
+        beforeEach(() => {
+          delete thortoise.sleeping
+        })
+        it('should call the stand() method', () => {
+          let standCalled = false
+          thortoise.stand = () => { standCalled = true }
+          thortoise._checkActions()
+          expect(standCalled).to.equal(true)
+        })
+      })
+      describe('and the thortoise is sleeping', () => {
+        beforeEach(() => {
+          thortoise.sleeping = true
+        })
+        it('should not call the stand() method', () => {
+          let standCalled = false
+          thortoise.stand = () => { standCalled = true }
+          thortoise._checkActions()
+          expect(standCalled).to.equal(false)
+        })
+      })
+    })
+    describe('when the action type is "action"', () => {
+      describe('when the action is "north"', () => {
+        it('should call the "north" method and add to the INFO queue', () => {
+          command.action = 'north'
+          thortoise.brain.commandQueue.addCommand(command)
+          const checkStatus = {}
+          thortoise.north = (action) => {
+            checkStatus.action = action
+            checkStatus.called = true
+          }
+          thortoise._checkActions()
+          expect(mockStore.INFO).to.equal('action north test action')
+          expect(checkStatus.called).to.equal(true)
+          expect(checkStatus.action.action).to.equal('north')
+        })
+      })
+      describe('when the action is "east"', () => {
+        it('should call the "east" method and add to the INFO queue', () => {
+          command.action = 'east'
+          thortoise.brain.commandQueue.addCommand(command)
+          const checkStatus = {}
+          thortoise.east = (action) => {
+            checkStatus.action = action
+            checkStatus.called = true
+          }
+          thortoise._checkActions()
+          expect(mockStore.INFO).to.equal('action east test action')
+          expect(checkStatus.called).to.equal(true)
+          expect(checkStatus.action.action).to.equal('east')
+        })
+      })
+      describe('when the action is "south"', () => {
+        it('should call the "south" method and add to the INFO queue', () => {
+          command.action = 'south'
+          thortoise.brain.commandQueue.addCommand(command)
+          const checkStatus = {}
+          thortoise.south = (action) => {
+            checkStatus.action = action
+            checkStatus.called = true
+          }
+          thortoise._checkActions()
+          expect(mockStore.INFO).to.equal('action south test action')
+          expect(checkStatus.called).to.equal(true)
+          expect(checkStatus.action.action).to.equal('south')
+        })
+      })
+      describe('when the action is "west"', () => {
+        it('should call the "west" method and add to the INFO queue', () => {
+          command.action = 'west'
+          thortoise.brain.commandQueue.addCommand(command)
+          const checkStatus = {}
+          thortoise.west = (action) => {
+            checkStatus.action = action
+            checkStatus.called = true
+          }
+          thortoise._checkActions()
+          expect(mockStore.INFO).to.equal('action west test action')
+          expect(checkStatus.called).to.equal(true)
+          expect(checkStatus.action.action).to.equal('west')
+        })
+      })
+      describe('when the action is "walk"', () => {
+        it('should call the "walk" method and add to the INFO queue', () => {
+          command.action = 'walk'
+          thortoise.brain.commandQueue.addCommand(command)
+          const checkStatus = {}
+          thortoise.walk = (action) => {
+            checkStatus.action = action
+            checkStatus.called = true
+          }
+          thortoise._checkActions()
+          expect(mockStore.INFO).to.equal('action walk test action')
+          expect(checkStatus.called).to.equal(true)
+          expect(checkStatus.action.action).to.equal('walk')
+        })
+      })
+      describe('when the action is "goto"', () => {
+        it('should call the "goto" method and add to the INFO queue', () => {
+          command.action = 'goto'
+          thortoise.brain.commandQueue.addCommand(command)
+          const checkStatus = {}
+          thortoise.goto = (action) => {
+            checkStatus.action = action
+            checkStatus.called = true
+          }
+          thortoise._checkActions()
+          expect(mockStore.INFO).to.equal('action goto test action')
+          expect(checkStatus.called).to.equal(true)
+          expect(checkStatus.action.action).to.equal('goto')
+        })
+      })
+      describe('when the action is "sleep"', () => {
+        it('should call the "sleep" method and add to the INFO queue', () => {
+          command.action = 'sleep'
+          thortoise.brain.commandQueue.addCommand(command)
+          const checkStatus = {}
+          thortoise.sleep = (action) => {
+            checkStatus.action = action
+            checkStatus.called = true
+          }
+          thortoise._checkActions()
+          expect(mockStore.INFO).to.equal('action sleep test action')
+          expect(checkStatus.called).to.equal(true)
+          expect(checkStatus.action.action).to.equal('sleep')
+        })
+      })
+      describe('when the action is "start"', () => {
+        it('should call the "start" method and add to the INFO queue', () => {
+          command.action = 'start'
+          thortoise.brain.commandQueue.addCommand(command)
+          const checkStatus = {}
+          thortoise.start = (action) => {
+            checkStatus.action = action
+            checkStatus.called = true
+          }
+          thortoise._checkActions()
+          expect(mockStore.INFO).to.equal('action start test action')
+          expect(checkStatus.called).to.equal(true)
+          expect(checkStatus.action.action).to.equal('start')
+        })
+      })
+      describe('when the action is "stop"', () => {
+        it('should call the "stop" method and add to the INFO queue', () => {
+          command.action = 'stop'
+          thortoise.brain.commandQueue.addCommand(command)
+          const checkStatus = {}
+          thortoise.stop = (action) => {
+            checkStatus.action = action
+            checkStatus.called = true
+          }
+          thortoise._checkActions()
+          expect(mockStore.INFO).to.equal('action stop test action')
+          expect(checkStatus.called).to.equal(true)
+          expect(checkStatus.action.action).to.equal('stop')
+        })
+      })
+      describe('when the action is "kill"', () => {
+        it('should call the "kill" method and add to the INFO queue', () => {
+          command.action = 'kill'
+          thortoise.brain.commandQueue.addCommand(command)
+          const checkStatus = {}
+          thortoise.kill = (action) => {
+            checkStatus.action = action
+            checkStatus.called = true
+          }
+          thortoise._checkActions()
+          expect(mockStore.INFO).to.equal('action kill test action')
+          expect(checkStatus.called).to.equal(true)
+          expect(checkStatus.action.action).to.equal('kill')
+        })
+      })
+      describe('when the action is "scan"', () => {
+        it('should call the "scan" method and add to the INFO queue', () => {
+          command.action = 'scan'
+          thortoise.brain.commandQueue.addCommand(command)
+          const checkStatus = {}
+          thortoise.scan = (action) => {
+            checkStatus.action = action
+            checkStatus.called = true
+          }
+          thortoise._checkActions()
+          expect(mockStore.INFO).to.equal('action scan test action')
+          expect(checkStatus.called).to.equal(true)
+          expect(checkStatus.action.action).to.equal('scan')
+        })
+      })
+      describe('when the action is "turn"', () => {
+        it('should call the "turn" method and add to the INFO queue', () => {
+          command.action = 'turn'
+          thortoise.brain.commandQueue.addCommand(command)
+          const checkStatus = {}
+          thortoise.turn = (action) => {
+            checkStatus.action = action
+            checkStatus.called = true
+          }
+          thortoise._checkActions()
+          expect(mockStore.INFO).to.equal('action turn test action')
+          expect(checkStatus.called).to.equal(true)
+          expect(checkStatus.action.action).to.equal('turn')
+        })
+      })
+    })
+    describe('when the action type is "move', () => {
+      describe('when the action is "right"', () => {
+        it('should call the "right" method and add to the INFO queue', () => {
+          command.type = 'move'
+          command.action = 'right'
+          thortoise.brain.commandQueue.addCommand(command)
+          thortoise._checkActions()
+          expect(thortoise.direction).to.equal('right')
+        })
+      })
+      describe('when the action is "left"', () => {
+        it('should call the "left" method and add to the INFO queue', () => {
+          command.type = 'move'
+          command.action = 'left'
+          thortoise.brain.commandQueue.addCommand(command)
+          thortoise._checkActions()
+          expect(thortoise.direction).to.equal('left')
+        })
+      })
+      describe('when the action is "backward"', () => {
+        it('should call the "backward" method and add to the INFO queue', () => {
+          command.type = 'move'
+          command.action = 'backward'
+          thortoise.brain.commandQueue.addCommand(command)
+          thortoise._checkActions()
+          expect(thortoise.direction).to.equal('backward')
+        })
+      })
+      describe('when the action is "forward"', () => {
+        it('should call the "forward" method and add to the INFO queue', () => {
+          command.type = 'move'
+          command.action = 'forward'
+          thortoise.brain.commandQueue.addCommand(command)
+          thortoise._checkActions()
+          expect(thortoise.direction).to.equal('forward')
+        })
+      })
+    })
   })
   describe('when _sleepLoop() is called', () => {
     it('should check actions to see if a command has come in from the API', () => {
@@ -578,17 +864,6 @@ describe('The Thortoise class: ', () => {
         thortoise.goto(mockAction)
         expect(goWhereYouAreNotCalled).to.equal(true)
       })
-      it('should call _addImmediateAction("walk")', () => {
-        const addImmediateActionCalled = []
-        thortoise._addImmediateAction = (value) => {
-          addImmediateActionCalled.push(value)
-        }
-        const mockAction = {
-          coords: { x: 3, y: 3 }
-        }
-        thortoise.goto(mockAction)
-        expect(addImmediateActionCalled.indexOf('walk')).to.equal(1)
-      })
       it('should call _addImmediateAction("goto")', () => {
         const addImmediateActionCalled = []
         thortoise._addImmediateAction = (value) => {
@@ -598,7 +873,67 @@ describe('The Thortoise class: ', () => {
           coords: { x: 3, y: 3 }
         }
         thortoise.goto(mockAction)
-        expect(addImmediateActionCalled.indexOf('goto')).to.equal(2)
+        expect(addImmediateActionCalled.indexOf('goto')).to.equal(1)
+      })
+      it('should call _addImmediateAction("walk")', () => {
+        const addImmediateActionCalled = []
+        thortoise._addImmediateAction = (value) => {
+          addImmediateActionCalled.push(value)
+        }
+        const mockAction = {
+          coords: { x: 3, y: 3 }
+        }
+        thortoise.goto(mockAction)
+        expect(addImmediateActionCalled.indexOf('walk')).to.equal(2)
+      })
+    })
+  })
+  describe('when _goWhereYouAreNot() is called', () => {
+    describe('and the place you want to go is north of you', () => {
+      it('should add a "north" action to the start of the queue', () => {
+        const whereYouAre = coords(5, 5)
+        const whereYouAreNot = coords(5, 4)
+        thortoise._goWhereYouAreNot(whereYouAre, whereYouAreNot)
+        const nextAction = thortoise.brain.commandQueue.nextCommand()
+        expect(nextAction.action).to.equal('north')
+      })
+    })
+    describe('and the place you want to go is south of you', () => {
+      it('should add a "north" action to the start of the queue', () => {
+        const whereYouAre = coords(5, 5)
+        const whereYouAreNot = coords(5, 6)
+        thortoise._goWhereYouAreNot(whereYouAre, whereYouAreNot)
+        const nextAction = thortoise.brain.commandQueue.nextCommand()
+        expect(nextAction.action).to.equal('south')
+      })
+    })
+    describe('and the place you want to go is east of you', () => {
+      it('should add a "east" action to the start of the queue', () => {
+        const whereYouAre = coords(5, 5)
+        const whereYouAreNot = coords(6, 5)
+        thortoise._goWhereYouAreNot(whereYouAre, whereYouAreNot)
+        const nextAction = thortoise.brain.commandQueue.nextCommand()
+        expect(nextAction.action).to.equal('east')
+      })
+    })
+    describe('and the place you want to go is west of you', () => {
+      it('should add a "east" action to the start of the queue', () => {
+        const whereYouAre = coords(5, 5)
+        const whereYouAreNot = coords(4, 5)
+        thortoise._goWhereYouAreNot(whereYouAre, whereYouAreNot)
+        const nextAction = thortoise.brain.commandQueue.nextCommand()
+        expect(nextAction.action).to.equal('west')
+      })
+    })
+    describe('and any direction is chosen', () => {
+      it('should add a second command to go "forward"', () => {
+        const whereYouAre = coords(5, 5)
+        const whereYouAreNot = coords(4, 5)
+        thortoise._goWhereYouAreNot(whereYouAre, whereYouAreNot)
+        const nextAction = thortoise.brain.commandQueue.nextCommand()
+        expect(nextAction.action).to.equal('west')
+        const secondAction = thortoise.brain.commandQueue.nextCommand()
+        expect(secondAction.action).to.equal('forward')
       })
     })
   })
@@ -615,7 +950,94 @@ describe('The Thortoise class: ', () => {
       })
     })
     describe('when a bearing is not provided', () => {
-      it('should use the current desiredBearing')
+      describe('and a coords point is provided', () => {
+        it('should calculate the bearing from the point coordingates', () => {
+          const options = {
+            ...commandOptions,
+            coords: { x: 9, y: 9 }
+          }
+          const mockCommand = new Command(options)
+          thortoise.turn(mockCommand)
+          expect(thortoise.desiredBearing).to.equal(135)
+        })
+      })
+    })
+    describe('when the turnDirection is less than zero', () => {
+      it('should set the turn direction to "left"', () => {
+        const options = {
+          ...commandOptions,
+          coords: { x: 9, y: 9 }
+        }
+        const mockCommand = new Command(options)
+        thortoise.turnDirection = -1
+        thortoise.turn(mockCommand)
+        expect(thortoise.direction).to.equal('left')
+      })
+    })
+
+    describe('when the turnDirection is more than zero', () => {
+      it('should set the turn direction to "right"', () => {
+        const options = {
+          ...commandOptions,
+          coords: { x: 9, y: 9 }
+        }
+        const mockCommand = new Command(options)
+        thortoise.turnDirection = 1
+        thortoise.turn(mockCommand)
+        expect(thortoise.direction).to.equal('right')
+      })
+    })
+
+    describe('when the currentBearing matches the desired bearing', () => {
+      it('should log "turn complete"', () => {
+        thortoise.brain.navigation.currentBearing = 135
+        const options = {
+          ...commandOptions,
+          coords: { x: 9, y: 9 }
+        }
+        const mockCommand = new Command(options)
+        thortoise.turn(mockCommand)
+        expect(mockStore.INFO).to.equal('turn complete')
+      })
+      it('should call _addImmediateAction and set the next action to "scan"', () => {
+        thortoise.brain.navigation.currentBearing = 135
+        const options = {
+          ...commandOptions,
+          coords: { x: 9, y: 9 }
+        }
+        const mockCommand = new Command(options)
+        const addImmediateActionCalled = {}
+        thortoise._addImmediateAction = (action) => {
+          addImmediateActionCalled.action = action
+        }
+        thortoise.turn(mockCommand)
+        expect(addImmediateActionCalled.action).to.equal('scan')
+      })
+    })
+
+    describe('when the currentBearing does not match the desired bearing', () => {
+      it('should add another turn command to the queue', () => {
+        thortoise.brain.navigation.currentBearing = 135
+        const options = {
+          ...commandOptions,
+          coords: { x: 8, y: 9 }
+        }
+        const mockCommand = new Command(options)
+        const addImmediateActionCalled = {}
+        thortoise._addImmediateAction = (action) => {
+          addImmediateActionCalled.action = action
+        }
+        thortoise.turn(mockCommand)
+        expect(addImmediateActionCalled.action).to.equal('turn')
+      })
+    })
+  })
+  describe('when scan() is called', () => {
+    it('should call the camera "getImage()" method', () => {
+      let getImageCalled = false
+      thortoise.brain.camera.getImage = () => { getImageCalled = true }
+      thortoise.scan()
+      expect(getImageCalled).to.equal(true)
     })
   })
 })
