@@ -18,6 +18,14 @@ const mockExecSuccess = {
   }
 }
 
+const commandOptions = {
+  name: 'turn',
+  action: 'turn',
+  origin: 'machine',
+  type: 'action',
+  notes: 'north'
+}
+
 mock('child_process', mockExecSuccess)
 delete require.cache[path.join(__dirname, '../lib/runCommand.js')]
 const Thortoise = require('../lib/thortoise')
@@ -356,12 +364,12 @@ describe('The Thortoise class: ', () => {
       thortoise._runLoop()
       expect(checkActionsCalled).to.equal(true)
     })
-    it('should call _doMovement()', () => {
-      let doMovementCalled = false
-      thortoise._doMovement = () => { doMovementCalled = true }
-      thortoise._runLoop()
-      expect(doMovementCalled).to.equal(true)
-    })
+    // it('should call _doMovement()', () => {
+    //   let doMovementCalled = false
+    //   thortoise._doMovement = () => { doMovementCalled = true }
+    //   thortoise._runLoop()
+    //   expect(doMovementCalled).to.equal(true)
+    // })
     it('should call _verbose()', () => {
       let verboseCalled = false
       thortoise._verbose = () => { verboseCalled = true }
@@ -543,9 +551,7 @@ describe('The Thortoise class: ', () => {
       it('should call navigation.solve()', () => {
         let navigationSolvedCalled = false
         thortoise.brain.navigation.solve = () => { navigationSolvedCalled = true }
-        const mockAction = {
-          coords: { x: 9, y: 9 }
-        }
+        const mockAction = { coords: { x: 9, y: 9 } }
         thortoise.goto(mockAction)
         expect(navigationSolvedCalled).to.equal(true)
       })
@@ -594,6 +600,22 @@ describe('The Thortoise class: ', () => {
         thortoise.goto(mockAction)
         expect(addImmediateActionCalled.indexOf('goto')).to.equal(2)
       })
+    })
+  })
+  describe('when turn() is called', () => {
+    describe('when a bearing is provided', () => {
+      it('should set the desiredBearing from the provided bearign', () => {
+        const options = {
+          ...commandOptions,
+          bearing: 80
+        }
+        const mockCommand = new Command(options)
+        thortoise.turn(mockCommand)
+        expect(thortoise.desiredBearing).to.equal(80)
+      })
+    })
+    describe('when a bearing is not provided', () => {
+      it('should use the current desiredBearing')
     })
   })
 })

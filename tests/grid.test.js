@@ -1,3 +1,4 @@
+/* global describe, it, beforeEach */
 const { expect } = require('chai')
 const { coords, Grid, GridItem, Coords } = require('../lib/grid')
 
@@ -18,6 +19,81 @@ describe('the Grid class', () => {
         const point = coords(10, 20)
         const result = point.toArray()
         expect(result).to.deep.equal([10, 20])
+      })
+    })
+    describe('when Equals() is called', () => {
+      describe('when passed a coords with the same coordinates', () => {
+        it('should return true', () => {
+          const point = coords(10, 20)
+          const testPoint = coords(10, 20)
+          const result = point.equals(testPoint)
+          expect(result).to.equal(true)
+        })
+      })
+      describe('when passed a coords with different coordinates', () => {
+        it('should return true', () => {
+          const point = coords(10, 20)
+          const testPoint = coords(20, 30)
+          const result = point.equals(testPoint)
+          expect(result).to.equal(false)
+        })
+      })
+    })
+    describe('when distanceTo() is called', () => {
+      it('should calculate the distance from the current point to the provided point', () => {
+        const point = coords(1, 2)
+        const providedPoint = coords(5, 5)
+        const result = point.distanceTo(providedPoint)
+        expect(result).to.equal(5)
+      })
+    })
+    describe('when bearingTo() is called', () => {
+      it('should calculate the angle between the current location and the provided location as a bearing', () => {
+        const expectedBearings = [
+          { x1: 1, y1: 6, x2: 1, y2: 1, result: 0 }, // 0
+          { x1: 1, y1: 6, x2: 6, y2: 1, result: 45 }, // 45
+          { x1: 1, y1: 6, x2: 6, y2: 6, result: 90 }, // 90
+          { x1: 1, y1: 1, x2: 6, y2: 6, result: 135 }, // 135
+          { x1: 1, y1: 1, x2: 1, y2: 6, result: 180 }, // 180
+          { x1: 6, y1: 1, x2: 1, y2: 6, result: 225 }, // 225
+          { x1: 6, y1: 1, x2: 1, y2: 1, result: 270 }, // 270
+          { x1: 6, y1: 6, x2: 1, y2: 1, result: 315 } // 315
+        ]
+        expectedBearings.forEach(bearing => {
+          const point = coords(bearing.x1, bearing.y1)
+          const providedPoint = coords(bearing.x2, bearing.y2)
+          const result = point.bearingTo(providedPoint)
+          expect(result).to.equal(bearing.result)
+        })
+      })
+      describe('when slope() is called', () => {
+        it('should calculate the slope of the line between the current point and the provided point', () => {
+          const point = coords(1, 1)
+          const providedPoint = coords(6, 6)
+          const result = point.slope(providedPoint)
+          expect(result).to.equal(1)
+        })
+        it('should calculate the slope of the line between the current point and the provided point', () => {
+          const point = coords(1, 1)
+          const providedPoint = coords(3, 6)
+          const result = point.slope(providedPoint)
+          expect(result).to.equal(2.5)
+        })
+      })
+    })
+    describe('when midPoint() is called', () => {
+      it('should calculate the midpoint between 2 points', () => {
+        const expectedPoints = [
+          { x1: 1, y1: 1, x2: 1, y2: 7, result: coords(1, 4) },
+          { x1: 1, y1: 1, x2: 5, y2: 3, result: coords(3, 2) },
+          { x1: 5, y1: 3, x2: 1, y2: 1, result: coords(3, 2) }
+        ]
+        expectedPoints.forEach(point => {
+          const point1 = coords(point.x1, point.y1)
+          const point2 = coords(point.x2, point.y2)
+          const result = point1.midPoint(point2)
+          expect(result.equals(point.result)).to.equal(true)
+        })
       })
     })
   })
@@ -78,8 +154,8 @@ describe('the Grid class', () => {
       it('should accept x and y coords and set the current position to a coords object', () => {
         const values1 = { type: 'lawn1', items: ['dandelion', 'grass', 'stone', 'bare patch'] }
         const gridItem = new GridItem(values1)
-        gridItem.addPosition(20,30)
-        const expectedResult = new Coords(20,30)
+        gridItem.addPosition(20, 30)
+        const expectedResult = new Coords(20, 30)
         expect(gridItem.position).to.deep.equal(expectedResult)
       })
     })
@@ -88,8 +164,8 @@ describe('the Grid class', () => {
     let item
     let grid
     let position
-    let gridX = 3
-    let gridY = 3
+    const gridX = 3
+    const gridY = 3
     beforeEach(() => {
       // override the id value as we need to test for it later
       item = new GridItem({ type: 'lawn1', items: ['dandelion', 'grass', 'stone', 'bare patch'], id: 'fdf9a21ca27731b86a239e2deea9cbc9' })
