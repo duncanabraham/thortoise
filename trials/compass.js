@@ -5,7 +5,7 @@ const { delay } = require('../lib/utils')
 
 const run = async () => {
   while (true) {
-    console.log(compass.getMagnet())
+    console.log(compass.getMagnet(), compass.getBearing()), compass.getTemp())
     await delay(500)
   }
 }
