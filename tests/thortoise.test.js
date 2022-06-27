@@ -1,4 +1,4 @@
-/* global describe, it, xit, before, after, beforeEach */
+/* global describe, it, before, after, beforeEach */
 const { expect } = require('chai')
 
 const { mockDriver } = require('./mocks')
