@@ -1,3 +1,4 @@
+/* global describe, it, beforeEach */
 const { expect } = require('chai')
 const Controller = require('../lib/controller')
 const { CommandQueue } = require('../lib/command')
@@ -8,12 +9,13 @@ const status = {
 }
 
 class MockRobot {
-  constructor() {
+  constructor () {
     this.commandQueue = new CommandQueue()
     this.brain = {
       commandQueue: {
-        addImmediateCommand: () => { status.addImmediateCommandCalled = true },
-        nextCommand: () => { status.nextCommandCalled = true }
+        addImmediateCommand: () => { status.addImmediateMethodCalled = true },
+        nextCommand: () => { status.nextMethodalled = true },
+        count: () => { status.countMethodCalled = true }
       }
     }
     this.commands = ['just a test command']
