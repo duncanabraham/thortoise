@@ -5,9 +5,7 @@ const { delay } = require('../lib/utils')
 
 const run = async () => {
   while (true) {
-    compass.read()
-    const a = compass.getAzimuth()
-    const b = compass.getBearing(a)
+    const b = compass.read()
 
     console.log(b)
     await delay(500)
