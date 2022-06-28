@@ -8,7 +8,7 @@ const run = async () => {
     const b = compass.read()
     const raw = compass.raw()
     console.log(b, ' : ', raw)
-    await delay(500)
+    await delay(100)
   }
 }
 
