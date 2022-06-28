@@ -5,7 +5,7 @@ const { delay } = require('../lib/utils')
 
 const run = async () => {
   while (true) {
-    const b = compass.read()
+    const b = compass.bearing()
     const raw = compass.raw()
     console.log(b, ' : ', raw)
     await delay(100)
