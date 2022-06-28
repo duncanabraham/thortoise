@@ -1,6 +1,9 @@
 const LightSensors = require('../lib/lightSensors')
 const { delay } = require('../lib/utils')
-const lightSensors = new LightSensors()
+const lightSensorDefaults = {
+  i2cAddress: 0x72
+}
+const lightSensors = new LightSensors(lightSensorDefaults)
 
 const run = async () => {
   while (true) {
