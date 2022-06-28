@@ -7,7 +7,7 @@ const run = async () => {
   while (true) {
     const b = compass.getBearing()
     const raw = compass.raw()
-    const temperature = compass.getTemp()
+    const temperature = compass.getTemperature()
     console.log(b, ' : ', raw, ' : ', temperature)
     await delay(1000)
   }
