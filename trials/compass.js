@@ -22,7 +22,7 @@ const run = async () => {
     const adjustedValues = compass.adjustedValues
     minVals.minValues(raw)
     maxVals.maxValues(raw)
-    console.log(fmt(b, 5, true), ' : ', fmt(raw, 35, false), ' : ', fmt(minVals, 35, false), ' : ', fmt(maxVals, 35, false), adjustedValues, '  : ', compass.upsideDown)
+    console.log(fmt(b, 5, true), ' : ', fmt(raw, 35, false), ' : ', fmt(compass.smoothed, 35, false), ' : ', fmt(minVals, 35, false), ' : ', fmt(maxVals, 35, false), adjustedValues, '  : ', compass.upsideDown)
     await delay(1000)
   }
 }
