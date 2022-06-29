@@ -19,11 +19,10 @@ const run = async () => {
   while (true) {
     const b = compass.getBearing()
     const raw = compass.raw()
-    const temperature = compass.getTemperature()
     const adjustedValues = compass.adjustedValues
     minVals.minValues(raw)
     maxVals.maxValues(raw)
-    console.log(fmt(b, 5, true), ' : ', fmt(raw, 35, false), ' : ', fmt(temperature, 8, false), ' : ', fmt(minVals, 35, false), ' : ', fmt(maxVals, 35, false), adjustedValues)
+    console.log(fmt(b, 5, true), ' : ', fmt(raw, 35, false), ' : ', fmt(minVals, 35, false), ' : ', fmt(maxVals, 35, false), adjustedValues, '  : ', compass.upsideDown)
     await delay(1000)
   }
 }
