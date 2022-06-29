@@ -8,6 +8,7 @@ const minVals = new Triplet(0, 0, 0)
 const maxVals = new Triplet(0, 0, 0)
 
 const fmt = (s, l, d) => {
+  s = JSON.stringify(s)
   while (s.length < l) {
     s = d ? ' ' + s : s + ' '
   }
