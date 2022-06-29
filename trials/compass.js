@@ -23,7 +23,7 @@ const run = async () => {
     const scale = compass.scale
     minVals.minValues(raw)
     maxVals.maxValues(raw)
-    console.log(fmt(b, 5, true), ' : ', fmt(raw, 35, false), ' : ', fmt(temperature, 8, false), ' : ', fmt(minVals, 35, false), ' : ', fmt(maxVals, 35, false), fmt(scale, 35, false))
+    console.log(fmt(b, 5, true), ' : ', fmt(raw, 35, false), ' : ', fmt(temperature, 8, false), ' : ', fmt(minVals, 35, false), ' : ', fmt(maxVals, 35, false), scale)
     await delay(1000)
   }
 }
