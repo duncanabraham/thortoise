@@ -22,7 +22,7 @@ const run = async () => {
     const avg = compass.smoothed.avg()
     minVals.minValues(raw)
     maxVals.maxValues(raw)
-    console.log(fmt(b, 5, true), ' : ', fmt(raw, 35, false), ' : ', fmt(avg, 35, false), ' : ', fmt(minVals, 35, false), ' : ')
+    console.log(fmt(b, 5, true), ' : ', fmt(raw, 35, false), ' : ', fmt(avg, 35, false), ' : ', fmt(minVals, 35, false), ' : ', fmt(maxVals, 35, false))
     await delay(1000)
   }
 }
