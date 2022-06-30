@@ -16,16 +16,16 @@ const env = {
 }
 
 // https://components101.com/motors/mg996r-servo-motor-datasheet- max angle 180 degrees however I've measured it (roughly) at 200 degrees
-const servosFrontLeft = {
+const servosFrontLeft = { // calibrated
   hipServoSettings: { range: [60, 70], startAt: 65, sleepAt: 65, standAt: 65, controller: 'PCA9685' },
-  femurServoSettings: { range: [30, 90], startAt: 60, sleepAt: 60, standAt: 60, controller: 'PCA9685' },
-  kneeServoSettings: { range: [30, 90], startAt: 60, sleepAt: 60, standAt: 60, controller: 'PCA9685' }
+  femurServoSettings: { range: [30, 90], startAt: 60, sleepAt: 30, standAt: 60, controller: 'PCA9685' },
+  kneeServoSettings: { range: [30, 200], startAt: 180, sleepAt: 180, standAt: 60, controller: 'PCA9685' }
 }
 
-const servosFrontRight = {
+const servosFrontRight = { // calibrated
   hipServoSettings: { range: [90, 100], startAt: 95, sleepAt: 95, standAt: 95, controller: 'PCA9685' },
-  femurServoSettings: { range: [30, 90], startAt: 30, sleepAt: 30, standAt: 30, controller: 'PCA9685' },
-  kneeServoSettings: { range: [30, 90], startAt: 60, sleepAt: 60, standAt: 60, controller: 'PCA9685' }
+  femurServoSettings: { range: [130, 210], startAt: 210, sleepAt: 210, standAt: 130, controller: 'PCA9685' },
+  kneeServoSettings: { range: [30, 130], startAt: 130, sleepAt: 130, standAt: 130, controller: 'PCA9685' }
 }
 
 const servosBackLeft = {
