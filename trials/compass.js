@@ -17,7 +17,7 @@ const run = async () => {
     const avg = compass.smoothed.avg()
     const head = compass.getHeading()
     const cal = compass.getCalibration()
-    console.log(fmt(head, 5, true), ' : ', fmt(raw, 35, false), ' : ', fmt(avg, 35, false), ' : ', fmt(cal.calibrationMin, 35, false), ' : ', fmt(cal.calibrationMax, 35, false))
+    console.log(fmt(compass._heading, 5, true), ' : ', fmt(head, 5, true), ' : ', fmt(raw, 35, false), ' : ', fmt(avg, 35, false), ' : ', fmt(cal.calibrationMin, 35, false), ' : ', fmt(cal.calibrationMax, 35, false))
     await delay(1000)
   }
 }
