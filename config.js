@@ -24,7 +24,7 @@ const servosFrontLeft = {
 
 const servosFrontRight = {
   hipServoSettings: { range: [90, 100], startAt: 95, sleepAt: 95, standAt: 95, controller: 'PCA9685' },
-  femurServoSettings: { range: [30, 90], startAt: 60, sleepAt: 60, standAt: 60, controller: 'PCA9685' },
+  femurServoSettings: { range: [30, 90], startAt: 30, sleepAt: 30, standAt: 30, controller: 'PCA9685' },
   kneeServoSettings: { range: [30, 90], startAt: 60, sleepAt: 60, standAt: 60, controller: 'PCA9685' }
 }
 
