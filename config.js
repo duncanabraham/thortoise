@@ -40,7 +40,6 @@ const servosBackRight = {
   kneeServoSettings: { range: [30, 90], startAt: 60, sleepAt: 60, standAt: 60, controller: 'PCA9685' }
 }
 
-
 const legSettings = [
   { id: 0, name: 'front-left', startPos: 0, ...legDefaults, ...servosFrontLeft },
   { id: 1, name: 'front-right', startPos: Math.PI / 2, ...legDefaults, ...servosFrontRight },
