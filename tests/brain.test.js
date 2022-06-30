@@ -32,18 +32,6 @@ describe('the Brain class', () => {
       expect('actualBearing' in brain).to.equal(true)
     })
   })
-  describe('when the _tock() method is called', () => {
-    it('should increment the tickCount value', () => {
-      expect(brain.tickCount).to.equal(0)
-      brain._tock()
-      expect(brain.tickCount).to.equal(1)
-    })
-    it('should set the count to 0 if the count exceeds 10', () => {
-      brain.tickCount = 10
-      brain._tock()
-      expect(brain.tickCount).to.equal(0)
-    })
-  })
   describe('when tick() is called', () => {
     describe('when the tickCount is 0', () => {})
     describe('when the tickCount is 1', () => {})
@@ -55,13 +43,11 @@ describe('the Brain class', () => {
     describe('when the tickCount is 7', () => {})
     describe('when the tickCount is 8', () => {})
     describe('when the tickCount is 9', () => {})
-    it('should call _tock()', () => {
-      let tockCalled = false
-      brain._tock = () => {
-        tockCalled = true
-      }
+    it('should increment the tick counter when called', () => {
+      const originalValue = brain.tickCount.tick
       brain.tick()
-      expect(tockCalled).to.equal(true)
+      const newValue = brain.tickCount.tick
+      expect(newValue).to.equal(originalValue + 1)
     })
   })
 })

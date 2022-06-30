@@ -80,4 +80,24 @@ describe('the Triplet class: ', () => {
       expect(result).to.deep.equal([10, 20, 30])
     })
   })
+  describe('the minValues() mehod', () => {
+    it('should set the current values to the new values if they are lower than the existing values', () => {
+      const numbers = new Triplet(44, 55, 66)
+      const testValues = new Triplet(45, 50, 61)
+      numbers.minValues(testValues)
+      expect(numbers.t1).to.equal(44)
+      expect(numbers.t2).to.equal(50)
+      expect(numbers.t3).to.equal(61)
+    })
+  })
+  describe('the maxValues() mehod', () => {
+    it('should set the current values to the new values if they are higher than the existing values', () => {
+      const numbers = new Triplet(44, 55, 66)
+      const testValues = new Triplet(45, 50, 61)
+      numbers.maxValues(testValues)
+      expect(numbers.t1).to.equal(45)
+      expect(numbers.t2).to.equal(55)
+      expect(numbers.t3).to.equal(66)
+    })
+  })
 })
