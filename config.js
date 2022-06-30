@@ -19,17 +19,17 @@ const env = {
 const servosFrontLeft = { // calibrated
   hipServoSettings: { range: [60, 70], startAt: 65, sleepAt: 65, standAt: 65, controller: 'PCA9685' },
   femurServoSettings: { range: [0, 90], startAt: 0, sleepAt: 0, standAt: 60, controller: 'PCA9685' },
-  kneeServoSettings: { range: [30, 200], startAt: 180, sleepAt: 180, standAt: 60, controller: 'PCA9685' }
+  kneeServoSettings: { range: [30, 200], startAt: 190, sleepAt: 190, standAt: 60, controller: 'PCA9685' }
 }
 
 const servosFrontRight = { // calibrated
   hipServoSettings: { range: [90, 100], startAt: 95, sleepAt: 95, standAt: 95, controller: 'PCA9685' },
-  femurServoSettings: { range: [130, 200], startAt: 200, sleepAt: 200, standAt: 130, controller: 'PCA9685' },
-  kneeServoSettings: { range: [30, 130], startAt: 130, sleepAt: 130, standAt: 130, controller: 'PCA9685' }
+  femurServoSettings: { range: [130, 220], startAt: 220, sleepAt: 220, standAt: 130, controller: 'PCA9685' },
+  kneeServoSettings: { range: [30, 130], startAt: 30, sleepAt: 30, standAt: 60, controller: 'PCA9685' }
 }
 
 const servosBackLeft = {
-  hipServoSettings: { range: [90, 100], startAt: 95, sleepAt: 95, standAt: 95, controller: 'PCA9685' },
+  hipServoSettings: { range: [0, 200], startAt: 180, sleepAt: 180, standAt: 180, controller: 'PCA9685' },
   femurServoSettings: { range: [30, 90], startAt: 60, sleepAt: 60, standAt: 60, controller: 'PCA9685' },
   kneeServoSettings: { range: [30, 90], startAt: 60, sleepAt: 60, standAt: 60, controller: 'PCA9685' }
 }
@@ -39,6 +39,7 @@ const servosBackRight = {
   femurServoSettings: { range: [30, 90], startAt: 60, sleepAt: 60, standAt: 60, controller: 'PCA9685' },
   kneeServoSettings: { range: [30, 90], startAt: 60, sleepAt: 60, standAt: 60, controller: 'PCA9685' }
 }
+
 
 const legSettings = [
   { id: 0, name: 'front-left', startPos: 0, ...legDefaults, ...servosFrontLeft },
