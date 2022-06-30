@@ -13,6 +13,7 @@ const fmt = (s, l, d) => {
 
 const run = async () => {
   const direction = {
+    0: 'START',
     1: 'N',
     2: 'E',
     3: 'NE',
