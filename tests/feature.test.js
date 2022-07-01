@@ -1,4 +1,4 @@
-/* global describe, it */
+/* global describe, it, beforeEach */
 const Feature = require('../lib/feature')
 const { expect } = require('chai')
 
@@ -153,6 +153,45 @@ describe('the Feature class:', () => {
         }
         // Now there is no error because we instantiated with valid options
         expect(errMessage).to.equal('NO ERROR')
+      })
+    })
+    describe('when the feature is valid', () => {
+      beforeEach(() => {
+        feature = new Feature({ group: 'CONTROLLER', type: 'CORE', resumeHandler: () => {}, pauseHandler: () => {} })
+      })
+      describe('when the core() getter is called', () => {
+        it('should return "CORE"', () => {
+          const result = Feature.core
+          expect(result).to.equal('CORE')
+        })
+      })
+      describe('when the optional() getter is called', () => {
+        it('should return "OPTIONAL"', () => {
+          const result = Feature.optional
+          expect(result).to.equal('OPTIONAL')
+        })
+      })
+      describe('when the state() getter is called', () => {
+        describe('and pause and resume have never been called', () => {
+          it('should return a state of "NOT CALLED"', () => {
+            const result = feature.state
+            expect(result).to.equal('NOT CALLED')
+          })
+        })
+        describe('and pause has been called', () => {
+          it('should have a state of "PAUSED"', () => {
+            feature.pause()
+            const result = feature.state
+            expect(result).to.equal('PAUSED')
+          })
+        })
+        describe('and resume has been called', () => {
+          it('should have a state of "ACTIVE"', () => {
+            feature.resume()
+            const result = feature.state
+            expect(result).to.equal('ACTIVE')
+          })
+        })
       })
     })
   })
