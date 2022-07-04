@@ -8,6 +8,9 @@ const JohnnyDriver = require(`./lib/${JOHNNY_DRIVER}.js`) // Allow development o
 const driver = new JohnnyDriver()
 const store = new Store()
 const { pad, niceDate } = require('./lib/utils')
+const Registry = require('./lib/registry')
+
+global.registry = new Registry()
 
 // When an error is logged display it to the console
 store.attachHandler('ERRORS', (data) => {

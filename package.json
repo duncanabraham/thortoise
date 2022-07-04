@@ -25,7 +25,8 @@
     "gps": "^0.6.1",
     "md5": "^2.3.0",
     "redis": "^4.1.0",
-    "serve-favicon": "^2.5.0"
+    "serve-favicon": "^2.5.0",
+    "uuid": "^8.3.2"
   },
   "optionalDependencies": {
     "i2c-bus": "^5.2.2",

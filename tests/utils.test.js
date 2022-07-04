@@ -1,3 +1,4 @@
+/* global describe, it */
 const { expect } = require('chai')
 const utils = require('../lib/utils')
 
@@ -34,33 +35,33 @@ describe('the utils library', () => {
   })
   describe('the easeInOutQuad method', () => {
     it('should perform a mathematical transformation', () => {
-      const result = utils.easeInOutQuad(1,2,3,4)
+      const result = utils.easeInOutQuad(1, 2, 3, 4)
       expect(result).to.equal(2.375)
     })
     it('should perform a mathematical transformation', () => {
-      const result = utils.easeInOutQuad(4,3,2,1)
+      const result = utils.easeInOutQuad(4, 3, 2, 1)
       expect(result).to.equal(-31)
     })
   })
   describe('the easeInOutCubic method', () => {
     it('should perform a mathematical transformation', () => {
-      const result = utils.easeInOutCubic(1,2,3,4)
+      const result = utils.easeInOutCubic(1, 2, 3, 4)
       expect(result).to.equal(2.1875)
     })
     it('should perform a mathematical transformation', () => {
-      const result = utils.easeInOutCubic(4,3,2,1)
+      const result = utils.easeInOutCubic(4, 3, 2, 1)
       expect(result).to.equal(221)
     })
   })
   describe('the easeOutCubic method', () => {
     it('should perform a mathematical transformation', () => {
-      const result = utils.easeOutCubic(1,2,3,4)
+      const result = utils.easeOutCubic(1, 2, 3, 4)
       expect(result).to.equal(3.734375)
     })
   })
   describe('the easeInCubic method', () => {
     it('should perform a mathematical transformation', () => {
-      const result = utils.easeInCubic(1,2,3,4)
+      const result = utils.easeInCubic(1, 2, 3, 4)
       expect(result).to.equal(2.046875)
     })
   })

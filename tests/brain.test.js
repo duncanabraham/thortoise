@@ -2,6 +2,10 @@
 const { expect } = require('chai')
 const Brain = require('../lib/brain')
 
+global.registry = {
+  register: () => {}
+}
+
 describe('the Brain class', () => {
   let brain
   beforeEach(() => {
