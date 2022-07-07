@@ -8,6 +8,9 @@ const path = require('path')
 const mock = require('mock-require')
 const enums = require('../lib/enums')
 const { Command } = require('../lib/command')
+const Registry = require('../lib/registry')
+
+global.registry = new Registry()
 
 const state = {}
 
