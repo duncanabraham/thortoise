@@ -1,6 +1,6 @@
 width=55;
 height=110;
-thick=5;
+thick=3.5;
 outerRadius=200;
 innerRadius=158.366;
 
@@ -22,8 +22,8 @@ module topClip() {
             rotate([0,0,-350]) translate([0,0,0]) cube([5, 2.5, 112]);
             rotate([0,0,-10]) translate([-5,0,0]) cube([5, 2.5, 112]);
             
-           rotate([0,7.53,-350]) translate([1,2,2]) color([0.6,0.6,1,0.5]) cube([width, 4, height]);
-           rotate([0,-7.53,-10]) translate([-width,2,2]) color([0.6,0.6,1,0.5]) cube([width, 4, height]);
+           rotate([0,7.53,-350]) translate([1,2,2]) color([0.6,0.6,1,0.5]) cube([width, thick, height]);
+           rotate([0,-7.53,-10]) translate([-width,2,2]) color([0.6,0.6,1,0.5]) cube([width, thick, height]);
             
         }
        union() {
