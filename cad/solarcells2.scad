@@ -28,19 +28,40 @@ module panels() {
     }
 }
 
-module bracket() {        
-    for(i=[0:17]){
+module bottomBracket() {
+    translate([cellRadius, -(width/2)-8, 0])
+    rotate([0, -leanAngle, 0])
+    cube([8,18,8]);
+    
+    translate([cellRadius, (width/2)-10, 0])
+    rotate([0, -leanAngle, 0])
+    cube([8,18,8]);
+}
+
+module bottomBrackets(n) {
+    for(i=[0:n]){
         rotate([0,0,i*20])
-        translate([cellRadius, -(width/2)-7.22, 0])
-        rotate([0, -leanAngle, 0])
-        cube([10,10,10]);
-        
-//        rotate([0,0,i*20])
-//        translate([cellRadius, (width/2)-10, 0])
-//        rotate([0, -leanAngle, 0])
-//        cube([10,10,10]);
+            bottomBracket();    
+    }
+}
+
+module topBracket() {
+    translate([innerRadius, -(width/2)-2, height-5])
+    rotate([0, -leanAngle, 0])
+    cube([8,14,8]);
+
+    translate([innerRadius, (width/2)-12, height-5])
+    rotate([0, -leanAngle, 0])
+    cube([8,14,8]);
+}
+
+module topBrackets(n) {        
+    for(i=[0:n]){
+        rotate([0,0,i*20])
+        topBracket();
     }
 }
 
 panels();
-bracket();
+bottomBrackets(17);
+topBrackets(17);
