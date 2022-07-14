@@ -13,46 +13,55 @@ Height_hc = 114.17831;
 leanAngle=90-72.08;
 topAngle = 7.53 / 2;
 
-module panels() {
-    difference(){
-        union(){
-//            translate([0,0,0]) color("#DDDDDD20") sphere(r=outerRadius, $fn=180);
-            
-//            translate([0,0,0]) cylinder(r=outerRadius, h=2, $fn=360);
-//            translate([0,0,Height_hc]) cylinder(r=innerRadius, h=2, $fn=360);            
-//            translate([cellRadius, -width/2,5]) rotate([-leanAngle,0,90]) color("#40408020") cube([width, thick, height]);
-            for(i = [0:17]){                
-                rotate([0,0,i *20]) translate([cellRadius, -(width/2),5]) rotate([0,-leanAngle,0]) color("#40408020") cube([thick, width,  height]);
-            }
-        }
-        union(){            
-            // translate([0,0,0]) color("#dddddd20") sphere(r=outerRadius, $fn=180);
 
-        }
+module panel(w,l,h) {
+    cube([w, l,  h]);
+}
+
+module panels() {   
+    for(i = [0:17]){                
+        rotate([0,0,i *20]) 
+            translate([cellRadius, -(width/2),5]) 
+            rotate([0,-leanAngle,0])
+            color("#10104040") 
+            panel(thick, width, height);
     }
 }
 
-module bracket() {        
-    difference() {
-        union(){
-            for(i = [0:0]){ 
-                rotate([0,0,i*20])
-                union(){
-                    translate([innerRadius-8,-8, -5]) rotate([0,leanAngle,5]) cube([4, 5, height+8]);
-                    translate([innerRadius-8,-8, -5]) rotate([0,leanAngle,-5]) cube([4, 5, height+8]);
-                    
-                }
+module bottomBracket() {
+    translate([cellRadius, -(width/2)-8, 0])
+    rotate([0, -leanAngle, 0])
+    cube([8,18,8]);
+    
+    translate([cellRadius, (width/2)-10, 0])
+    rotate([0, -leanAngle, 0])
+    cube([8,18,8]);
+}
 
-            }
-        }
-        union(){
-            for(i = [0:17]){ 
-                rotate([0,0,(i*20)])
-                rotate([0,0,90]) translate([innerRadius-6, -(width/2),0]) rotate([0,leanAngle,0]) color("#40408020") cube([thick, width,  height]);
-            }
-        }
+module bottomBrackets(n) {
+    for(i=[0:n]){
+        rotate([0,0,i*20])
+            bottomBracket();    
     }
 }
 
-//panels();
-bracket();
+module topBracket() {
+    translate([innerRadius, -(width/2)-2, height-5])
+    rotate([0, -leanAngle, 0])
+    cube([8,14,8]);
+
+    translate([innerRadius, (width/2)-12, height-5])
+    rotate([0, -leanAngle, 0])
+    cube([8,14,8]);
+}
+
+module topBrackets(n) {        
+    for(i=[0:n]){
+        rotate([0,0,i*20])
+        topBracket();
+    }
+}
+
+panels();
+bottomBrackets(17);
+topBrackets(17);
