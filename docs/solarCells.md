@@ -61,4 +61,7 @@ Angle ∠C = 90° = 1.5708 rad = π/2
 
 * so the distance (radius) is 123.397mm
 
-
+## facet size
+* bottom edge = 71.88
+* top edge = 55
+* bottom offset = (bottomEdge - topEdge) / 2
