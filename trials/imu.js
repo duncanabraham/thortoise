@@ -1,3 +1,4 @@
+require('./common.js')
 const ICM20948 = require('../lib/i2c/ICM20948')
 const { delay } = require('../lib/utils')
 

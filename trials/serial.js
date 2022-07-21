@@ -1,3 +1,4 @@
+require('./common.js')
 const { SerialPort, ReadlineParser } = require('serialport')
 
 const baud = [2400, 4800, 9600, 19200, 38400, 57600, 115200]

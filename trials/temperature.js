@@ -1,3 +1,4 @@
+require('./common.js')
 const i2c = require('i2c-bus')
 
 const LPS22HB_ADDR = 0x5C
@@ -6,6 +7,7 @@ const TEMP_REG = 0x2B
 const PressureRegXL = 0x28
 const PressureRegL = 0x29
 const PressureRegH = 0x2A
+const i2cBus = 0x03
 
 const toCelsius = rawData => {
   console.log('rawData: ', rawData, '  First 2 numbers . next 2 numbers ie 2145 = 21.45C')
@@ -26,7 +28,7 @@ const readPressure = (i2c1) => {
   console.log(`xl: ${xl}, l: ${l}, h: ${h}, hl: ${hl}`)
 }
 
-const i2c1 = i2c.openSync(1)
+const i2c1 = i2c.openSync(i2cBus)
 const rawData = i2c1.readWordSync(LPS22HB_ADDR, TEMP_REG)
 readPressure(i2c1)
 console.log(toCelsius(rawData))

@@ -1,6 +1,7 @@
 /**
  * This works with the serial port!!
  */
+require('./common.js')
 const { SerialPort, ReadlineParser } = require('serialport')
 const { delay } = require('../lib/utils')
 require('../config')

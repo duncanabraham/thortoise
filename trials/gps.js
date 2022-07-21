@@ -1,3 +1,4 @@
+require('./common.js')
 const SerialPort = require('serialport').SerialPort
 const SerialPortParser = require('@serialport/parser-readline')
 const GPS = require('gps')

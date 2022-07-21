@@ -1,3 +1,4 @@
+require('./common.js')
 const LightSensors = require('../lib/lightSensors')
 const { delay } = require('../lib/utils')
 const lightSensorDefaults = {
