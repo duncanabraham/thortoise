@@ -9,7 +9,7 @@ const lightSensors = new LightSensors(lightSensorDefaults)
 const run = async () => {
   while (true) {
     await delay(1000)
-    const values = lightSensors.getValues()
+    const values = lightSensors.getRawValues()
     console.log(values)
   }
 }
