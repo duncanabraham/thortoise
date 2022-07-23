@@ -89,9 +89,9 @@ describe('the Grid class', () => {
           { x1: 5, y1: 3, x2: 1, y2: 1, result: coords(3, 2) }
         ]
         expectedPoints.forEach(point => {
-          const point1 = coords(point.x1, point.y1)
-          const point2 = coords(point.x2, point.y2)
-          const result = point1.midPoint(point2)
+          const poinx = coords(point.x1, point.y1)
+          const poiny = coords(point.x2, point.y2)
+          const result = poinx.midPoint(poiny)
           expect(result.equals(point.result)).to.equal(true)
         })
       })

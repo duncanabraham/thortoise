@@ -9,7 +9,7 @@ describe('the Pos class:', () => {
     pos = new Pos(45, 50, 75, 'test', 0, 155, 155)
   })
   it('should create an object with known attributes', () => {
-    const attrs = ['t1', 't2', 't3', 'name', 'startPos', 'distanceFromHipToFoot', 'angleAtFemur', 'angleAtKnee', 'angleAtHip', 'femurLength', 'tibiaLength', 'groundClearance']
+    const attrs = ['x', 'y', 'z', 'name', 'startPos', 'distanceFromHipToFoot', 'angleAtFemur', 'angleAtKnee', 'angleAtHip', 'femurLength', 'tibiaLength', 'groundClearance']
     let hasAllAttributes = true
     attrs.forEach(a => {
       if (!(a in pos)) {
@@ -19,7 +19,7 @@ describe('the Pos class:', () => {
     expect(hasAllAttributes).to.equal(true)
   })
   describe('the angles setter', () => {
-    it('should accept a Triplet and set the current t1,t2 and t3 values', () => {
+    it('should accept a Triplet and set the current x,y and z values', () => {
       const newPosition = new Triplet(10, 20, 30)
       pos.setAngles(newPosition)
       expect(pos.x).to.equal(10)
@@ -29,7 +29,7 @@ describe('the Pos class:', () => {
   })
   describe('the calculated xyz position', () => {
     it('should work out the mm positions based on the angles and limb lengths', () => {
-      const { position: { t1: x, t2: y, t3: z } } = pos
+      const { position: { x: x, y: y, z: z } } = pos
       expect(x).to.equal(189) // don't change these values, if the test is broken
       expect(y).to.equal(133) // its because you broke the maths in POS or
       expect(z).to.equal(8) // in kinematics.js

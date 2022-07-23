@@ -3,7 +3,7 @@ const { Triplet } = require('../lib/triplet')
 const { expect } = require('chai')
 
 describe('the Triplet class: ', () => {
-  it('returns an object containing 3 numbers as t1, t2 and t3', () => {
+  it('returns an object containing 3 numbers as x, y and z', () => {
     const testValue = new Triplet(1, 2, 3)
     expect(testValue.x).to.equal(1)
     expect(testValue.y).to.equal(2)
