@@ -56,6 +56,20 @@ Servo driven quadruped with solar charger.
   * Solar cells etc for changing
 
 
+## Sensors
+A number of sensors have been tested and drivers written to allow them to be added into the system, however not all will be used. Given
+all the sensors are i2c based there's a common i2c base library which all the sensors extend.
+
+To reuse the sensors outside of this project, you'll need to remove the inheritance from the Feature class:
+```
+class I2cBase extends Feature { <-- Remove "extends Feature"
+  constructor (options = {}, additional = {}) {
+    super({ ...featureOptions, ...options }) <-- Remove this line
+    
+```
+A full list of sensors can be found in the readme file in the [i2c folder](lib/i2c/README.md)
+
+
 ## Software
 Lets buck the trend and not use ROS! How about some custom robot code with a redis channel
 to allow communication between component parts which could be written in different languages
