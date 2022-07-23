@@ -1,15 +1,15 @@
 require('./common.js')
-const LightSensors = require('../lib/lightSensors')
+const SensorMux = require('../lib/sensorMux')
 const { delay } = require('../lib/utils')
-const lightSensorDefaults = {
+const sensorMuxDefaults = {
   i2cAddress: 0x72
 }
-const lightSensors = new LightSensors(lightSensorDefaults)
+const sensorArray = new SensorMux(sensorMuxDefaults)
 
 const run = async () => {
   while (true) {
     await delay(1000)
-    const values = lightSensors.getRawValues()
+    const values = sensorArray.getValues()
     console.log(values)
   }
 }
