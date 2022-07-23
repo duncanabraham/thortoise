@@ -8,8 +8,8 @@ A base class exists to provide all the low level calls and a number of higher le
 
 |  Module   | Type      | Description                                                          |
 |-----------|-----------|----------------------------------------------------------------------|
-| BH1750FVI | LIGHT     | Light intensity sensor                                               |
 | i2cBase   |           | The base class providing low level calls to the other modules        |
+| BH1750FVI | LIGHT     | Light intensity sensor                                               |
 | ICM20948  | IMU       | 9-axis motion sensor                                                 |
 | INA3221   | Current   | 3 Channel current and voltage sensor                                 |
 | LPS22HB   | Pressure  | Barometer and Temperature sensor                                     |
