@@ -86,7 +86,8 @@ describe('The Thortoise class: ', () => {
     // eslint-disable-next-line no-global-assign
     console = {
       log: () => { },
-      info: () => { }
+      info: () => { },
+      error: () => { }
     }
     // eslint-disable-next-line no-global-assign
     setInterval = (action, timer) => {

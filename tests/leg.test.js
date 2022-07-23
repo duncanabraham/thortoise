@@ -3,6 +3,10 @@ const { Triplet } = require('../lib/triplet')
 const { expect } = require('chai')
 const Leg = require('../lib/leg')
 
+global.registry = {
+  register: () => {}
+}
+
 const { mockDriver, counters } = require('./mocks')
 
 const servoSettings = {
