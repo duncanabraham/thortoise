@@ -38,9 +38,9 @@ describe('the Kinematics class:', () => {
       const limb2 = 110
       const newAngles = anglesFromPosition(testData, limb1, limb2).rounded()
 
-      expect(newAngles.t1).to.equal(56)
-      expect(newAngles.t2).to.equal(65)
-      expect(newAngles.t3).to.equal(99)
+      expect(newAngles.x).to.equal(56)
+      expect(newAngles.y).to.equal(65)
+      expect(newAngles.z).to.equal(99)
     })
   })
   describe('the move method:', () => {
