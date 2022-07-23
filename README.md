@@ -67,7 +67,7 @@ class I2cBase extends Feature { <-- Remove "extends Feature"
     super({ ...featureOptions, ...options }) <-- Remove this line
     
 ```
-A full list of sensors can be found in the readme file in the [i2c folder](lib/i2c/README.md)
+A full list of sensors can be found in the readme file in the [lib/i2c folder](lib/i2c/README.md)
 
 
 ## Software
