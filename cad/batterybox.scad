@@ -382,10 +382,10 @@ module brace(s) {
   translate([midx-halfWall, midy-halfWall, topZ]) color([0,1,1]) rotate([0,0,r]) cube([200, wall, 40]);
 }
 
-batteryHolder();
+//batteryHolder();
 // batteryHolderRound();
 // lid();
 // upperBox();
-// topLid();
+ topLid();
 // dome();
 
