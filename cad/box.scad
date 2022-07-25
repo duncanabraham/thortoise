@@ -3,7 +3,7 @@ boardLength = 86;
 boardThickness = 2;
 rpiWidth = 30;
 rpiLength = 67;
-boxWidth = 80;
+boxWidth = 100;
 boxHeight = 70;
 wallThickness = 3;
 servoBracketHeight = 50;
@@ -35,42 +35,47 @@ module boxBase() {
     difference() {
         union(){
             translate([0,0,0]) cube([boxLength, boxWidth, wallThickness]);
-            translate([wallThickness, wallThickness+25,0]) cube([boxLength-(wallThickness*2), 15,5]);
+            translate([wallThickness, (boxWidth/2)-20,0]) cube([boxLength-(wallThickness*2), 27,5]);
             
             // pi mounts
             translate([12 + wallThickness, (boxWidth / 2)-12,wallThickness]) cube([6, 13, 6]);
             translate([12 + wallThickness+rpiLength-6, (boxWidth / 2)-12,wallThickness]) cube([6, 13, 6]);
             
+            // gps mount
+//            translate([wallThickness, wallThickness+5,wallThickness]) cube([3.5,30,boardWidth-1]);
+            
             // pcb mounts
-            translate([wallThickness, wallThickness+25,wallThickness]) cube([6,27,6]);
-            translate([wallThickness, wallThickness+37,wallThickness]) cube([3.5,8,boardWidth-1]);
-            translate([wallThickness, wallThickness+25,wallThickness]) cube([12,13,6]);
-           
-            
-            translate([wallThickness+boardLength-2, wallThickness+25,wallThickness]) cube([6,27,6]);
-            
-            translate([wallThickness+boardLength+0.5, wallThickness+37,wallThickness]) cube([3.5,8,boardWidth-1]);
-            
-            translate([wallThickness+boardLength-2-10, wallThickness+25,wallThickness]) cube([12,13,6]);
+//            translate([wallThickness, wallThickness+25,wallThickness]) cube([6,27,6]);
+//            translate([wallThickness, wallThickness+37,wallThickness]) cube([3.5,8,boardWidth-1]);
+//            translate([wallThickness, wallThickness+25,wallThickness]) cube([12,13,6]);
+//           
+//            translate([wallThickness+boardLength-2, wallThickness+25,wallThickness]) cube([6,27,6]);         
+//            translate([wallThickness+boardLength+0.5, wallThickness+37,wallThickness]) cube([3.5,8,boardWidth-1]);
+//            translate([wallThickness+boardLength-2-10, wallThickness+25,wallThickness]) cube([12,13,6]);
             
         }
         union(){
-            translate([2 + wallThickness, (boxWidth / 2) + 5,wallThickness]) rotate([90,0,0]) pcb();
-            translate([12 + wallThickness, (boxWidth / 2) - 5,wallThickness]) rotate([90,0,0]) rpi();
-            translate([12 + wallThickness+6, (boxWidth / 2) - 15.1,wallThickness/2]) cube([rpiLength-12, 10.1, 4]);
+//            translate([wallThickness+1, wallThickness+6,boxHeight-28]) cube([2,28,boardWidth]);
+//            translate([wallThickness+2, wallThickness+7,boxHeight-28]) cube([2,26,boardWidth]);
+            
+            translate([2 + wallThickness, (boxWidth / 2) + 5,wallThickness+0.1]) rotate([90,0,0]) pcb();
+            translate([12 + wallThickness, (boxWidth / 2) - 5,wallThickness+0.1]) rotate([90,0,0]) rpi();
+            translate([12 + wallThickness, (boxWidth / 2) - 5 - 18.4,wallThickness+0.1]) rotate([90,0,0]) rpi();
+            
+            translate([12 + wallThickness+6, (boxWidth / 2) - 20.1,wallThickness]) cube([rpiLength-12, 15.1, 4]);
+//            
+//            
+//            translate([wallThickness+3.25, wallThickness+25-1,wallThickness+2.25]) rotate([0,90,90]) cylinder(d=2, h=30, $fn=180);
+//            translate([wallThickness+boardLength-2+2.75, wallThickness+25-1,wallThickness+2.25]) rotate([0,90,90]) cylinder(d=2, h=30, $fn=180);
+//            
+//            translate([12 + wallThickness+3.5, (boxWidth / 2)-12-1,wallThickness+3.5+1]) rotate([0,90,90]) cylinder(d=2, h=20, $fn=180);
+//            translate([12 + wallThickness+rpiLength-3.5, (boxWidth / 2)-12-1,wallThickness+3.5+1]) rotate([0,90,90]) cylinder(d=2, h=20, $fn=180);
             
             
-            translate([wallThickness+3.25, wallThickness+25-1,wallThickness+2.25]) rotate([0,90,90]) cylinder(d=2, h=30, $fn=180);
-            translate([wallThickness+boardLength-2+2.75, wallThickness+25-1,wallThickness+2.25]) rotate([0,90,90]) cylinder(d=2, h=30, $fn=180);
-            
-            translate([12 + wallThickness+3.5, (boxWidth / 2)-12-1,wallThickness+3.5+1]) rotate([0,90,90]) cylinder(d=2, h=20, $fn=180);
-            translate([12 + wallThickness+rpiLength-3.5, (boxWidth / 2)-12-1,wallThickness+3.5+1]) rotate([0,90,90]) cylinder(d=2, h=20, $fn=180);
-            
-            
-            for(i = [0:9]){
-                translate([12 + wallThickness+6+(i*5.9), (boxWidth / 2) - 25,-1]) cube([2, 20, wallThickness+2]);
-                translate([12 + wallThickness+6+(i*5.9), (boxWidth / 2)+6,-1]) cube([2, 20, wallThickness+2]);
-            }
+//            for(i = [0:9]){
+//                translate([12 + wallThickness+6+(i*5.9), (boxWidth / 2) - 25,-1]) cube([2, 20, wallThickness+2]);
+//                translate([12 + wallThickness+6+(i*5.9), (boxWidth / 2)+6,-1]) cube([2, 20, wallThickness+2]);
+//            }
         }
     }
 }
@@ -101,7 +106,15 @@ module outerBox() {
             for(i = [0:3]){
                 translate([14 + wallThickness + (14*i), -1, rpiWidth+wallThickness-10]) cube([12, wallThickness+2, 8]);
             }
-            translate([14 + wallThickness + 65, -1, rpiWidth+wallThickness-7]) rotate([0,90,90]) cylinder(d=6, h=wallThickness+2, $fn=180);
+            
+            // Switch hole
+            translate([25 + wallThickness, boxWidth-wallThickness-1, wallThickness+20]) rotate([0,90,90]) cylinder(d=12.2, h=wallThickness+2, $fn=180);
+            
+            // gps ant hole
+            translate([14 + wallThickness + 60, -1, boxHeight-8]) rotate([0,90,90]) cylinder(d=6, h=wallThickness+2, $fn=180);
+            
+            // power cable in
+            translate([14 + wallThickness + 60, boxWidth-wallThickness-1, boxHeight-8]) rotate([0,90,90]) cylinder(d=6, h=wallThickness+2, $fn=180);
             
             
             // Holes for sensors
@@ -214,9 +227,9 @@ module rpi() {
 }
 
 boxBase();
-outerBox();
+//outerBox();
 //topLid();
 
 //translate([2 + wallThickness, (boxWidth / 2) + 5,4]) rotate([90,0,0]) pcb();
 //translate([12 + wallThickness, (boxWidth / 2) - 5,4]) rotate([90,0,0]) rpi();
-//translate([12 + wallThickness, (boxWidth / 2) - 18,4]) rotate([90,0,0]) rpi();
+//translate([12 + wallThickness, (boxWidth / 2) - 5 - 18.4,4]) rotate([90,0,0]) rpi();
