@@ -3,7 +3,7 @@ const SerialPort = require('serialport').SerialPort
 const SerialPortParser = require('@serialport/parser-readline')
 const GPS = require('gps')
 
-const port = new SerialPort({ path: '/dev/ttySC1', baudRate: 9600 })
+const port = new SerialPort({ path: '/dev/ttyAML0', baudRate: 9600 }) // Radxa zero
 const gps = new GPS()
 
 const parser = port.pipe(new SerialPortParser())
