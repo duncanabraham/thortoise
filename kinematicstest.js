@@ -2,15 +2,6 @@
 
 const Leg = require('./lib/leg')
 
-const JohnnyDriver = require('./lib/mockJohnny')
-const driver = new JohnnyDriver() // allows direct communication with the hardware
-
-const init = async () => {
-  await driver.initBoard() // wait for the board to initialise before we use it
-}
-
-init()
-
 const servoSettingsHip = {
   range: [60, 120],
   startAt: 60,
@@ -32,7 +23,6 @@ const servoSettingsKnee = {
 const legConfig = {
   femurLength: 110,
   tibiaLength: 110,
-  driver,
   hipServoSettings: servoSettingsHip,
   femurServoSettings: servoSettingsFemur,
   kneeServoSettings: servoSettingsKnee

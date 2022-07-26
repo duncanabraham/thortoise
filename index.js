@@ -1,11 +1,9 @@
 const Store = require('./lib/store')
-const { options, env: { JOHNNY_DRIVER }, api } = require('./config')
+const { options, api } = require('./config')
 const Thortoise = require('./lib/thortoise')
 const Controller = require('./lib/controller')
 const express = require('express')
 const bodyParser = require('body-parser')
-const JohnnyDriver = require(`./lib/${JOHNNY_DRIVER}.js`) // Allow development on a mock driver and running on the actual driver
-const driver = new JohnnyDriver()
 const store = new Store()
 const { pad, niceDate } = require('./lib/utils')
 const Registry = require('./lib/registry')
@@ -18,11 +16,11 @@ store.attachHandler('ERRORS', (data) => {
 })
 
 store.attachHandler('INFO', (data) => {
-  console.info(`${pad(data.key, 10, true)}  ${pad(data.value, 80, true)} ${niceDate(data.time)}`)
+  console.info(`${pad(data.key, 10, true)} ${pad(data.value, 80, true)} ${niceDate(data.time)}`)
 })
 
 const init = async () => {
-  await driver.initBoard()
+  // TODO: do I need to initialise anything here?
 }
 
 const app = express()
@@ -36,7 +34,7 @@ app.listen(api.port, () => {
 
 (async () => {
   init()
-  const thortBot = new Thortoise({ ...options, driver, store })
+  const thortBot = new Thortoise({ ...options, store })
   this.controller = new Controller({ robot: thortBot, app, store })
 
   console.info(thortBot)
