@@ -1,3 +1,6 @@
+const Registry = require('./lib/registry')
+global.registry = new Registry()
+
 const Store = require('./lib/store')
 const { options, api } = require('./config')
 const Thortoise = require('./lib/thortoise')
@@ -6,9 +9,6 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const store = new Store()
 const { pad, niceDate } = require('./lib/utils')
-const Registry = require('./lib/registry')
-
-global.registry = new Registry()
 
 // When an error is logged display it to the console
 store.attachHandler('ERRORS', (data) => {
@@ -34,10 +34,10 @@ app.listen(api.port, () => {
 
 (async () => {
   init()
-  const thortBot = new Thortoise({ ...options, store })
-  this.controller = new Controller({ robot: thortBot, app, store })
+  const thortoise = new Thortoise({ ...options, store })
+  this.controller = new Controller({ robot: thortoise, app, store })
 
-  console.info(thortBot)
+  console.info(thortoise)
 
-  thortBot.start()
+  thortoise.start()
 })()

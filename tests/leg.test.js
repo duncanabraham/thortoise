@@ -7,7 +7,7 @@ global.registry = {
   register: () => {}
 }
 
-const { mockDriver, counters } = require('./mocks')
+const { counters } = require('./mocks')
 
 const servoSettings = {
   range: [40, 90],
@@ -21,7 +21,6 @@ describe('The Leg class: ', () => {
     legSettings = {
       id: 3,
       name: 'test leg',
-      driver: mockDriver,
       hipServoSettings: servoSettings,
       femurServoSettings: servoSettings,
       kneeServoSettings: servoSettings,

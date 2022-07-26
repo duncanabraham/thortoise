@@ -1,6 +1,6 @@
 // const { Pos } = require('./lib/pos')
 
-const Leg = require('./lib/leg')
+const Leg = require('../lib/leg')
 
 const servoSettingsHip = {
   range: [60, 120],
