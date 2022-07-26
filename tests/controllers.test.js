@@ -1,4 +1,5 @@
 /* global describe, it, beforeEach */
+require('./common.js')
 const { expect } = require('chai')
 const Controller = require('../lib/controller')
 const { CommandQueue } = require('../lib/command')

@@ -1,4 +1,5 @@
 /* global describe, it, beforeEach */
+require('./common.js')
 const { Triplet } = require('../lib/triplet')
 const { expect } = require('chai')
 const Leg = require('../lib/leg')
@@ -79,11 +80,10 @@ describe('The Leg class: ', () => {
       expect(leg.servos.femur.pin).to.equal(leg.baseId + 1)
       expect(leg.servos.knee.pin).to.equal(leg.baseId + 2)
     })
-    it('when stop is called, each servo\'s stop method is called', () => {
-      leg.stop()
+    it('when stop is called, the direction is set to "stop"', () => {
       counters.stopCount = 0
       leg.stop()
-      expect(counters.stopCount).to.equal(3)
+      expect(leg.direction).to.equal('stop')
     })
     it('should reset the servos when "home" is called', () => {
       const expectedPosition = new Triplet(45, 45, 45)

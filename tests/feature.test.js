@@ -1,4 +1,5 @@
 /* global describe, it, beforeEach */
+require('./common')
 const Feature = require('../lib/feature')
 const { expect } = require('chai')
 
