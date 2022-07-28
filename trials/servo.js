@@ -5,3 +5,8 @@ const servo0Options = { pin: 0, name: 'servo0', range: [60, 70], startAt: 65, sl
 const servo = servoController.addServo(servo0Options)
 
 console.log(servoController)
+console.log(servo)
+servo.min()
+servo.max()
+servo.home()
+
