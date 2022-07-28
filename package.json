@@ -30,10 +30,6 @@
   },
   "optionalDependencies": {
     "i2c-bus": "^5.2.2",
-    "johnny-five": "^2.1.0",
-    "pca9685": "^5.0.0",
-    "pi-camera": "^1.7.0",
-    "raspi-io": "^11.0.0",
     "serialport": "^10.4.0"
   }
 }

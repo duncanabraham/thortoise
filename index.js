@@ -37,7 +37,9 @@ app.listen(api.port, () => {
   const thortoise = new Thortoise({ ...options, store })
   this.controller = new Controller({ robot: thortoise, app, store })
 
-  console.info(thortoise)
+  if (thortoise.verbose) {
+    console.info(thortoise)
+  }
 
   thortoise.start()
 })()

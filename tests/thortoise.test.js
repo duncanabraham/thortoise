@@ -170,7 +170,6 @@ describe('The Thortoise class: ', () => {
       it('should start the running loop', async () => {
         delete thortoise.running
         await thortoise.start()
-        console.log('thortoise: ', thortoise)
         expect(thortoise.running).to.equal(true)
       })
       it('should set up the handler on an interval timer', async () => {
