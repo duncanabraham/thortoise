@@ -8,7 +8,7 @@ coverage/
 appmap*
 platoReport/
 target/
-./**/.DS_Store
+.DS_Store
 .nyc_output
 .trunk/
 .vscode/
