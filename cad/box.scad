@@ -227,7 +227,7 @@ module rpi() {
 }
 
 boxBase();
-//outerBox();
+outerBox();
 //topLid();
 
 //translate([2 + wallThickness, (boxWidth / 2) + 5,4]) rotate([90,0,0]) pcb();
