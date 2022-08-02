@@ -12,7 +12,7 @@ CHANNEL_2_END = 0x10
 MODE1_REG_ADDR = 0
 PRE_SCALE_REG_ADDR = 0xFE
 
-bus = smbus.SMBus(1)
+bus = smbus.SMBus(3)
 
 # Enable prescaler change
 bus.write_byte_data(BOARD_I2C_ADDR, MODE1_REG_ADDR, 0x10)
