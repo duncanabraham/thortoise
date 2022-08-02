@@ -1,3 +1,4 @@
+require('./common')
 const Controller = require('../lib/ServoController')
 const servoController = new Controller()
 
