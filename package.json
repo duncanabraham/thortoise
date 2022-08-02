@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "nyc --reporter lcov --reporter text mocha tests/**/*.test.js",
-    "start": "node index.js"
+    "start": "node index.js",
+    "latest": "git pull & sync"
   },
   "keywords": [],
   "author": "",
