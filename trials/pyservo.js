@@ -1,3 +1,4 @@
+require('./common')
 const I2c = require('../lib/i2c/i2cBase')
 const i2c = new I2c({ i2cAddress: 0x40 })
 const delay = require('../lib/utils').delay
