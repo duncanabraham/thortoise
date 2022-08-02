@@ -10,7 +10,7 @@ const servo = servoController.addServo(servo0Options)
 const run = async () => {
   let pulse = 10
   while (true) {
-    servoController.setCount(pulse)
+    servoController.setCount(0, pulse)
     await delay(10)
     pulse = pulse + 1
     if (pulse > 170) {
