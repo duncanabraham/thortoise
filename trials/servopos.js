@@ -12,7 +12,7 @@ console.log('Controller: ', servoController)
 
 console.log('servo0', servoController.getPWM(0))
 
-servo0.to(10)
+servoController.setCount(0, 200)
 
 delay(3000).then(()=>{
   servoController.shutdown()
