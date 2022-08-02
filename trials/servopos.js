@@ -14,4 +14,4 @@ console.log('servo0', servoController.getPWM(0))
 console.log('servo1', servoController.getPWM(1))
 console.log('servo2', servoController.getPWM(2))
 
-servo0.standAt()
+servo0.stand()
