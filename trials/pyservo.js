@@ -8,13 +8,13 @@ const run = async () => {
   await delay(1)
   i2c._writeByte(0x06, 0x00) // on value = 0
 
-  let pulse = 10
+  let pulse = 1
   while (true) {
     i2c._writeWordLH(0x08, pulse)
-    await delay(100)
-    pulse = pulse + 10
+    await delay(10)
+    pulse = pulse + 1
     if (pulse > 500) {
-      pulse = 10
+      pulse = 1
     }
   }
 }
