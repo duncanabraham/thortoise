@@ -10,7 +10,7 @@ const servo0 = servoController.addServo({...servo0Options, pin: 0, name: 'frontL
 
 console.log('Controller: ', servoController)
 
-servoController.setCount(0, 200)
+servoController.to(0, 90)
 
 console.log('servo0', servoController.getPWM(0))
 
