@@ -34,5 +34,5 @@ while True:
     bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_END, pulse)
     time.sleep(0.1)  # Delay 5 seconds
     pulse  = pulse + 10
-    if pulse > 200:
+    if pulse > 500:
         pulse = 10
