@@ -88,8 +88,38 @@ module battery(){
         cube([batteryLength, batteryWidth, batteryHeight]);
 }
 
-
-
+module mountPlate() {
+    bottom=boxHeight - 10;
+    plateWidth=boxWidth-(2*wallThickness);
+    plateLength=60+60+boxWidth;
+   
+    difference() {
+        union(){
+            translate([boxLength/2, boxWidth/2, bottom]) 
+                cylinder(d=boxLength+30, h=wallThickness, $fn=180);
+            
+            translate([boxLength/2, boxWidth/2, bottom+25]) 
+                cylinder(d=boxLength+20, h=wallThickness, $fn=180);
+            
+            translate([-5, -5, bottom]) 
+                cube([boxLength+10, boxWidth+10, wallThickness*2]);
+            translate([0, 0, bottom]) cylinder(d=10, h=25, $fn=180); 
+            translate([0, boxWidth, bottom]) cylinder(d=10, h=25, $fn=180);
+            translate([boxLength, 0, bottom]) cylinder(d=10, h=25, $fn=180); 
+            translate([boxLength, boxWidth, bottom]) cylinder(d=10, h=25, $fn=180);
+            
+        }
+        union(){
+            translate([0, 0, bottom-1]) 
+                cube([boxLength, boxWidth, wallThickness+15]);
+            translate([0, 0, bottom+15]) cylinder(d=5, h=25, $fn=180);
+            translate([0, boxWidth, bottom+15]) cylinder(d=5, h=25, $fn=180); 
+            translate([boxLength, 0, bottom+15]) cylinder(d=5, h=25, $fn=180); 
+            translate([boxLength, boxWidth, bottom+15]) cylinder(d=5, h=25, $fn=180);
+        }
+    }
+}
 
 batteryBox();
 //battery();
+mountPlate();
