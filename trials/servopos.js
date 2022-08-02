@@ -10,9 +10,9 @@ const servo0 = servoController.addServo({...servo0Options, pin: 0, name: 'frontL
 
 console.log('Controller: ', servoController)
 
-console.log('servo0', servoController.getPWM(0))
-
 servoController.setCount(0, 200)
+
+console.log('servo0', servoController.getPWM(0))
 
 delay(3000).then(()=>{
   servoController.shutdown()
