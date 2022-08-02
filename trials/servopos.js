@@ -15,6 +15,6 @@ servoController.setCount(0, 200)
 console.log('servo0', servoController.getPWM(0))
 
 delay(3000).then(()=>{
-  servoController.shutdown()
+  servoController.shutdown() // PCA9685._stop()
 })
 
