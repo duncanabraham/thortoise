@@ -14,9 +14,9 @@ const run = async () => {
   while (true) {
     // servoController.setCount(0, pulse)
     servo.to(angle)
-    servo
     await delay(10)
     direction = angle + direction >= maxPos || angle + direction <= 10 ? -direction : direction
+    angle = angle + direction
   }
 }
 
