@@ -12,10 +12,7 @@ const run = async () => {
   while (true) {
     servoController.setCount(0, pulse)
     await delay(10)
-    pulse = pulse + 1
-    if (pulse > 170) {
-      pulse = 10
-    }
+    pulse = pulse + 1 > 170 ? 10 : pulse + 1
   }
 }
 
