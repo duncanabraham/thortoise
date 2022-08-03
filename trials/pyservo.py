@@ -28,7 +28,7 @@ bus.write_byte_data(BOARD_I2C_ADDR, MODE1_REG_ADDR, 0x20)
 bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_START, 0)
 
 angle=10
-direction=1
+direction=10
 
 while True:
     # Set Standard servos to 0 degrees - 0.5ms pulse
