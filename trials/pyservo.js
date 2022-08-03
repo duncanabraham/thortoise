@@ -10,8 +10,8 @@ const run = async () => {
 
   let pulse = 1
   while (true) {
-    i2c._writeWordLH(0x06, 0x00)
-    i2c._writeWordLH(0x08, pulse)
+    i2c._writeWord(0x06, 0x00)
+    i2c._writeWord(0x08, pulse)
     await delay(10)
     pulse = pulse + 1
     if (pulse > 500) {
