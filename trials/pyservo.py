@@ -1,6 +1,7 @@
 # Servo demo
 import smbus
 import time
+import math
 
 BOARD_I2C_ADDR = 0x40
 CHANNEL_0_START = 0x06
@@ -29,7 +30,7 @@ testServo=4
 
 
 SERVO_CONSTANT = 2.295
-pos = ((angle * SERVO_CONSTANT) + 71)
+pos = math.floor((angle * SERVO_CONSTANT) + 71)
 bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_START+(4 * testServo), 0)
 bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_END+(4 * testServo), pos)
 
