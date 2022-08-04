@@ -19,7 +19,7 @@ const env = {
 const servosFrontLeft = { // calibrated
   hipServoSettings: { pin: 0, range: [10, 20], startAt: 10, sleepAt: 10, standAt: 10 }, // done
   femurServoSettings: { pin: 1, range: [90, 200], startAt: 90, sleepAt: 90, standAt: 90 },
-  kneeServoSettings: { pin: 2, range: [30, 200], startAt: 60, sleepAt: 60, standAt: 60 }
+  kneeServoSettings: { pin: 2, range: [30, 200], startAt: 30, sleepAt: 60, standAt: 60 }
 }
 
 const servosFrontRight = { // calibrated
