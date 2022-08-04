@@ -26,7 +26,7 @@ time.sleep(.25)
 bus.write_byte_data(BOARD_I2C_ADDR, MODE1_REG_ADDR, 0x20)
 
 angle=190
-testServo=4
+testServo=3
 
 
 SERVO_CONSTANT = 2.295
