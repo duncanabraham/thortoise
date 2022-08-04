@@ -26,15 +26,14 @@ bus.write_byte_data(BOARD_I2C_ADDR, MODE1_REG_ADDR, 0x20)
 
 # Set channel start times
 bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_START, 0)
-
-angle=10
+pos = 93
+angle=pos
 direction=10
 
 while True:
     # Set Standard servos to 0 degrees - 0.5ms pulse
     bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_END, angle)
     time.sleep(0.1)
-    if angle + direction > 170 or angle + direction < 10:
+    if angle + direction > pos+23 or angle + direction < pos:
         direction *= -1
     angle=angle + direction
-
