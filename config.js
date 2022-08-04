@@ -23,9 +23,9 @@ const servosFrontLeft = { // calibrated
 }
 
 const servosFrontRight = { // calibrated
-  hipServoSettings: { pin: 3, range: [90, 100], startAt: 95, sleepAt: 95, standAt: 95 },
-  femurServoSettings: { pin: 4, range: [100, 220], startAt: 130, sleepAt: 130, standAt: 130 },
-  kneeServoSettings: { pin: 5, range: [30, 130], startAt: 120, sleepAt: 120, standAt: 120 }
+  hipServoSettings: { pin: 3, range: [170, 180], startAt: 180, sleepAt: 180, standAt: 180 },
+  femurServoSettings: { pin: 4, range: [10, 80], startAt: 80, sleepAt: 80, standAt: 80 },
+  kneeServoSettings: { pin: 5, range: [10, 80], startAt: 80, sleepAt: 80, standAt: 80 }
 }
 
 const servosBackLeft = {
