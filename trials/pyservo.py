@@ -24,16 +24,13 @@ time.sleep(.25)
 # Enable word writes
 bus.write_byte_data(BOARD_I2C_ADDR, MODE1_REG_ADDR, 0x20)
 
-# Set channel start times
-bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_START, 0)
-pos = 93
-angle=pos
-direction=10
+angle=190
+testServo=4
 
-while True:
-    # Set Standard servos to 0 degrees - 0.5ms pulse
-    bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_END, angle)
-    time.sleep(0.1)
-    if angle + direction > pos+23 or angle + direction < pos:
-        direction *= -1
-    angle=angle + direction
+
+SERVO_CONSTANT = 2.295
+pos = ((angle * SERVO_CONSTANT) + 71)
+bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_START+(4 * testServo), 0)
+bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_END+(4 * testServo), pos)
+
+time.sleep(1)
