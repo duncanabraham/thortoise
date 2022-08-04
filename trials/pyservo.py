@@ -36,22 +36,22 @@ pos = math.floor((angle * SERVO_CONSTANT) + 71)
 bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_START+(4 * 0), 0)
 bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_END+(4 * 0), math.floor((10 * SERVO_CONSTANT) + 71))
 
-bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_START+(4 * 0), 0)
-bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_END+(4 * 0), math.floor((90 * SERVO_CONSTANT) + 71))
+bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_START+(4 * 1), 0)
+bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_END+(4 * 1), math.floor((90 * SERVO_CONSTANT) + 71))
 
-bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_START+(4 * 0), 0)
-bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_END+(4 * 0), math.floor((60 * SERVO_CONSTANT) + 71))
+bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_START+(4 * 2), 0)
+bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_END+(4 * 2), math.floor((60 * SERVO_CONSTANT) + 71))
 
 
 
 # Front Right
-bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_START+(4 * 0), 0)
-bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_END+(4 * 0), math.floor((180 * SERVO_CONSTANT) + 71))
+bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_START+(4 * 3), 0)
+bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_END+(4 * 3), math.floor((180 * SERVO_CONSTANT) + 71))
 
-bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_START+(4 * 0), 0)
-bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_END+(4 * 0), math.floor((80 * SERVO_CONSTANT) + 71))
+bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_START+(4 * 4), 0)
+bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_END+(4 * 4), math.floor((80 * SERVO_CONSTANT) + 71))
 
-bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_START+(4 * 0), 0)
-bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_END+(4 * 0), math.floor((80 * SERVO_CONSTANT) + 71))
+bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_START+(4 * 5), 0)
+bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_END+(4 * 5), math.floor((80 * SERVO_CONSTANT) + 71))
 
 time.sleep(1)
