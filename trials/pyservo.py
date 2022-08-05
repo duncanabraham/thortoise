@@ -63,10 +63,10 @@ def stand():
   bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_END+(4 * 0), math.floor((10 * SERVO_CONSTANT) + 71))
 
   bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_START+(4 * 1), 0)
-  bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_END+(4 * 1), math.floor((110 * SERVO_CONSTANT) + 71))
+  bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_END+(4 * 1), math.floor((170 * SERVO_CONSTANT) + 71))
 
   bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_START+(4 * 2), 0)
-  bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_END+(4 * 2), math.floor((150 * SERVO_CONSTANT) + 71))
+  bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_END+(4 * 2), math.floor((170 * SERVO_CONSTANT) + 71))
 
 
 
@@ -75,14 +75,13 @@ def stand():
   bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_END+(4 * 3), math.floor((190 * SERVO_CONSTANT) + 71))
 
   bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_START+(4 * 4), 0)
-  bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_END+(4 * 4), math.floor((80 * SERVO_CONSTANT) + 71))
+  bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_END+(4 * 4), math.floor((30 * SERVO_CONSTANT) + 71))
 
   bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_START+(4 * 5), 0)
-  bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_END+(4 * 5), math.floor((80 * SERVO_CONSTANT) + 71))
+  bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_END+(4 * 5), math.floor((30 * SERVO_CONSTANT) + 71))
 
 
 stand()
 
 time.sleep(3)
 
-sleep()
