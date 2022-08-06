@@ -1,6 +1,7 @@
 # Servo demo
 import smbus
 import time
+import math
 
 BOARD_I2C_ADDR = 0x40
 CHANNEL_0_START = 0x06
@@ -24,17 +25,63 @@ time.sleep(.25)
 # Enable word writes
 bus.write_byte_data(BOARD_I2C_ADDR, MODE1_REG_ADDR, 0x20)
 
-# Set channel start times
-bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_START, 0)
+angle=80
+testServo=5
 
-angle=10
-direction=10
 
-while True:
-    # Set Standard servos to 0 degrees - 0.5ms pulse
-    bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_END, angle)
-    time.sleep(0.1)
-    if angle + direction > 170 or angle + direction < 10:
-        direction *= -1
-    angle=angle + direction
+SERVO_CONSTANT = 2.295
+pos = math.floor((angle * SERVO_CONSTANT) + 71)
+
+def sleep():
+  # Front Left
+  bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_START+(4 * 0), 0)
+  bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_END+(4 * 0), math.floor((20 * SERVO_CONSTANT) + 71))
+
+  bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_START+(4 * 1), 0)
+  bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_END+(4 * 1), math.floor((110 * SERVO_CONSTANT) + 71))
+
+  bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_START+(4 * 2), 0)
+  bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_END+(4 * 2), math.floor((120 * SERVO_CONSTANT) + 71))
+
+
+
+  # Front Right
+  bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_START+(4 * 3), 0)
+  bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_END+(4 * 3), math.floor((180 * SERVO_CONSTANT) + 71))
+
+  bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_START+(4 * 4), 0)
+  bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_END+(4 * 4), math.floor((80 * SERVO_CONSTANT) + 71))
+
+  bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_START+(4 * 5), 0)
+  bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_END+(4 * 5), math.floor((110 * SERVO_CONSTANT) + 71))
+
+
+
+def stand():
+  # Front Left
+  bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_START+(4 * 0), 0)
+  bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_END+(4 * 0), math.floor((10 * SERVO_CONSTANT) + 71))
+
+  bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_START+(4 * 1), 0)
+  bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_END+(4 * 1), math.floor((170 * SERVO_CONSTANT) + 71))
+
+  bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_START+(4 * 2), 0)
+  bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_END+(4 * 2), math.floor((170 * SERVO_CONSTANT) + 71))
+
+
+
+  # Front Right
+  bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_START+(4 * 3), 0)
+  bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_END+(4 * 3), math.floor((190 * SERVO_CONSTANT) + 71))
+
+  bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_START+(4 * 4), 0)
+  bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_END+(4 * 4), math.floor((30 * SERVO_CONSTANT) + 71))
+
+  bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_START+(4 * 5), 0)
+  bus.write_word_data(BOARD_I2C_ADDR, CHANNEL_0_END+(4 * 5), math.floor((30 * SERVO_CONSTANT) + 71))
+
+
+stand()
+
+time.sleep(3)
 
