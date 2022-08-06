@@ -10,7 +10,7 @@ const servo = servoController.addServo(servo0Options)
 const run = async () => {
   let angle = 10
   let direction = 1
-  let maxPos = servo0Options.range[1]
+  const maxPos = servo0Options.range[1]
   while (true) {
     // servoController.setCount(0, pulse)
     servo.to(angle)
