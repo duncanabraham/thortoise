@@ -7,8 +7,8 @@ imu.run()
 
 console.log('temperature:', imu.getTemp())
 
-while (true) {
-  const data = imu.getValue()
-  console.log(data)
-}
+// while (true) {
+//   const data = imu.getValue()
+//   console.log(data)
+// }
 
