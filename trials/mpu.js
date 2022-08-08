@@ -1,3 +1,4 @@
+require('./common')
 const MPU6050 = require('../lib/i2c/MPU6050')
 const imu = new MPU6050()
 
