@@ -2,7 +2,7 @@ require('./common.js')
 const SensorMux = require('../lib/sensorMux')
 const { delay } = require('../lib/utils')
 const sensorMuxDefaults = {
-  i2cAddress: 0x74
+  i2cAddress: 0x77
 }
 const sensorArray = new SensorMux(sensorMuxDefaults)
 
