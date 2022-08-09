@@ -11,4 +11,3 @@ console.log('temperature:', imu.getTemp())
 //   const data = imu.getValue()
 //   console.log(data)
 // }
-
