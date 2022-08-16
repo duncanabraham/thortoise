@@ -3,7 +3,7 @@ const Controller = require('../lib/ServoController')
 const servoController = new Controller()
 const delay = require('../lib/utils').delay
 
-const {options:{legSettings}} = require('../config')
+const { options: { legSettings } } = require('../config')
 
 const servoNames = ['hipServoSettings', 'femurServoSettings', 'kneeServoSettings']
 
