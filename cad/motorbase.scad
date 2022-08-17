@@ -35,19 +35,95 @@ midY=width / 2;
 startX = (length - batteryLength) / 2;
 startY = (width - batteryWidth) / 2;
 
+
+module level5() {
+    layerHeight =15;
+    offsetUp = 25+layerHeight+wallThickness;
+    i2cMuxWidth=45;
+    i2cMuxLength=81;
+    
+    lightSensorSpacing=9;
+    
+    powerMonitorWidth=18;
+    powerMonitorLength=31.5;
+    
+    batteryChargerWidth=30;
+    
+    difference(){
+        union(){
+            translate([0,0,boxHeight + wallThickness + offsetUp]) cube([length, width, wallThickness/2]);
+            
+            translate([(length/2)-80, 5, boxHeight + wallThickness + offsetUp-layerHeight]) 
+                cylinder(d=10, h=layerHeight, $fn=90);
+            translate([(length/2)-80, width-5, boxHeight + wallThickness + offsetUp-layerHeight]) 
+                cylinder(d=10, h=layerHeight, $fn=90);
+            translate([(length/2)+80, 5, boxHeight + wallThickness + offsetUp-layerHeight]) 
+                cylinder(d=10, h=layerHeight, $fn=90);
+            translate([(length/2)+80, width-5, boxHeight + wallThickness + offsetUp-layerHeight]) 
+                cylinder(d=10, h=layerHeight, $fn=90);
+        }
+        union(){
+            fixingHoles();
+            
+            // i2cMux Mounting
+            translate([20, midY-(i2cMuxLength/2), boxHeight + wallThickness + offsetUp-layerHeight]) cylinder(d=5, h=50, $fn=90);
+            translate([20, midY+(i2cMuxLength/2), boxHeight + wallThickness + offsetUp-layerHeight]) cylinder(d=5, h=50, $fn=90);
+            translate([20+(i2cMuxWidth/2), midY-(i2cMuxLength/2), boxHeight + wallThickness + offsetUp-layerHeight]) cylinder(d=5, h=50, $fn=90);
+            translate([20+(i2cMuxWidth/2), midY+(i2cMuxLength/2), boxHeight + wallThickness + offsetUp-layerHeight]) cylinder(d=5, h=50, $fn=90);
+            
+            // lightSensor S
+            translate([5, midY-(lightSensorSpacing/2), boxHeight + wallThickness + offsetUp-layerHeight]) cylinder(d=5, h=50, $fn=90);
+            translate([5, midY+(lightSensorSpacing/2), boxHeight + wallThickness + offsetUp-layerHeight]) cylinder(d=5, h=50, $fn=90);
+            
+            // lightSensor N
+            translate([length-5, midY-(lightSensorSpacing/2), boxHeight + wallThickness + offsetUp-layerHeight]) 
+                cylinder(d=5, h=50, $fn=90);
+            translate([length-5, midY+(lightSensorSpacing/2), boxHeight + wallThickness + offsetUp-layerHeight])
+                cylinder(d=5, h=50, $fn=90);
+            
+            // lightSensor E
+            translate([midX-(lightSensorSpacing/2), 5, boxHeight + wallThickness + offsetUp-layerHeight]) 
+                cylinder(d=5, h=50, $fn=90);
+            translate([midX+(lightSensorSpacing/2), 5, boxHeight + wallThickness + offsetUp-layerHeight]) 
+                cylinder(d=5, h=50, $fn=90);
+            
+            // lightSensor W
+            translate([midX-(lightSensorSpacing/2), width-5, boxHeight + wallThickness + offsetUp-layerHeight]) cylinder(d=5, h=50, $fn=90);
+            translate([midX+(lightSensorSpacing/2), width-5, boxHeight + wallThickness + offsetUp-layerHeight]) cylinder(d=5, h=50, $fn=90);
+            
+            // powerMonitor
+            translate([length-20, midY-(powerMonitorLength/2), boxHeight + wallThickness + offsetUp-layerHeight]) cylinder(d=5, h=50, $fn=90);
+            translate([length-20, midY+(powerMonitorLength/2), boxHeight + wallThickness + offsetUp-layerHeight]) cylinder(d=5, h=50, $fn=90);
+            translate([length-20-(powerMonitorWidth), midY-(powerMonitorLength/2), boxHeight + wallThickness + offsetUp-layerHeight]) cylinder(d=5, h=50, $fn=90);
+            translate([length-20-(powerMonitorWidth), midY+(powerMonitorLength/2), boxHeight + wallThickness + offsetUp-layerHeight]) cylinder(d=5, h=50, $fn=90);
+            
+            // batteryCharger
+            translate([60, midY-(batteryChargerWidth/2), boxHeight + wallThickness + offsetUp-layerHeight]) cylinder(d=5, h=50, $fn=90);
+            translate([60, midY+(batteryChargerWidth/2), boxHeight + wallThickness + offsetUp-layerHeight]) cylinder(d=5, h=50, $fn=90);
+            
+            
+            // Cable Slot 1
+            translate([40, midY-(batteryChargerWidth/2), boxHeight + wallThickness + offsetUp-layerHeight]) cube([10, batteryChargerWidth, 100]);
+            
+            // Cable Slot 2
+            translate([length-60, midY-(batteryChargerWidth/2), boxHeight + wallThickness + offsetUp-layerHeight]) cube([10, batteryChargerWidth, 100]);
+        }
+    }
+}
+
 module level4() {   
     offsetUp = 25;
     difference(){
         union(){
             translate([0,0,boxHeight + wallThickness + offsetUp]) cube([length, width, wallThickness]);
-            translate([midX,midY, boxHeight+wallThickness + offsetUp]) cylinder(d=level2Diameter*0.7, h=wallThickness, $fn=180);
+            translate([midX,midY, boxHeight+wallThickness + offsetUp]) cylinder(d=level2Diameter*0.7, h=wallThickness, $fn=90);
             translate([startX - 5, startY - 5, boxHeight + wallThickness+wallThickness+wallThickness]) cube([batteryLength+10, batteryWidth+10, offsetUp-wallThickness]);
         }
         union(){
-            translate([5, motorWidth + wallThickness, boxHeight-10+offsetUp]) cylinder(d=5, h=boxHeight, $fn=180);
-            translate([5, width - (motorWidth + wallThickness), boxHeight-10+offsetUp]) cylinder(d=5, h=boxHeight, $fn=180);
-            translate([length-5, motorWidth + wallThickness, boxHeight-10+offsetUp]) cylinder(d=5, h=boxHeight, $fn=180);
-            translate([length-5, width - (motorWidth + wallThickness), boxHeight-10+offsetUp]) cylinder(d=5, h=boxHeight, $fn=180);
+            translate([5, motorWidth + wallThickness, boxHeight-10+offsetUp]) cylinder(d=5, h=boxHeight, $fn=90);
+            translate([5, width - (motorWidth + wallThickness), boxHeight-10+offsetUp]) cylinder(d=5, h=boxHeight, $fn=90);
+            translate([length-5, motorWidth + wallThickness, boxHeight-10+offsetUp]) cylinder(d=5, h=boxHeight, $fn=90);
+            translate([length-5, width - (motorWidth + wallThickness), boxHeight-10+offsetUp]) cylinder(d=5, h=boxHeight, $fn=90);
             battery();
             fixingHoles();
         }
@@ -60,14 +136,14 @@ module level3() {
     difference(){
         union(){
             translate([0,0,boxHeight + wallThickness + offsetUp]) cube([length, width, wallThickness]);
-            translate([midX,midY, boxHeight+wallThickness + offsetUp]) cylinder(d=level2Diameter*0.9, h=wallThickness, $fn=180);
+            translate([midX,midY, boxHeight+wallThickness + offsetUp]) cylinder(d=level2Diameter*0.9, h=wallThickness, $fn=90);
             translate([startX - 5, startY - 5, boxHeight + wallThickness + offsetUp]) cube([batteryLength+10, batteryWidth+10, 20]);
         }
         union(){
-            translate([5, motorWidth + wallThickness, boxHeight-10+offsetUp]) cylinder(d=5, h=boxHeight, $fn=180);
-            translate([5, width - (motorWidth + wallThickness), boxHeight-10+offsetUp]) cylinder(d=5, h=boxHeight, $fn=180);
-            translate([length-5, motorWidth + wallThickness, boxHeight-10+offsetUp]) cylinder(d=5, h=boxHeight, $fn=180);
-            translate([length-5, width - (motorWidth + wallThickness), boxHeight-10+offsetUp]) cylinder(d=5, h=boxHeight, $fn=180);
+            translate([5, motorWidth + wallThickness, boxHeight-10+offsetUp]) cylinder(d=5, h=boxHeight, $fn=90);
+            translate([5, width - (motorWidth + wallThickness), boxHeight-10+offsetUp]) cylinder(d=5, h=boxHeight, $fn=90);
+            translate([length-5, motorWidth + wallThickness, boxHeight-10+offsetUp]) cylinder(d=5, h=boxHeight, $fn=90);
+            translate([length-5, width - (motorWidth + wallThickness), boxHeight-10+offsetUp]) cylinder(d=5, h=boxHeight, $fn=90);
             battery();
             fixingHoles();
         }
@@ -83,7 +159,7 @@ module level2() {
 
     difference(){
         union(){
-            translate([midX,midY, height+wallThickness]) cylinder(d=level2Diameter, h=wallThickness, $fn=180);
+            translate([midX,midY, height+wallThickness]) cylinder(d=level2Diameter, h=wallThickness, $fn=90);
             translate([0,0,wallThickness+height]) cube([length, width, wallThickness]);
         }
         union(){
@@ -96,28 +172,28 @@ module level2() {
 module base(){
     difference(){
         union(){    
-            translate([midX,midY, 0]) cylinder(d=level2Diameter, h=wallThickness, $fn=180);        
+            translate([midX,midY, 0]) cylinder(d=level2Diameter, h=wallThickness, $fn=90);        
             translate([0,0,0]) cube([length, width, wallThickness]);
             translate([startX - 5, startY - 5, wallThickness]) cube([batteryLength+10, batteryWidth+10, 10]);
             translate([0, motorWidth, 0]) cube([length, wallThickness, height+wallThickness]);
             translate([0, width-motorWidth-wallThickness, 0]) cube([length, wallThickness, height+wallThickness]);
             
             
-            translate([5, motorWidth + wallThickness, wallThickness]) cylinder(d=10, h=height, $fn=180);
-            translate([5, width - (motorWidth + wallThickness), wallThickness]) cylinder(d=10, h=height, $fn=180);
-            translate([length-5, motorWidth + wallThickness, wallThickness]) cylinder(d=10, h=height, $fn=180);
-            translate([length-5, width - (motorWidth + wallThickness), wallThickness]) cylinder(d=10, h=height, $fn=180);
+            translate([5, motorWidth + wallThickness, wallThickness]) cylinder(d=10, h=height, $fn=90);
+            translate([5, width - (motorWidth + wallThickness), wallThickness]) cylinder(d=10, h=height, $fn=90);
+            translate([length-5, motorWidth + wallThickness, wallThickness]) cylinder(d=10, h=height, $fn=90);
+            translate([length-5, width - (motorWidth + wallThickness), wallThickness]) cylinder(d=10, h=height, $fn=90);
             
         }
         union(){
-            translate([boreOffset, 0, 0 + wallThickness + halfHeight]) rotate([0,90,90]) cylinder(d=axelBore, h=width, $fn=180);
-            translate([boreOffset + holeDistance, 0, 0 + wallThickness + fixingOffset ]) rotate([0,90,90]) cylinder(d=fixingBore, h=width, $fn=180);
-            translate([boreOffset + holeDistance, 0, 0 + wallThickness + fixingTop ]) rotate([0,90,90]) cylinder(d=fixingBore, h=width, $fn=180);
+            translate([boreOffset, 0, 0 + wallThickness + halfHeight]) rotate([0,90,90]) cylinder(d=axelBore, h=width, $fn=90);
+            translate([boreOffset + holeDistance, 0, 0 + wallThickness + fixingOffset ]) rotate([0,90,90]) cylinder(d=fixingBore, h=width, $fn=90);
+            translate([boreOffset + holeDistance, 0, 0 + wallThickness + fixingTop ]) rotate([0,90,90]) cylinder(d=fixingBore, h=width, $fn=90);
             translate([wireHoleOffset, 0, wallThickness + wireHoleBoreHeightStart]) cube([wireHoleBoreLength, width, wireHoleBoreHeight+5]);
             
-            translate([length-boreOffset, 0, 0 + wallThickness + halfHeight]) rotate([0,90,90]) cylinder(d=axelBore, h=width, $fn=180);
-            translate([length-reverseFixings, 0, 0 + wallThickness + fixingOffset ]) rotate([0,90,90]) cylinder(d=fixingBore, h=width, $fn=180);
-            translate([length-reverseFixings, 0, 0 + wallThickness + fixingTop ]) rotate([0,90,90]) cylinder(d=fixingBore, h=width, $fn=180);
+            translate([length-boreOffset, 0, 0 + wallThickness + halfHeight]) rotate([0,90,90]) cylinder(d=axelBore, h=width, $fn=90);
+            translate([length-reverseFixings, 0, 0 + wallThickness + fixingOffset ]) rotate([0,90,90]) cylinder(d=fixingBore, h=width, $fn=90);
+            translate([length-reverseFixings, 0, 0 + wallThickness + fixingTop ]) rotate([0,90,90]) cylinder(d=fixingBore, h=width, $fn=90);
             translate([length-wireHoleOffset-wireHoleBoreLength, 0, wallThickness + wireHoleBoreHeightStart]) cube([wireHoleBoreLength, width, wireHoleBoreHeight+5]);
             battery();
             
@@ -129,48 +205,49 @@ module base(){
 }
 
 module fixingHoles() {
-    translate([5, (width/2) - 20, -1]) cylinder(d=5, h=100, $fn=180);
-    translate([5, (width/2) + 20, -1]) cylinder(d=5, h=100, $fn=180);
+    layerHeight = 120;
+    translate([5, (width/2) - 20, -1]) cylinder(d=5, h=layerHeight, $fn=90);
+    translate([5, (width/2) + 20, -1]) cylinder(d=5, h=layerHeight, $fn=90);
     
-    translate([length-5, (width/2) - 20, -1]) cylinder(d=5, h=100, $fn=180);
-    translate([length-5, (width/2) + 20, -1]) cylinder(d=5, h=100, $fn=180);
+    translate([length-5, (width/2) - 20, -1]) cylinder(d=5, h=layerHeight, $fn=90);
+    translate([length-5, (width/2) + 20, -1]) cylinder(d=5, h=layerHeight, $fn=90);
     
     // Side holes
-    translate([(length/2)-80, 5, -1]) cylinder(d=5, h=100, $fn=180);
-    translate([(length/2)-80, width-5, -1]) cylinder(d=5, h=100, $fn=180);
-    translate([(length/2)+80, 5, -1]) cylinder(d=5, h=100, $fn=180);
-    translate([(length/2)+80, width-5, -1]) cylinder(d=5, h=100, $fn=180);
+    translate([(length/2)-80, 5, -1]) cylinder(d=5, h=layerHeight, $fn=90);
+    translate([(length/2)-80, width-5, -1]) cylinder(d=5, h=layerHeight, $fn=90);
+    translate([(length/2)+80, 5, -1]) cylinder(d=5, h=layerHeight, $fn=90);
+    translate([(length/2)+80, width-5, -1]) cylinder(d=5, h=layerHeight, $fn=90);
     
-    translate([(length/2)+30, 5, -1]) cylinder(d=5, h=100, $fn=180);
-    translate([(length/2)+30, width-5, -1]) cylinder(d=5, h=100, $fn=180);
-    translate([(length/2)-30, 5, -1]) cylinder(d=5, h=100, $fn=180);
-    translate([(length/2)-30, width-5, -1]) cylinder(d=5, h=100, $fn=180);
+    translate([(length/2)+30, 5, -1]) cylinder(d=5, h=layerHeight, $fn=90);
+    translate([(length/2)+30, width-5, -1]) cylinder(d=5, h=layerHeight, $fn=90);
+    translate([(length/2)-30, 5, -1]) cylinder(d=5, h=layerHeight, $fn=90);
+    translate([(length/2)-30, width-5, -1]) cylinder(d=5, h=layerHeight, $fn=90);
     
-    translate([(length/2)+30, -25, -1]) cylinder(d=5, h=100, $fn=180);
-    translate([(length/2)+30, width+25, -1]) cylinder(d=5, h=100, $fn=180);
-    translate([(length/2)-30, -25, -1]) cylinder(d=5, h=100, $fn=180);
-    translate([(length/2)-30, width+25, -1]) cylinder(d=5, h=100, $fn=180);
+    translate([(length/2)+30, -25, -1]) cylinder(d=5, h=layerHeight, $fn=90);
+    translate([(length/2)+30, width+25, -1]) cylinder(d=5, h=layerHeight, $fn=90);
+    translate([(length/2)-30, -25, -1]) cylinder(d=5, h=layerHeight, $fn=90);
+    translate([(length/2)-30, width+25, -1]) cylinder(d=5, h=layerHeight, $fn=90);
     
-    translate([(length/2)+30, 25, -1]) cylinder(d=12, h=100, $fn=180);
-    translate([(length/2)+30, width-25, -1]) cylinder(d=12, h=100, $fn=180);
-    translate([(length/2)-30, 25, -1]) cylinder(d=12, h=100, $fn=180);
-    translate([(length/2)-30, width-25, -1]) cylinder(d=12, h=100, $fn=180);
+    translate([(length/2)+30, 25, -1]) cylinder(d=12, h=layerHeight, $fn=90);
+    translate([(length/2)+30, width-25, -1]) cylinder(d=12, h=layerHeight, $fn=90);
+    translate([(length/2)-30, 25, -1]) cylinder(d=12, h=layerHeight, $fn=90);
+    translate([(length/2)-30, width-25, -1]) cylinder(d=12, h=layerHeight, $fn=90);
     
-    translate([5, motorWidth + wallThickness, height-10]) cylinder(d=5, h=boxHeight, $fn=180);
-    translate([5, width - (motorWidth + wallThickness), height-10]) cylinder(d=5, h=boxHeight, $fn=180);
-    translate([length-5, motorWidth + wallThickness, height-10]) cylinder(d=5, h=boxHeight, $fn=180);
-    translate([length-5, width - (motorWidth + wallThickness), height-10]) cylinder(d=5, h=boxHeight, $fn=180);
+    translate([5, motorWidth + wallThickness, height-10]) cylinder(d=5, h=boxHeight, $fn=90);
+    translate([5, width - (motorWidth + wallThickness), height-10]) cylinder(d=5, h=boxHeight, $fn=90);
+    translate([length-5, motorWidth + wallThickness, height-10]) cylinder(d=5, h=boxHeight, $fn=90);
+    translate([length-5, width - (motorWidth + wallThickness), height-10]) cylinder(d=5, h=boxHeight, $fn=90);
     
     wheels();
 
 }
 
 module wheels() {
-    translate([boreOffset, 0, wallThickness + halfHeight]) rotate([0,90,270]) cylinder(d=wheelDiameter, h=wheelWidth, $fn=180);
-    translate([length - boreOffset, 0, wallThickness + halfHeight]) rotate([0,90,270]) cylinder(d=wheelDiameter, h=wheelWidth, $fn=180);
+    translate([boreOffset, 0, wallThickness + halfHeight]) rotate([0,90,270]) cylinder(d=wheelDiameter, h=wheelWidth, $fn=90);
+    translate([length - boreOffset, 0, wallThickness + halfHeight]) rotate([0,90,270]) cylinder(d=wheelDiameter, h=wheelWidth, $fn=90);
     
-    translate([boreOffset, width+wheelWidth, wallThickness + halfHeight]) rotate([0,90,270]) cylinder(d=wheelDiameter, h=wheelWidth, $fn=180);
-    translate([length - boreOffset, width+wheelWidth, wallThickness + halfHeight]) rotate([0,90,270]) cylinder(d=wheelDiameter, h=wheelWidth, $fn=180);
+    translate([boreOffset, width+wheelWidth, wallThickness + halfHeight]) rotate([0,90,270]) cylinder(d=wheelDiameter, h=wheelWidth, $fn=90);
+    translate([length - boreOffset, width+wheelWidth, wallThickness + halfHeight]) rotate([0,90,270]) cylinder(d=wheelDiameter, h=wheelWidth, $fn=90);
 }
 
 module temp(){
@@ -211,10 +288,10 @@ module cameraHolder() {
         union(){
             translate([0,0,0]) cube([camBoxLength, camBoxWidth, camBoxHeight]);
             translate([-10,camBoxWidth - camBoxWallThickness, 0]) cube([10, camBoxWallThickness, camBoxHeight]);
-            translate([-10,camBoxWidth - camBoxWallThickness, camBoxHeight / 2]) rotate([90,0,180]) cylinder(d=camBoxHeight, h=camBoxWallThickness, $fn=180);            
+            translate([-10,camBoxWidth - camBoxWallThickness, camBoxHeight / 2]) rotate([90,0,180]) cylinder(d=camBoxHeight, h=camBoxWallThickness, $fn=90);            
             
             translate([camBoxLength,camBoxWidth - camBoxWallThickness, 0]) cube([10, camBoxWallThickness, camBoxHeight]);
-            translate([camBoxLength+10,camBoxWidth - camBoxWallThickness, camBoxHeight / 2]) rotate([90,0,180]) cylinder(d=camBoxHeight, h=camBoxWallThickness, $fn=180);
+            translate([camBoxLength+10,camBoxWidth - camBoxWallThickness, camBoxHeight / 2]) rotate([90,0,180]) cylinder(d=camBoxHeight, h=camBoxWallThickness, $fn=90);
          
         }
         union(){
@@ -223,8 +300,8 @@ module cameraHolder() {
             translate([twoWalls*2, twoWalls, -1]) cube([camLength - (twoWalls * 3), camWidth, 5]);
             
             translate([twoWalls, -1,twoWalls]) cube([camLength - twoWalls, camWidth*2, camHeight - twoWalls]);
-            translate([-10,camBoxWidth - camBoxWallThickness-1, camBoxHeight / 2]) rotate([90,0,180]) cylinder(d=5, h=camBoxWallThickness+2, $fn=180); 
-            translate([camBoxLength+10,camBoxWidth - camBoxWallThickness-1, camBoxHeight / 2]) rotate([90,0,180]) cylinder(d=5, h=wallThickness+2, $fn=180);
+            translate([-10,camBoxWidth - camBoxWallThickness-1, camBoxHeight / 2]) rotate([90,0,180]) cylinder(d=5, h=camBoxWallThickness+2, $fn=90); 
+            translate([camBoxLength+10,camBoxWidth - camBoxWallThickness-1, camBoxHeight / 2]) rotate([90,0,180]) cylinder(d=5, h=wallThickness+2, $fn=90);
             
             
         }
@@ -238,29 +315,31 @@ module cameraBracket() {
             translate([length, -17, boxHeight + wallThickness + offsetUp - (camBoxHeight-5) + wallThickness]) cube([wallThickness, width+31, camBoxHeight-5]);
             translate([length, 0, boxHeight + wallThickness + offsetUp])
               rotate([0,90,90])
-              cylinder(r=wallThickness, h=wallThickness, $fn=180);
+              cylinder(r=wallThickness, h=wallThickness, $fn=90);
             translate([length, width-wallThickness, boxHeight + wallThickness + offsetUp])
               rotate([0,90,90])
-              cylinder(r=wallThickness, h=wallThickness, $fn=180);
+              cylinder(r=wallThickness, h=wallThickness, $fn=90);
             translate([length, (width/2)-(wallThickness/2), boxHeight + wallThickness + offsetUp])
               rotate([0,90,90])
-              cylinder(r=wallThickness, h=wallThickness, $fn=180);
+              cylinder(r=wallThickness, h=wallThickness, $fn=90);
             
         }
         union(){
-            translate([length-1, 0, height+wallThickness +17.4+height]) rotate([0,90,0]) cylinder(d=6, h=wallThickness+2, $fn=180);
-            translate([length-1, width-2.5, height+wallThickness +17.4+height]) rotate([0,90,0]) cylinder(d=6, h=wallThickness+2, $fn=180);
+            translate([length-1, 0, height+wallThickness +17.4+height]) rotate([0,90,0]) cylinder(d=6, h=wallThickness+2, $fn=90);
+            translate([length-1, width-2.5, height+wallThickness +17.4+height]) rotate([0,90,0]) cylinder(d=6, h=wallThickness+2, $fn=90);
             fixingHoles();
             battery();
         }
     }
 }
 
+
 //base();
 //level2();
 //level3();
 //level4();
+level5();
 //battery();
 //wheels();
 
-translate([length+30,10,height+wallThickness + 23]) rotate([0,0,90]) color([0,1,0]) cameraHolder();
+//translate([length+30,10,height+wallThickness + 23]) rotate([0,0,90]) color([0,1,0]) cameraHolder();
