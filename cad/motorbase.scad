@@ -26,7 +26,7 @@ batteryHeight = 93;
 
 boxHeight = wallThickness + (height * 2);
 
-wheelDiameter = 68;
+wheelDiameter = 70;
 wheelWidth = 35;
 
 midX=length / 2;
@@ -42,7 +42,7 @@ module level5() {
     i2cMuxWidth=45;
     i2cMuxLength=81;
     
-    lightSensorSpacing=9;
+    lightSensorSpacing=8.5;
     
     powerMonitorWidth=18;
     powerMonitorLength=31.5;
@@ -107,6 +107,9 @@ module level5() {
             
             // Cable Slot 2
             translate([length-60, midY-(batteryChargerWidth/2), boxHeight + wallThickness + offsetUp-layerHeight]) cube([10, batteryChargerWidth, 100]);
+            
+            // GPS Mount
+            translate([length-10,20, boxHeight + wallThickness + offsetUp-layerHeight]) cylinder(d=6.4, h=20, $fn=90);
         }
     }
 }
@@ -334,12 +337,12 @@ module cameraBracket() {
 }
 
 
-//base();
-//level2();
-//level3();
-//level4();
+base();
+level2();
+level3();
+level4();
 level5();
 //battery();
-//wheels();
+wheels();
 
 //translate([length+30,10,height+wallThickness + 23]) rotate([0,0,90]) color([0,1,0]) cameraHolder();
