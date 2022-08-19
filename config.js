@@ -47,6 +47,7 @@ const env = {
 //   { id: 3, name: 'back-right', startPos: Math.PI * 1.5, ...legDefaults, ...servosBackRight }
 // ]
 
+// Rpio uses physical pin numbers rather than GPIO numbers!
 const wheelSettings = {
   frontLeft: { speedChannel: 0, fPin: 17, bPin: 27 },
   frontRight: { speedChannel: 1, fPin: 22, bPin: 5 },
