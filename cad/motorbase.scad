@@ -37,7 +37,7 @@ startY = (width - batteryWidth) / 2;
 
 
 module level5() {
-    layerHeight =15;
+    layerHeight =18;
     offsetUp = 25+layerHeight+wallThickness;
     i2cMuxWidth=45;
     i2cMuxLength=81;
@@ -47,7 +47,9 @@ module level5() {
     powerMonitorWidth=18;
     powerMonitorLength=31.5;
     
-    batteryChargerWidth=30;
+    batteryChargerWidth=31.5;
+    batteryChargerLength=61.3;
+    
     
     difference(){
         union(){
@@ -61,15 +63,22 @@ module level5() {
                 cylinder(d=10, h=layerHeight, $fn=90);
             translate([(length/2)+80, width-5, boxHeight + wallThickness + offsetUp-layerHeight]) 
                 cylinder(d=10, h=layerHeight, $fn=90);
+            translate([(length/2)+30, width-5, boxHeight + wallThickness + offsetUp-layerHeight]) 
+                cylinder(d=10, h=layerHeight, $fn=90);
+            
+            translate([length-80,width-wallThickness,boxHeight + wallThickness + offsetUp - layerHeight]) cube([80, wallThickness, layerHeight]);
+            translate([length-wallThickness,width-wallThickness-20,boxHeight + wallThickness + offsetUp - layerHeight]) cube([wallThickness, 20, layerHeight]);
+            translate([length-80,width-wallThickness-10,boxHeight + wallThickness + offsetUp - layerHeight]) cube([wallThickness, 10, layerHeight]);
+            
         }
         union(){
             fixingHoles();
             
             // i2cMux Mounting
-            translate([20, midY-(i2cMuxLength/2), boxHeight + wallThickness + offsetUp-layerHeight]) cylinder(d=5, h=50, $fn=90);
-            translate([20, midY+(i2cMuxLength/2), boxHeight + wallThickness + offsetUp-layerHeight]) cylinder(d=5, h=50, $fn=90);
-            translate([20+(i2cMuxWidth/2), midY-(i2cMuxLength/2), boxHeight + wallThickness + offsetUp-layerHeight]) cylinder(d=5, h=50, $fn=90);
-            translate([20+(i2cMuxWidth/2), midY+(i2cMuxLength/2), boxHeight + wallThickness + offsetUp-layerHeight]) cylinder(d=5, h=50, $fn=90);
+            translate([10, midY-(i2cMuxLength/2), boxHeight + wallThickness + offsetUp-layerHeight]) cylinder(d=2.5, h=50, $fn=90);
+            translate([10, midY+(i2cMuxLength/2), boxHeight + wallThickness + offsetUp-layerHeight]) cylinder(d=2.5, h=50, $fn=90);
+            translate([10+(i2cMuxWidth), midY-(i2cMuxLength/2), boxHeight + wallThickness + offsetUp-layerHeight]) cylinder(d=2.5, h=50, $fn=90);
+            translate([10+(i2cMuxWidth), midY+(i2cMuxLength/2), boxHeight + wallThickness + offsetUp-layerHeight]) cylinder(d=2.5, h=50, $fn=90);
             
             // lightSensor S
             translate([5, midY-(lightSensorSpacing/2), boxHeight + wallThickness + offsetUp-layerHeight]) cylinder(d=5, h=50, $fn=90);
@@ -92,24 +101,29 @@ module level5() {
             translate([midX+(lightSensorSpacing/2), width-5, boxHeight + wallThickness + offsetUp-layerHeight]) cylinder(d=5, h=50, $fn=90);
             
             // powerMonitor
-            translate([length-20, midY-(powerMonitorLength/2), boxHeight + wallThickness + offsetUp-layerHeight]) cylinder(d=5, h=50, $fn=90);
-            translate([length-20, midY+(powerMonitorLength/2), boxHeight + wallThickness + offsetUp-layerHeight]) cylinder(d=5, h=50, $fn=90);
-            translate([length-20-(powerMonitorWidth), midY-(powerMonitorLength/2), boxHeight + wallThickness + offsetUp-layerHeight]) cylinder(d=5, h=50, $fn=90);
-            translate([length-20-(powerMonitorWidth), midY+(powerMonitorLength/2), boxHeight + wallThickness + offsetUp-layerHeight]) cylinder(d=5, h=50, $fn=90);
+            translate([length-20, midY-(powerMonitorLength/2), boxHeight + wallThickness + offsetUp-layerHeight]) cylinder(d=2.5, h=50, $fn=90);
+            translate([length-20, midY+(powerMonitorLength/2), boxHeight + wallThickness + offsetUp-layerHeight]) cylinder(d=2.5, h=50, $fn=90);
+            translate([length-20-(powerMonitorWidth), midY-(powerMonitorLength/2), boxHeight + wallThickness + offsetUp-layerHeight]) cylinder(d=2.5, h=50, $fn=90);
+            translate([length-20-(powerMonitorWidth), midY+(powerMonitorLength/2), boxHeight + wallThickness + offsetUp-layerHeight]) cylinder(d=2.5, h=50, $fn=90);
             
             // batteryCharger
-            translate([60, midY-(batteryChargerWidth/2), boxHeight + wallThickness + offsetUp-layerHeight]) cylinder(d=5, h=50, $fn=90);
-            translate([60, midY+(batteryChargerWidth/2), boxHeight + wallThickness + offsetUp-layerHeight]) cylinder(d=5, h=50, $fn=90);
+            translate([midX-(batteryChargerWidth/2), midY-(batteryChargerLength/2), boxHeight + wallThickness + offsetUp-layerHeight]) cylinder(d=2.5, h=50, $fn=90);
+            translate([midX+(batteryChargerWidth/2), midY-(batteryChargerLength/2), boxHeight + wallThickness + offsetUp-layerHeight]) cylinder(d=2.5, h=50, $fn=90);
             
+            translate([midX-(batteryChargerWidth/2), midY+(batteryChargerLength/2), boxHeight + wallThickness + offsetUp-layerHeight]) cube([batteryChargerWidth, 10, 50]);
             
             // Cable Slot 1
-            translate([40, midY-(batteryChargerWidth/2), boxHeight + wallThickness + offsetUp-layerHeight]) cube([10, batteryChargerWidth, 100]);
+            slotWidth = batteryChargerWidth * 2.2;
+            translate([59, midY-(slotWidth/2), boxHeight + wallThickness + offsetUp-layerHeight]) cube([12, slotWidth, 100]);
             
             // Cable Slot 2
             translate([length-60, midY-(batteryChargerWidth/2), boxHeight + wallThickness + offsetUp-layerHeight]) cube([10, batteryChargerWidth, 100]);
             
             // GPS Mount
             translate([length-10,20, boxHeight + wallThickness + offsetUp-layerHeight]) cylinder(d=6.4, h=20, $fn=90);
+            
+            // Switch 
+            translate([length-40,width-wallThickness-1,boxHeight + wallThickness + offsetUp - layerHeight + 9]) rotate([0,90,90]) cylinder(d=12, h=10, $fn=90);
         }
     }
 }
@@ -267,7 +281,9 @@ tolerance=0.4;
 
 camLength=91 + tolerance;
 camHeight=28 + tolerance;
-camWidth=17.5 + tolerance;
+camWidth=18.5 + tolerance;
+camUsbHoleLength = 30; // 25 to 45
+camUsbHoleWidth = 12; // 3 to 15
 
 camBoxWallThickness = 3;
 twoWalls = camBoxWallThickness * 2;
@@ -300,7 +316,9 @@ module cameraHolder() {
         union(){
             translate([camBoxWallThickness, camBoxWallThickness+0.1, camBoxWallThickness]) camera();
             
-            translate([twoWalls*2, twoWalls, -1]) cube([camLength - (twoWalls * 3), camWidth, 5]);
+//            translate([twoWalls*2, twoWalls, -1]) cube([camLength - (twoWalls * 3), camWidth, 5]);
+            
+            translate([20, 3, -1]) cube([camUsbHoleLength, camUsbHoleWidth, 5]);
             
             translate([twoWalls, -1,twoWalls]) cube([camLength - twoWalls, camWidth*2, camHeight - twoWalls]);
             translate([-10,camBoxWidth - camBoxWallThickness-1, camBoxHeight / 2]) rotate([90,0,180]) cylinder(d=5, h=camBoxWallThickness+2, $fn=90); 
@@ -337,12 +355,12 @@ module cameraBracket() {
 }
 
 
-base();
-level2();
-level3();
-level4();
-level5();
+//base();
+//level2();
+//level3();
+//level4();
+//level5();
 //battery();
-wheels();
+//wheels();
 
-//translate([length+30,10,height+wallThickness + 23]) rotate([0,0,90]) color([0,1,0]) cameraHolder();
+translate([length+30,10,height+wallThickness + 23]) rotate([0,0,90]) color([0,1,0]) cameraHolder();

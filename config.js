@@ -59,7 +59,12 @@ const options = {
   version,
   // legSettings,
   wheelSettings,
-  verbose: env.VERBOSE === 'true'
+  verbose: env.VERBOSE === 'true',
+  dimensions: { // measure these, the navigation module will need to work out if it fits through/between/under a gap or obstacle
+    width: 300,
+    height: 300,
+    length: 300
+  }
 }
 
 const api = {
