@@ -120,7 +120,7 @@ module level5() {
             translate([length-60, midY-(batteryChargerWidth/2), boxHeight + wallThickness + offsetUp-layerHeight]) cube([10, batteryChargerWidth, 100]);
             
             // GPS Mount
-            translate([length-10,20, boxHeight + wallThickness + offsetUp-layerHeight]) cylinder(d=6.4, h=20, $fn=90);
+            translate([length-10,20, boxHeight + wallThickness + offsetUp-layerHeight]) cylinder(d=6.4, h=25, $fn=90);
             
             // Switch 
             translate([length-40,width-wallThickness-1,boxHeight + wallThickness + offsetUp - layerHeight + 9]) rotate([0,90,90]) cylinder(d=12, h=10, $fn=90);
@@ -359,8 +359,8 @@ module cameraBracket() {
 //level2();
 //level3();
 //level4();
-//level5();
+level5();
 //battery();
 //wheels();
 
-translate([length+30,10,height+wallThickness + 23]) rotate([0,0,90]) color([0,1,0]) cameraHolder();
+//translate([length+30,10,height+wallThickness + 23]) rotate([0,0,90]) color([0,1,0]) cameraHolder();
