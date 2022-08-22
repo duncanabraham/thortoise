@@ -135,12 +135,13 @@ module wheelPlate() {
 
 module mockPlate(){
     offset=35;
-    width=72;
+    width=75;
+    actualWidth=60;
     motorRadius=25/2;
     difference(){
         union(){
             translate([plateLength,0,offset]) cylinder(d=width, h=5, $fn=90);
-            translate([0,-width/2,offset]) cube([plateLength, width, 5]);
+            translate([0,-width/2,offset]) cube([plateLength, actualWidth, 5]);
             translate([0,-width/2,offset]) cube([plateLength, 5, width]);
             
             translate([0,0,offset]) cylinder(d=width,h=5, $fn=90);
@@ -179,7 +180,7 @@ module mockPlate(){
             
             translate([-80,-30,offset-1]) cube([60,60,60]);
             
-            
+            fixingHoles();
         }
     }
 }
@@ -188,6 +189,26 @@ module motor(){
     offset=34;
     translate([0,0,offset]) cylinder(d=63, h=27.3, $fn=90);
     translate([0,0,offset+20]) cylinder(d=27, h=7.3, $fn=90);
+}
+
+module fixingHoles() {
+    length = 190;
+    width = 120;
+    layerHeight = 120;
+    translate([15,0,73]) rotate([90, 0, 0]) union(){
+        // Side holes
+        translate([(length/2)-80, 5, -1]) cylinder(d=5, h=layerHeight, $fn=90);
+        translate([(length/2)+80, 5, -1]) cylinder(d=5, h=layerHeight, $fn=90);
+        
+        translate([(length/2)+30, 5, -1]) cylinder(d=5, h=layerHeight, $fn=90);
+        translate([(length/2)-30, 5, -1]) cylinder(d=5, h=layerHeight, $fn=90);
+        
+        translate([(length/2)+30, -25, -1]) cylinder(d=5, h=layerHeight, $fn=90);
+        translate([(length/2)-30, -25, -1]) cylinder(d=5, h=layerHeight, $fn=90);
+        
+        translate([(length/2)+30, 25, -1]) cylinder(d=12, h=layerHeight, $fn=90);
+        translate([(length/2)-30, 25, -1]) cylinder(d=12, h=layerHeight, $fn=90);
+    }
 }
 
 
