@@ -47,11 +47,12 @@ const env = {
 //   { id: 3, name: 'back-right', startPos: Math.PI * 1.5, ...legDefaults, ...servosBackRight }
 // ]
 
+// fPin and bPin are pins not GPIO numbers
 const wheelSettings = {
-  frontLeft: { speedChannel: 0, fPin: 17, bPin: 27 },
-  frontRight: { speedChannel: 1, fPin: 22, bPin: 5 },
-  backLeft: { speedChannel: 2, fPin: 6, bPin: 13 },
-  backRight: { speedChannel: 3, fPin: 19, bPin: 26 }
+  frontLeft: { speedChannel: 0, fPin: 7, bPin: 11 }, // GPIOAO_3 & GPIOAO_2
+  frontRight: { speedChannel: 1, fPin: 13, bPin: 19 }, // GPIOX_11 &  GPIOH_4
+  backLeft: { speedChannel: 2, fPin: 21, bPin: 23 }, // GPIOH_5 & GPIOH_7
+  backRight: { speedChannel: 3, fPin: 35, bPin: 37 } // GPIOAO_8 & GPIOAO_9
 }
 
 const options = {
