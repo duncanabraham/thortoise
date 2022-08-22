@@ -215,9 +215,12 @@ module fixingHoles() {
 
 driveCog();
 translate([plateLength,0,0]) cog();
+
+translate([plateLength*0.75,-90,0]) cog();
+
 //bearing(0);
 
-wheelPlate();
+//wheelPlate();
 
 mockPlate();
 
