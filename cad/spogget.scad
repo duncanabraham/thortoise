@@ -23,7 +23,8 @@ module driveCog() {
     difference() {
         union(){
             translate([0,0,shoulderWidth]) cylinder(r=radius, h=height, $fn=90);
-            translate([0,0,0]) cylinder(r=innerRadius, h=height+(shoulderWidth*2), $fn=90);
+//            translate([0,0,0]) cylinder(r=innerRadius, h=height+(shoulderWidth*2), $fn=90);
+            translate([0,0,0]) rotate([0,0,22.5]) cylinder(r=innerRadius, h=height+(shoulderWidth*2), $fn=8);
         }
         union(){
             translate([0,0,-1]) cylinder(d=bearingOd, h=2+bearingSeat, $fn=90);
@@ -61,7 +62,7 @@ module cog() {
     difference() {
         union(){
             translate([0,0,shoulderWidth]) cylinder(r=radius, h=height, $fn=90);
-            translate([0,0,0]) cylinder(r=innerRadius, h=height+(shoulderWidth*2), $fn=90);
+            translate([0,0,0]) rotate([0,0,22.5]) cylinder(r=innerRadius, h=height+(shoulderWidth*2), $fn=8);
         }
         union(){
             translate([0,0,-1]) cylinder(d=bearingBore, h=2+height+20, $fn=90);
@@ -191,11 +192,11 @@ module motor(){
 }
 
 
-//driveCog();
-//translate([plateLength,0,0]) cog();
+driveCog();
+translate([plateLength,0,0]) cog();
 //bearing(0);
 
-//wheelPlate();
+wheelPlate();
 
 mockPlate();
 
