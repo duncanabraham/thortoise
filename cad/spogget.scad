@@ -141,7 +141,7 @@ module mockPlate(){
     motorRadius=25/2;
     difference(){
         union(){
-            translate([plateLength,0,offset]) cylinder(d=width, h=5, $fn=90);
+            translate([plateLength,-7.5,offset]) cylinder(d=actualWidth, h=5, $fn=90);
             translate([0,-width/2,offset]) cube([plateLength, actualWidth, 5]);
             translate([0,-width/2,offset]) cube([plateLength, 5, width]);
             
@@ -155,6 +155,8 @@ module mockPlate(){
                 y=(motorRadius) * cos((360/motorSteps) * j);
                 translate([x, y, offset]) cylinder(d=motorMountBore+3, h=height, $fn=90);
             }
+//            fixingHoles();
+            
         }
         union(){
             translate([0,0,offset-1]) cylinder(d=5,h=7, $fn=90);
@@ -181,6 +183,9 @@ module mockPlate(){
             
             translate([-80,-30,offset-1]) cube([60,60,60]);
             
+            // chop the end off to make it fit on the printer plate
+            translate([plateLength-20,-width/2-3,offset-1]) cube([width,width,width+2]);
+            
             fixingHoles();
         }
     }
@@ -196,10 +201,31 @@ module fixingHoles() {
     length = 190;
     width = 120;
     layerHeight = 120;
+    offset=35;
     translate([15,0,73]) rotate([90, 0, 0]) union(){
         // Side holes
         translate([(length/2)-80, 5, -1]) cylinder(d=5, h=layerHeight, $fn=90);
-        translate([(length/2)+80, 5, -1]) cylinder(d=5, h=layerHeight, $fn=90);
+        
+        translate([(length/2)+80, 5, -1]) cylinder(d=5, h=layerHeight, $fn=90);        
+        translate([(length/2)+80, 25, -1]) cylinder(d=5, h=layerHeight, $fn=90);
+        translate([(length/2)+80, -15, -1]) cylinder(d=5, h=layerHeight, $fn=90);
+        translate([(length/2)+60, 5, -1]) cylinder(d=5, h=layerHeight, $fn=90);        
+        translate([(length/2)+60, 25, -1]) cylinder(d=5, h=layerHeight, $fn=90);
+        translate([(length/2)+60, -15, -1]) cylinder(d=5, h=layerHeight, $fn=90);
+        
+        
+        translate([155.5, 2.5, offset-10]) cube([20,5,20]);
+        translate([155.5, 22.5, offset-10]) cube([20,5,20]);
+        translate([155.5, -17.5, offset-10]) cube([20,5,20]);
+        
+        translate([(length/2)+60, 15, offset-17.5]) rotate([90,0,0]) cylinder(d=5, h=200, $fn=90);
+        translate([155.5, -17.5, offset-20]) rotate([90,0,0]) cube([20,5,30]);
+        translate([(length/2)+80, 15, offset-17.5]) rotate([90,0,0]) cylinder(d=5, h=200, $fn=90);
+        
+        translate([(length/2)+60, 15, offset-37.5]) rotate([90,0,0]) cylinder(d=5, h=200, $fn=90);
+        translate([155.5, -17.5, offset-40]) rotate([90,0,0]) cube([20,5,30]);
+        translate([(length/2)+80, 15, offset-37.5]) rotate([90,0,0]) cylinder(d=5, h=200, $fn=90);
+
         
         translate([(length/2)+30, 5, -1]) cylinder(d=5, h=layerHeight, $fn=90);
         translate([(length/2)-30, 5, -1]) cylinder(d=5, h=layerHeight, $fn=90);
@@ -213,10 +239,10 @@ module fixingHoles() {
 }
 
 
-driveCog();
-translate([plateLength,0,0]) cog();
+//driveCog();
+//translate([plateLength,0,0]) cog();
 
-translate([plateLength*0.75,-90,0]) cog();
+//translate([plateLength*0.75,-90,0]) cog();
 
 //bearing(0);
 
