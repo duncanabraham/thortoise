@@ -1,12 +1,12 @@
-height = 14;
+height = 12;
 radius = 95 / 2;
 notchDiameter = 18;
 
 bearingBore=7;
-bearingSeat=4;
+bearingSeat=7;
 bearingFlange=1;
 bearingOd=16;
-bearingFlangeHeight=18;
+bearingFlangeHeight=20;
 
 steps=8;
 
@@ -16,7 +16,7 @@ motorMountBore=3.2;
 
 innerRadius=71 / 2;
 weightHoleDiameter = innerRadius * 0.4;
-shoulderWidth=9;
+shoulderWidth=10;
 
 
 module driveCog() {
@@ -24,7 +24,7 @@ module driveCog() {
         union(){
             translate([0,0,shoulderWidth]) cylinder(r=radius, h=height, $fn=90);
 //            translate([0,0,0]) cylinder(r=innerRadius, h=height+(shoulderWidth*2), $fn=90);
-            translate([0,0,0]) rotate([0,0,22.5]) cylinder(r=innerRadius, h=height+(shoulderWidth*2), $fn=8);
+            translate([0,0,0]) cylinder(r=innerRadius+2, h=height+(shoulderWidth*2), $fn=8);
         }
         union(){
             translate([0,0,-1]) cylinder(d=bearingOd, h=2+bearingSeat, $fn=90);
@@ -49,8 +49,8 @@ module driveCog() {
             // weight reducing holes
             weightHoles=8;
             for(j=[0:weightHoles-1]){
-                x=(innerRadius * 0.6) * sin((360/weightHoles) * j);
-                y=(innerRadius * 0.6) * cos((360/weightHoles) * j);
+                x=(innerRadius * 0.7) * sin((360/weightHoles) * j);
+                y=(innerRadius * 0.7) * cos((360/weightHoles) * j);
                 translate([x, y, -1]) cylinder(d=weightHoleDiameter, h=height+22, $fn=90);
             }
         }
@@ -62,7 +62,7 @@ module cog() {
     difference() {
         union(){
             translate([0,0,shoulderWidth]) cylinder(r=radius, h=height, $fn=90);
-            translate([0,0,0]) rotate([0,0,22.5]) cylinder(r=innerRadius, h=height+(shoulderWidth*2), $fn=8);
+            translate([0,0,0]) rotate([0,0,0]) cylinder(r=innerRadius, h=height+(shoulderWidth*2), $fn=90);
         }
         union(){
             translate([0,0,-1]) cylinder(d=bearingBore, h=2+height+20, $fn=90);
@@ -84,8 +84,8 @@ module cog() {
             // weight reducing holes
             weightHoles=8;
             for(j=[0:weightHoles-1]){
-                x=(innerRadius * 0.6) * sin((360/weightHoles) * j);
-                y=(innerRadius * 0.6) * cos((360/weightHoles) * j);
+                x=(innerRadius * 0.7) * sin((360/weightHoles) * j);
+                y=(innerRadius * 0.7) * cos((360/weightHoles) * j);
                 translate([x, y, -1]) cylinder(d=weightHoleDiameter, h=height+22, $fn=90);
             }
         }
@@ -282,14 +282,14 @@ module nase() {
 }
 
 
-//driveCog();
+driveCog();
 //translate([plateLength,0,0]) cog();
 
 //translate([plateLength*0.75,-90,0]) cog();
 
 //bearing(0);
 
-wheelPlate();
+//wheelPlate();
 
 //mockPlate();
 
