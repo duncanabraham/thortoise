@@ -110,13 +110,14 @@ plateLength=220;
 module wheelPlate() {
     offset=-6;
     width=40;
+    plateWidth=50;
     difference(){
         union(){
-            translate([0,0,offset]) cylinder(d=width, h=5, $fn=90);
-            translate([0,-width/2,offset]) cube([plateLength, width, 5]);
+            translate([0,0,offset]) cylinder(d=plateWidth, h=5, $fn=90);
+            translate([0,-plateWidth/2,offset]) cube([plateLength, plateWidth, 5]);
             translate([0,0,offset]) cylinder(d=width,h=5, $fn=90);
             
-            translate([plateLength,0,offset]) cylinder(d=width,h=5, $fn=90);
+            translate([plateLength,0,offset]) cylinder(d=plateWidth,h=5, $fn=90);
             
             translate([radius+10,-(width/2), offset]) cube([12, width, 40]);
             translate([plateLength-radius-10-12,-(width/2), offset]) cube([12, width, 40]);
@@ -130,6 +131,10 @@ module wheelPlate() {
             
             translate([plateLength-radius-10+6-12,-10, offset-1]) cylinder(d=5, h=50, $fn=90); 
             translate([plateLength-radius-10+6-12,10, offset-1]) cylinder(d=5, h=50, $fn=90);
+            
+            fixingHoles();
+            
+            translate([plateLength-20,-width/2-30,offset-1]) cube([width*2,180,width+20]);
         }
     }
 }
@@ -155,7 +160,6 @@ module mockPlate(){
                 y=(motorRadius) * cos((360/motorSteps) * j);
                 translate([x, y, offset]) cylinder(d=motorMountBore+3, h=height, $fn=90);
             }
-//            fixingHoles();
             
         }
         union(){
@@ -184,7 +188,7 @@ module mockPlate(){
             translate([-80,-30,offset-1]) cube([60,60,60]);
             
             // chop the end off to make it fit on the printer plate
-            translate([plateLength-20,-width/2-3,offset-1]) cube([width,width,width+2]);
+            translate([plateLength-20,-width/2-3,offset-1]) cube([width,180,width+2]);
             
             fixingHoles();
         }
@@ -219,11 +223,11 @@ module fixingHoles() {
         translate([155.5, -17.5, offset-10]) cube([20,5,20]);
         
         translate([(length/2)+60, 15, offset-17.5]) rotate([90,0,0]) cylinder(d=5, h=200, $fn=90);
-        translate([155.5, -17.5, offset-20]) rotate([90,0,0]) cube([20,5,30]);
+        translate([155.5, -17.5, offset-20]) rotate([90,0,0]) cube([20,5,300]);
         translate([(length/2)+80, 15, offset-17.5]) rotate([90,0,0]) cylinder(d=5, h=200, $fn=90);
         
         translate([(length/2)+60, 15, offset-37.5]) rotate([90,0,0]) cylinder(d=5, h=200, $fn=90);
-        translate([155.5, -17.5, offset-40]) rotate([90,0,0]) cube([20,5,30]);
+        translate([155.5, -17.5, offset-40]) rotate([90,0,0]) cube([20,5,300]);
         translate([(length/2)+80, 15, offset-37.5]) rotate([90,0,0]) cylinder(d=5, h=200, $fn=90);
 
         
@@ -235,6 +239,45 @@ module fixingHoles() {
         
         translate([(length/2)+30, 25, -1]) cylinder(d=12, h=layerHeight, $fn=90);
         translate([(length/2)-30, 25, -1]) cylinder(d=12, h=layerHeight, $fn=90);
+        
+        
+    }
+}
+
+module nose() {
+    width=50;
+    length=70;
+    difference() {
+        union(){
+            translate([160,-(width/2)-2,-10]) cube([length,width,5]);
+            translate([195+(length/2),-2,-10]) cylinder(d=width, h=5, $fn=90);
+        }
+        union(){
+            fixingHoles();
+            translate([195+(length/2),-2,-11]) cylinder(d=5, h=7, $fn=90);
+        }
+    }
+}
+
+module nase() {
+    width=50;
+    length=70;
+    difference() {
+        union(){
+            translate([160,-(width/2)-2,40]) cube([length,width,5]);
+            translate([160,-(width/2)-7,40]) cube([width,width,5]);
+            
+            translate([160,-(width/2)-2,40]) rotate([90,0,0]) cube([width,length,5]);
+            translate([160,-(width/2)-2,40]) rotate([90,0,90]) cube([5,length,5]);
+            translate([160,-(width/2)-2,40]) rotate([90,0,90]) cube([width,10,5]);
+            
+            translate([195+(length/2),-2,40]) cylinder(d=width, h=5, $fn=90);
+            translate([195+(length/2),-2,35]) cylinder(d=30, h=7, $fn=90);
+        }
+        union(){
+            fixingHoles();
+            translate([195+(length/2),-2,-59]) cylinder(d=5, h=120, $fn=90);
+        }
     }
 }
 
@@ -251,5 +294,8 @@ wheelPlate();
 //mockPlate();
 
 //motor();
+
+//nose();
+//nase();
 
 
