@@ -145,7 +145,7 @@ module mockPlate(){
             translate([0,-width/2,offset]) cube([plateLength, actualWidth, 5]);
             translate([0,-width/2,offset]) cube([plateLength, 5, width]);
             
-            translate([0,0,offset]) cylinder(d=width,h=5, $fn=90);
+//            translate([0,0,offset]) cylinder(d=width,h=5, $fn=90);
             translate([0,0,offset]) cylinder(d=72, h=27.3, $fn=90);
             translate([0,0,offset+27.3]) cylinder(d=72, h=3, $fn=90);
             
@@ -246,9 +246,9 @@ module fixingHoles() {
 
 //bearing(0);
 
-//wheelPlate();
+wheelPlate();
 
-mockPlate();
+//mockPlate();
 
 //motor();
 
