@@ -121,6 +121,7 @@ module wheelPlate() {
             
             translate([radius+10,-(width/2), offset]) cube([12, width, 40]);
             translate([plateLength-radius-10-12,-(width/2), offset]) cube([12, width, 40]);
+            
         }
         union(){
             translate([0,0,offset-1]) cylinder(d=5,h=7, $fn=90);
@@ -135,6 +136,7 @@ module wheelPlate() {
             fixingHoles();
             
             translate([plateLength-20,-width/2-30,offset-1]) cube([width*2,180,width+20]);
+            translate([0,0,offset+2]) cylinder(d=9, h=4.1, $fn=6);
         }
     }
 }
@@ -197,7 +199,8 @@ module mockPlate(){
 
 module motor(){
     offset=34;
-    translate([0,0,offset]) cylinder(d=63, h=27.3, $fn=90);
+    motorDiameter=59;    
+    translate([0,0,offset]) cylinder(d=motorDiameter+4, h=27.3, $fn=90);
     translate([0,0,offset+20]) cylinder(d=27, h=7.3, $fn=90);
 }
 
@@ -251,10 +254,12 @@ module nose() {
         union(){
             translate([160,-(width/2)-2,-10]) cube([length,width,5]);
             translate([195+(length/2),-2,-10]) cylinder(d=width, h=5, $fn=90);
+            translate([195+(length/2),-2,-7]) cylinder(d=30, h=7, $fn=90);
         }
         union(){
             fixingHoles();
-            translate([195+(length/2),-2,-11]) cylinder(d=5, h=7, $fn=90);
+            translate([195+(length/2),-2,-11]) cylinder(d=5, h=70, $fn=90);
+            translate([195+(length/2),-2,-4]) cylinder(d=9, h=4.1, $fn=6);
         }
     }
 }
@@ -276,6 +281,7 @@ module nase() {
         }
         union(){
             fixingHoles();
+            translate([195+(length/2),-2,34]) cylinder(d=9, h=4.1, $fn=6);
             translate([195+(length/2),-2,-59]) cylinder(d=5, h=120, $fn=90);
         }
     }
@@ -283,19 +289,19 @@ module nase() {
 
 
 driveCog();
-//translate([plateLength,0,0]) cog();
+translate([plateLength,0,0]) cog();
 
 //translate([plateLength*0.75,-90,0]) cog();
 
 //bearing(0);
 
-//wheelPlate();
+wheelPlate();
 
-//mockPlate();
+mockPlate();
 
-//motor();
+motor();
 
-//nose();
-//nase();
+nose();
+nase();
 
 
