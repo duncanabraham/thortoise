@@ -249,12 +249,13 @@ module nose() {
     length=70;
     difference() {
         union(){
-            translate([160,-(width/2)-2,-10]) cube([length,width,5]);
-            translate([195+(length/2),-2,-10]) cylinder(d=width, h=5, $fn=90);
+            translate([160,-(width/2)-2,-11]) cube([length,width,5]);
+            translate([195+(length/2),-2,-11]) cylinder(d=width, h=5, $fn=90);
+            translate([195+(length/2),-2,-6]) cylinder(d=30, h=5, $fn=90);
         }
         union(){
             fixingHoles();
-            translate([195+(length/2),-2,-11]) cylinder(d=5, h=7, $fn=90);
+            translate([195+(length/2),-2,-12]) cylinder(d=5, h=70, $fn=90);
         }
     }
 }
@@ -289,13 +290,13 @@ module nase() {
 
 //bearing(0);
 
-wheelPlate();
+//wheelPlate();
 
 //mockPlate();
 
 //motor();
 
-//nose();
+nose();
 //nase();
 
 
