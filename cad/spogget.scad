@@ -414,7 +414,7 @@ module nase() {
 }
 
 
-driveCog();
+//driveCog();
 translate([plateLength,0,0]) cog();
 
 //translate([plateLength*0.75,-90,0]) cog();
