@@ -2,7 +2,7 @@ height = 12;
 radius = 95 / 2;
 notchDiameter = 18;
 
-bearingBore=7;
+bearingBore=6;
 bearingSeat=7;
 bearingFlange=1;
 bearingOd=16;
@@ -15,11 +15,78 @@ motorRadius=6;
 motorMountBore=3.2;
 
 innerRadius=71 / 2;
-weightHoleDiameter = innerRadius * 0.4;
+weightHoleDiameter = innerRadius * 0.3;
 shoulderWidth=10;
 
+module cogDrivePart1() {
+    difference() {
+        union(){
+            translate([0,0,shoulderWidth]) cylinder(r=radius, h=height, $fn=90);
+            translate([0,0,height]) cylinder(r=innerRadius+2, h=height+shoulderWidth, $fn=8);
+        }
+        union(){
+            translate([0,0,height-3]) cylinder(r=innerRadius-5, h=10, $fn=8);
+            
+            translate([0,0,-1]) cylinder(d=bearingBore, h=height*3, $fn=90);
+            
+            // Teeth
+            for(i=[0:steps-1]){
+                x=(radius) * sin((360/steps) * i);
+                y=(radius) * cos((360/steps) * i);
+                translate([x, y, shoulderWidth-1]) cylinder(d=notchDiameter, h=height+2, $fn=90);
+            }
+            
+            // Motor mount holes
+            for(j=[0:motorSteps-1]){
+                x=(motorRadius) * sin((360/motorSteps) * j);
+                y=(motorRadius) * cos((360/motorSteps) * j);
+                translate([x, y, -1]) cylinder(d=motorMountBore, h=height*3, $fn=90);
+                translate([x, y, -1]) cylinder(d=motorMountBore+3, h=height+12, $fn=90);
+            }
+            
+            // weight reducing holes
+            weightHoles=8;
+            for(j=[0:weightHoles-1]){
+                x=(innerRadius * 0.65) * sin((360/weightHoles) * j);
+                y=(innerRadius * 0.65) * cos((360/weightHoles) * j);
+                translate([x, y, -1]) cylinder(d=weightHoleDiameter, h=height*3, $fn=90);
+            }
+            
+        }
+    }
+}
+
+module cogDrivePart2() {
+    translate([0,0,-30])
+    difference() {
+        union(){
+            translate([0,0,18-shoulderWidth]) cylinder(r=innerRadius-5, h=10, $fn=8);
+            translate([0,0,0]) cylinder(r=innerRadius+2, h=shoulderWidth, $fn=8);
+        }
+        union(){
+            translate([0,0,-1]) cylinder(d=bearingOd, h=2+bearingSeat, $fn=90);
+            translate([0,0,-1]) cylinder(d=bearingBore, h=2+height+20, $fn=90);
+            translate([0,0,-1]) cylinder(d=bearingFlangeHeight, h=1+bearingFlange, $fn=90);
+            
+            translate([0,0,14])  cylinder(d=25, h=5, $fn=90);
+            
+            // weight reducing holes
+            weightHoles=8;
+            for(j=[0:weightHoles-1]){
+                x=(innerRadius * 0.65) * sin((360/weightHoles) * j);
+                y=(innerRadius * 0.65) * cos((360/weightHoles) * j);
+                translate([x, y, -1]) cylinder(d=weightHoleDiameter, h=height*3, $fn=90);
+            }
+        }
+    }
+}
 
 module driveCog() {
+    cogDrivePart1();
+    cogDrivePart2();
+}
+
+module oldDriveCog() {
     difference() {
         union(){
             translate([0,0,shoulderWidth]) cylinder(r=radius, h=height, $fn=90);
@@ -58,7 +125,68 @@ module driveCog() {
 }
 
 
+
+module cogPart1() {
+    difference(){
+        union(){
+            translate([0,0,shoulderWidth]) cylinder(r=radius, h=height, $fn=90);
+            translate([0,0,shoulderWidth]) rotate([0,0,0]) cylinder(r=innerRadius, h=height+shoulderWidth, $fn=90);
+            
+        }
+        union(){
+            translate([0,0,-1]) cylinder(d=bearingBore, h=2+height+20, $fn=90);
+            translate([0,0,height-3]) cylinder(r=innerRadius-5, h=10, $fn=8);
+            
+            translate([0,0,shoulderWidth+height+2]) cylinder(d=bearingBore, h=2+height+20, $fn=90);
+            translate([0,0,shoulderWidth+height+2]) cylinder(d=bearingOd, h=2+bearingSeat, $fn=90);
+            translate([0,0,shoulderWidth+height+8.1]) cylinder(d=bearingFlangeHeight, h=1+bearingFlange, $fn=90);
+            
+            // Teeth
+            for(i=[0:steps-1]){
+                x=(radius) * sin((360/steps) * i);
+                y=(radius) * cos((360/steps) * i);
+                translate([x, y, shoulderWidth-1]) cylinder(d=notchDiameter, h=height+2, $fn=90);
+            }
+            
+            // weight reducing holes
+            weightHoles=8;
+            for(j=[0:weightHoles-1]){
+                x=(innerRadius * 0.65) * sin((360/weightHoles) * j);
+                y=(innerRadius * 0.65) * cos((360/weightHoles) * j);
+                translate([x, y, -1]) cylinder(d=weightHoleDiameter, h=height+22, $fn=90);
+            }
+        }
+    }
+}
+
+module cogPart2() {
+    translate([0,0,-30])
+    difference(){
+        union(){
+            translate([0,0,18-shoulderWidth]) cylinder(r=innerRadius-5, h=10, $fn=8);
+            translate([0,0,0]) rotate([0,0,0]) cylinder(r=innerRadius, h=shoulderWidth, $fn=90);
+        }
+        union(){
+            translate([0,0,-1]) cylinder(d=bearingBore, h=2+height+20, $fn=90);
+            // weight reducing holes
+            weightHoles=8;
+            for(j=[0:weightHoles-1]){
+                x=(innerRadius * 0.65) * sin((360/weightHoles) * j);
+                y=(innerRadius * 0.65) * cos((360/weightHoles) * j);
+                translate([x, y, -1]) cylinder(d=weightHoleDiameter, h=height+22, $fn=90);
+            }
+            translate([0,0,-1]) cylinder(d=bearingOd, h=2+bearingSeat, $fn=90);
+            translate([0,0,-1]) cylinder(d=bearingFlangeHeight, h=2+bearingFlange, $fn=90);
+        }
+    }
+}
+
 module cog() {
+    cogPart1();
+    cogPart2();
+}
+
+module oldCog() {
     difference() {
         union(){
             translate([0,0,shoulderWidth]) cylinder(r=radius, h=height, $fn=90);
@@ -295,9 +423,9 @@ translate([plateLength,0,0]) cog();
 
 //wheelPlate();
 
-mockPlate();
+//mockPlate();
 
-motor();
+//motor();
 
 //nose();
 //nase();
