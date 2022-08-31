@@ -415,13 +415,14 @@ module nase() {
 
 
 //driveCog();
-translate([plateLength,0,0]) cog();
+translate([plateLength,0,0]) oldCog();
 oldDriveCog();
+nose();
+nase();
+
 
 
 //translate([plateLength*0.75,-90,0]) cog();
-
-//bearing(0);
 
 wheelPlate();
 mockPlate();
@@ -429,10 +430,12 @@ mockPlate();
 translate([0,0,250]) mirror([0,0, 1]) wheelPlate();
 translate([0,0,250]) mirror([0,0,1]) mockPlate();
 translate([0,0,250]) mirror([0,0,1]) oldDriveCog();
-translate([0,0,250]) mirror([0,0,1]) translate([plateLength,0,0]) cog();
-//motor();
+translate([0,0,250]) mirror([0,0,1]) translate([plateLength,0,0]) oldCog();
+translate([0,0,250]) mirror([0,0,1]) nose();
+translate([0,0,250]) mirror([0,0,1]) nase();
 
-//nose();
-//nase();
+
+//motor();
+//bearing(0);
 
 
