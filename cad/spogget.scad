@@ -110,7 +110,7 @@ module oldDriveCog() {
                 x=(motorRadius) * sin((360/motorSteps) * j);
                 y=(motorRadius) * cos((360/motorSteps) * j);
                 translate([x, y, -1]) cylinder(d=motorMountBore, h=height+22, $fn=90);
-                translate([x, y, 8-height]) cylinder(d=motorMountBore+2.5, h=height+12, $fn=90);
+                translate([x, y, 12-height]) cylinder(d=motorMountBore+2.5, h=height+12, $fn=90);
             }
             
             // weight reducing holes
@@ -415,7 +415,8 @@ module nase() {
 
 
 //driveCog();
-translate([plateLength,0,0]) cog();
+//translate([plateLength,0,0]) cog();
+oldDriveCog();
 
 //translate([plateLength*0.75,-90,0]) cog();
 
