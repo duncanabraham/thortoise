@@ -414,8 +414,8 @@ module nase() {
 }
 
 
-//driveCog();
-translate([plateLength,0,0]) cog();
+driveCog();
+//translate([plateLength,0,0]) cog();
 
 //translate([plateLength*0.75,-90,0]) cog();
 
@@ -425,7 +425,7 @@ translate([plateLength,0,0]) cog();
 
 //mockPlate();
 
-//motor();
+motor();
 
 //nose();
 //nase();

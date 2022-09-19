@@ -1,0 +1,36 @@
+{
+    "fileFormatVersion": "1",
+    "parameterSets": {
+        "New set 1": {
+            "Gear_type": "annular_herringbone_gear",
+            "Module": "1",
+            "assembled": "true",
+            "bevel_angle": "45",
+            "bevel_width": "5",
+            "bore": "3",
+            "clearance": "0.050000000000000003",
+            "helix_angle": "20",
+            "hub": "true",
+            "hub_diameter": "6",
+            "hub_thickness": "5",
+            "idler_bore": "3",
+            "idler_teeth": "36",
+            "lead_angle": "4",
+            "number_of_planets": "3",
+            "optimized": "false",
+            "planet_teeth": "10",
+            "pressure_angle": "20",
+            "rack_height": "4",
+            "rack_length": "50",
+            "rim_width": "3",
+            "shaft_angle": "90",
+            "solar_teeth": "20",
+            "straight": "false",
+            "teeth": "30",
+            "width": "5",
+            "worm_bore": "3",
+            "worm_length": "6",
+            "worm_starts": "1"
+        }
+    }
+}

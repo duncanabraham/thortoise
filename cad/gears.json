@@ -1,0 +1,38 @@
+{
+    "fileFormatVersion": "1",
+    "parameterSets": {
+        "Spur_M05_16T_5W_1B9": {
+            "height": "5"
+        },
+        "Spur_M05_30T_1W5_1B9": {
+            "height": "5"
+        },
+        "Spur_M05_42T_1W5_1B9": {
+            "height": "5"
+        },
+        "Spur_M05_60T_1W5_1B9": {
+            "height": "5"
+        },
+        "Spur_M05_10T_6W_1B9": {
+            "height": "5"
+        },
+        "Spur_M05_12T_5W5_2B9": {
+            "height": "5"
+        },
+        "Worm_M05_1S_5LA_L6_1B9": {
+            "height": "5"
+        },
+        "Worm_Drive_M05_Example": {
+            "height": "5"
+        },
+        "Worm_Drive_M05_Example_2": {
+            "height": "5"
+        },
+        "Rack_and_Pinion_M05_Example": {
+            "height": "5"
+        },
+        "Planetary_Gear_M05_Example": {
+            "height": "5"
+        }
+    }
+}
