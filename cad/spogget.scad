@@ -110,7 +110,7 @@ module oldDriveCog() {
                 x=(motorRadius) * sin((360/motorSteps) * j);
                 y=(motorRadius) * cos((360/motorSteps) * j);
                 translate([x, y, -1]) cylinder(d=motorMountBore, h=height+22, $fn=90);
-                translate([x, y, 8-height]) cylinder(d=motorMountBore+2.5, h=height+12, $fn=90);
+                translate([x, y, 12-height]) cylinder(d=motorMountBore+2.5, h=height+12, $fn=90);
             }
             
             // weight reducing holes
@@ -414,20 +414,40 @@ module nase() {
 }
 
 
+<<<<<<< HEAD
 driveCog();
 //translate([plateLength,0,0]) cog();
+=======
+//driveCog();
+translate([plateLength,0,0]) oldCog();
+oldDriveCog();
+nose();
+nase();
+
+
+>>>>>>> 8c8913889aff783fbd93a9779dffa92b9a4b7707
 
 //translate([plateLength*0.75,-90,0]) cog();
 
-//bearing(0);
+wheelPlate();
+mockPlate();
 
-//wheelPlate();
+translate([0,0,250]) mirror([0,0, 1]) wheelPlate();
+translate([0,0,250]) mirror([0,0,1]) mockPlate();
+translate([0,0,250]) mirror([0,0,1]) oldDriveCog();
+translate([0,0,250]) mirror([0,0,1]) translate([plateLength,0,0]) oldCog();
+translate([0,0,250]) mirror([0,0,1]) nose();
+translate([0,0,250]) mirror([0,0,1]) nase();
 
-//mockPlate();
 
+<<<<<<< HEAD
 motor();
 
 //nose();
 //nase();
+=======
+//motor();
+//bearing(0);
+>>>>>>> 8c8913889aff783fbd93a9779dffa92b9a4b7707
 
 
