@@ -134,13 +134,14 @@ module motorCell() {
                 translate([4,height-4,-7]) cylinder(d1=4, d2=8, h=4, $fn=90);
                 translate([96,4,-7]) cylinder(d1=4, d2=8, h=4, $fn=90);
                 translate([96,height-4,-7]) cylinder(d1=4, d2=8, h=4, $fn=90);
+                
             }
         }
     }
 }
 
 module cap(){
-    bottom=-34;
+    bottom= -34;
     difference(){
         union(){
             translate([0,0,bottom]) cylinder(d=51, h=20, $fn=90);
@@ -165,7 +166,7 @@ module cap(){
 module outerGear(){
     circ=PI*innerDiameter;
     pitch=3.4;
-    teeth=circ/pitch;
+    teeth=60; // circ/pitch;
     bottom=40;
     radius=(innerDiameter/2)-5;
 
@@ -217,7 +218,7 @@ module outerRing() {
 module planetGear() {
     bottom=44;
     height=20;
-    teeth=23;
+    teeth=20;
     final_hub_diameter=0;
     radius=20;
     bearingBore=4;
@@ -227,6 +228,7 @@ module planetGear() {
         union(){
             for(spot=[0:120:359]){
                 translate([sin(spot)*radius,cos(spot)*radius,bottom])
+                color([0,0.4,0])
                 pfeilrad (
                     modul=Module, 
                     zahnzahl=teeth, 
@@ -254,7 +256,7 @@ module planetGear() {
 module sunGear(){
     bottom=44;
     height=20;
-    teeth=17;
+    teeth=20;
 //    final_hub_diameter=18;
     final_hub_thickness=0;
     bearingBore=4;
@@ -337,7 +339,7 @@ module outputEnd(){
              for(spot=[0:90:359]){
                 translate([sin(spot)*(radius*1.13),cos(spot)*(radius*1.13),bottom-1])
                     cylinder(d=4.1, h=fastenerLength+2, $fn=90);
-                translate([sin(spot)*(radius*1.13),cos(spot)*(radius*1.13),bottom+height-5])
+                translate([sin(spot)*(radius*1.13),cos(spot)*(radius*1.13),bottom+height-6])
                     cylinder(d=8.1, h=fastenerLength+2, $fn=90);
             }
        }
@@ -348,11 +350,11 @@ module outputEnd(){
 
 //motor();
 //cap();
-//motorCell();
+motorCell();
 outerRing();
-planetGear();
-sunGear();
+//planetGear();
+//sunGear();
 //planetCarrier();
-//outputEnd();
+outputEnd();
 
 
