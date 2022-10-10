@@ -414,40 +414,33 @@ module nase() {
 }
 
 
-<<<<<<< HEAD
+
 driveCog();
 //translate([plateLength,0,0]) cog();
-=======
 //driveCog();
-translate([plateLength,0,0]) oldCog();
-oldDriveCog();
-nose();
-nase();
+//translate([plateLength,0,0]) oldCog();
+//oldDriveCog();
+//nose();
+//nase();
 
-
->>>>>>> 8c8913889aff783fbd93a9779dffa92b9a4b7707
 
 //translate([plateLength*0.75,-90,0]) cog();
 
-wheelPlate();
-mockPlate();
+//wheelPlate();
+//mockPlate();
 
-translate([0,0,250]) mirror([0,0, 1]) wheelPlate();
-translate([0,0,250]) mirror([0,0,1]) mockPlate();
-translate([0,0,250]) mirror([0,0,1]) oldDriveCog();
-translate([0,0,250]) mirror([0,0,1]) translate([plateLength,0,0]) oldCog();
-translate([0,0,250]) mirror([0,0,1]) nose();
-translate([0,0,250]) mirror([0,0,1]) nase();
+//translate([0,0,250]) mirror([0,0, 1]) wheelPlate();
+//translate([0,0,250]) mirror([0,0,1]) mockPlate();
+//translate([0,0,250]) mirror([0,0,1]) oldDriveCog();
+//translate([0,0,250]) mirror([0,0,1]) translate([plateLength,0,0]) oldCog();
+//translate([0,0,250]) mirror([0,0,1]) nose();
+//translate([0,0,250]) mirror([0,0,1]) nase();
 
 
-<<<<<<< HEAD
-motor();
+//motor();
 
 //nose();
-//nase();
-=======
 //motor();
 //bearing(0);
->>>>>>> 8c8913889aff783fbd93a9779dffa92b9a4b7707
 
 

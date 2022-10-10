@@ -307,6 +307,7 @@ module planetCarrier() {
 //                translate([sin(spot)*radius,cos(spot)*radius,bottom-1])
 //                    cylinder(d=7.5, h=thick+1, $fn=90);
             }
+            
         }
         union(){
             for(spot=[0:120:359]){
@@ -314,12 +315,16 @@ module planetCarrier() {
                     cylinder(d=4.1, h=thick+2, $fn=90);
                 translate([sin(spot)*radius,cos(spot)*radius,bottom+5]) cylinder(d=7.6, h=thick+2, $fn=6);
             }
-            for(spot=[0:90:359]){
-                translate([sin(spot)*6,cos(spot)*6,bottom-2])
-                    cylinder(d=3.1, h=thick*4, $fn=90);
-                translate([sin(spot)*6,cos(spot)*6,bottom-1])
-                    cylinder(d=5.6, h=4, $fn=6);
-            }
+//           for(spot=[0:90:359]){
+//                translate([sin(spot)*6,cos(spot)*6,bottom-2])
+//                    cylinder(d=3.1, h=thick*4, $fn=90);
+//                translate([sin(spot)*6,cos(spot)*6,bottom-1])
+//                    cylinder(d=6.15, h=4, $fn=6);
+//            }
+            // Alternative Fixing
+            translate([0,0,bottom-2]) cylinder(d=5, h=thick+20, $fn=90);
+            translate([0,0,bottom+9]) cylinder(d=9, h=5, $fn=6);
+            translate([0,0,bottom+9]) cube([10,9,5]);
         }
     }
 }
