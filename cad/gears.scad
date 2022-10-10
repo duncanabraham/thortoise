@@ -51,11 +51,11 @@ module ring() {
     length=38.5;
     difference(){
         union(){
-            translate([0,0,bottomHeight-15]) cylinder(d=46.8, h=3, $fn=90);
+//            translate([0,0,bottomHeight-15]) cylinder(d=46.8, h=3, $fn=90);
         }
         union(){
             translate([0,0,bottomHeight-16]) cylinder(d=43, h=4, $fn=90);
-            translate([-7.5,-11,-6.01]) cube([length, width, 8]);
+            translate([-7.5,-12,-6.01]) cube([length, width+2, 8]);
         }
     }
 }
@@ -83,12 +83,14 @@ module motorCell() {
             
 //            encoder();
             ring();
+            
             for(spot=[0:120:359]){
-                translate([sin(spot+capHoleOffset)*20,cos(spot+capHoleOffset)*20,bottom+2])
+                translate([sin(spot+capHoleOffset)*20,cos(spot+capHoleOffset)*20,bottom+6])
                     cylinder(d=6, h=20, $fn=20);
             }
         }
-        union(){        
+        union(){   
+            translate([-7.5+20,-12,-10]) cube([8, 22.5+2, 9]);
             translate([0,0,wallThickness+bottomHeight-4]) cylinder(d=innerDiameter, h=height, $fn=180);
             translate([0,0,3]) cylinder(d1=50, d2=innerDiameter, h=bottomHeight, $fn=180);
             
@@ -124,6 +126,7 @@ module motorCell() {
                     cylinder(d=8, h=10, $fn=90);
             }
             encoder();
+//            translate([0,0,bottom+8]) cap();
             translate([-10,-60,8]) rotate([90,0,45]) union(){
                 translate([4,4,-6]) cylinder(d=4, h=10, $fn=90);
                 translate([4,height-4,-6]) cylinder(d=4, h=10, $fn=90);
@@ -141,7 +144,7 @@ module motorCell() {
 }
 
 module cap(){
-    bottom= -34;
+    bottom= -22;
     difference(){
         union(){
             translate([0,0,bottom]) cylinder(d=51, h=20, $fn=90);
@@ -157,7 +160,8 @@ module cap(){
                     cylinder(d=7, h=3, $fn=20);
                 
             }
-            translate([0,0,bottom-1]) cylinder(d=10, h=20, $fn=90);
+            translate([0,0,bottom+11]) rotate([0,0,-33]) cube([47, 23, 10]);
+//            translate([0,0,bottom-1]) cylinder(d=10, h=20, $fn=90);
 //            translate([0,0,bottom+5]) encoder();
         }
     }
@@ -349,12 +353,12 @@ module outputEnd(){
 
 
 //motor();
-//cap();
+cap();
 motorCell();
-outerRing();
+//outerRing();
 //planetGear();
 //sunGear();
 //planetCarrier();
-outputEnd();
+//outputEnd();
 
 
