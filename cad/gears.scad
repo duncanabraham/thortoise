@@ -182,49 +182,58 @@ module outerRing() {
     height=24;
     fastenerLength=24;
     difference(){
-        union(){
-            translate([0,0,bottom]) cylinder(d=innerDiameter+wallThickness, h=height, $fn=180);
-            for(spot=[0:90:359]){
-                translate([sin(spot)*(radius*1.13),cos(spot)*(radius*1.13),bottom])
-                    cylinder(d=8, h=fastenerLength, $fn=90);
+        union() {
+          difference(){
+              union(){
+                  translate([0,0,bottom]) cylinder(d=innerDiameter+wallThickness, h=height, $fn=180);
+                  for(spot=[0:90:359]){
+                      translate([sin(spot)*(radius*1.13),cos(spot)*(radius*1.13),bottom])
+                          cylinder(d=8, h=fastenerLength, $fn=90);
+                  }
+                // bolt down plate
+                  translate([-10,-60,bottom]) rotate([0,0,45]) cube([100, 4, 24]);
+                  translate([33,-12,bottom]) rotate([0,0,45]) cube([20,30,24]); 
+                  translate([-1,-48,bottom]) rotate([0,0,45]) cube([20,30,24]);
+                  // end bolt down plate
+                  
+                  
+              }
+              union(){
+                  translate([0,0,bottom+3]) cylinder(d=innerDiameter, h=height+10, $fn=180);
+                  translate([0,0,bottom-1]) cylinder(d=55, h=height+10, $fn=180);
+                  for(spot=[0:90:359]){
+                      translate([sin(spot)*(radius*1.13),cos(spot)*(radius*1.13),bottom-1])
+                          cylinder(d=5, h=fastenerLength+2, $fn=90);
+                  }
+                  // Fixing holes
+                  translate([-10,-60,bottom-1]) rotate([90,0,45]) union(){
+                      translate([4,6,-6]) cylinder(d=4, h=10, $fn=90);
+                      translate([4,20,-6]) cylinder(d=4, h=10, $fn=90);
+                      translate([96,6,-6]) cylinder(d=4, h=10, $fn=90);
+                      translate([96,20,-6]) cylinder(d=4, h=10, $fn=90);
+                      
+                      translate([4,6,-7]) cylinder(d1=4, d2=8, h=4, $fn=90);
+                      translate([4,20,-7]) cylinder(d1=4, d2=8, h=4, $fn=90);
+                      translate([96,6,-7]) cylinder(d1=4, d2=8, h=4, $fn=90);
+                      translate([96,20,-7]) cylinder(d1=4, d2=8, h=4, $fn=90);
+                  }
+              }
             }
-           // bolt down plate
-            translate([-10,-60,bottom]) rotate([0,0,45]) cube([100, 4, 24]);
-            translate([33,-12,bottom]) rotate([0,0,45]) cube([20,30,24]); 
-            translate([-1,-48,bottom]) rotate([0,0,45]) cube([20,30,24]);
-            // end bolt down plate
+            outerGear();
         }
-        union(){
-            translate([0,0,bottom+3]) cylinder(d=innerDiameter, h=height+10, $fn=180);
-            translate([0,0,bottom-1]) cylinder(d=55, h=height+10, $fn=180);
-            for(spot=[0:90:359]){
-                translate([sin(spot)*(radius*1.13),cos(spot)*(radius*1.13),bottom-1])
-                    cylinder(d=5, h=fastenerLength+2, $fn=90);
-            }
-            // Fixing holes
-            translate([-10,-60,bottom-1]) rotate([90,0,45]) union(){
-                translate([4,6,-6]) cylinder(d=4, h=10, $fn=90);
-                translate([4,20,-6]) cylinder(d=4, h=10, $fn=90);
-                translate([96,6,-6]) cylinder(d=4, h=10, $fn=90);
-                translate([96,20,-6]) cylinder(d=4, h=10, $fn=90);
-                
-                translate([4,6,-7]) cylinder(d1=4, d2=8, h=4, $fn=90);
-                translate([4,20,-7]) cylinder(d1=4, d2=8, h=4, $fn=90);
-                translate([96,6,-7]) cylinder(d1=4, d2=8, h=4, $fn=90);
-                translate([96,20,-7]) cylinder(d1=4, d2=8, h=4, $fn=90);
-            }
-        }
-        
+        // union(){
+        //     translate([-100,-100,bottom+14]) cube([200,200,15]);
+        // }
     }
-     outerGear();
+    //  
 }
 
 module planetGear() {
     bottom=44;
     height=20;
-    teeth=20;
+    teeth=24;
     final_hub_diameter=0;
-    radius=20;
+    radius=18;
     bearingBore=4;
     bearingHeight=4;
     bearingOd=9;
@@ -260,13 +269,13 @@ module planetGear() {
 module sunGear(){
     bottom=44;
     height=20;
-    teeth=20;
+    teeth=12;
 //    final_hub_diameter=18;
     final_hub_thickness=0;
     bearingBore=4;
     bearingHeight=4;
     bearingOd=9;
-    translate([0,0,bottom]) difference(){
+    translate([0,0,bottom]) rotate ([0,0,12]) difference(){
         union(){
             pfeilrad (
                 modul=Module, 
@@ -282,12 +291,12 @@ module sunGear(){
         }
         union(){
             translate([0,0,height-bearingHeight]) cylinder(d=bearingOd, h=bearingHeight+1, $fn=90);
-            for(spot=[0:90:359]){
-                translate([sin(spot) * 6,cos(spot) * 6, -1])
-                    cylinder(d=3.1, h=40, $fn=90);
-                translate([sin(spot) * 6,cos(spot) * 6,10])
-                    cylinder(d=5, h=40, $fn=90);
-            }
+            // for(spot=[0:90:359]){
+            //     translate([sin(spot) * 6,cos(spot) * 6, -1])
+            //         cylinder(d=3.1, h=40, $fn=90);
+            //     translate([sin(spot) * 6,cos(spot) * 6,10])
+            //         cylinder(d=5, h=40, $fn=90);
+            // }
         }
     }
 }
@@ -358,11 +367,12 @@ module outputEnd(){
 
 
 //motor();
-cap();
-motorCell();
-//outerRing();
-//planetGear();
-//sunGear();
+//cap();
+//motorCell();
+outerRing();
+
+planetGear();
+sunGear();
 //planetCarrier();
 //outputEnd();
 
