@@ -367,10 +367,9 @@ module outputEnd(){
 
 
 //motor();
-//cap();
-//motorCell();
+// cap();
+// motorCell();
 outerRing();
-
 planetGear();
 sunGear();
 //planetCarrier();
