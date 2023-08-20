@@ -2,7 +2,7 @@
 ## the thinking tortoise
 
 ## What?
-Simply put, this is a robotics project to animate a 4 legged garden crawler robot.  The goal
+Simply put, this is a robotics project to animate a ~~4 legged~~ tracked garden crawler robot.  The goal
 is to have a machine that can identify and remove weeds using some AI and also plant grass seed
 in the bare patches using the mulched weeds as nutrients.
 
@@ -81,3 +81,10 @@ depending on the task at hand ... or maybe just write it all in good ol' JS!
 ## A still from a video of the leg moving in a circular gait:
 <img width="515" alt="image" src="https://user-images.githubusercontent.com/5994927/172945714-073bf0ee-97fe-405b-b94b-da21fb257d87.png">
 
+A year later and the legs have gone.  Long story short, the servo's for a walking robot need to be heavy duty which come with a heavy duty price tag.  I decided to switch to a tracked design!
+
+Having tracks means the machine can be heavier and bigger and work is ongoing to 3d print all the structural parts.
+
+As soon as the mechanics of it are constructed I'll get some photos on here and start talking about expectations and features.  Also from an electronics perspective there are some design ideas that will impact the way the code operates.
+
+Watch this space ....
