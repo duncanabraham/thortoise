@@ -33,7 +33,7 @@ app.listen(api.port, () => {
 });
 
 (async () => {
-  init()
+  await init()
   const thortoise = new Thortoise({ ...options, store })
   this.controller = new Controller({ robot: thortoise, app, store })
 
