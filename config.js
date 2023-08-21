@@ -60,6 +60,16 @@ const trackSettings = {
   track1: { name: 'right track' }
 }
 
+const odriveSettings = {
+  BANDWIDTH: 100,
+  ENCODER_CPR: 4000,
+  CURRENT_LIMIT: 10,
+  VEL_LIMIT: 30,
+  VEL_GAIN: 0.05,
+  POS_GAIN: 0.5,
+  INTEGRATOR: 0.007
+}
+
 const trackApiSettings = {
   address: '127.0.0.1',
   port: 3010
@@ -105,5 +115,6 @@ module.exports = {
   api,
   navigationSettings,
   cameraSettings,
+  odriveSettings,
   ATCOMMANDS
 }
