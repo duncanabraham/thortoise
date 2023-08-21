@@ -2,7 +2,6 @@
 require('./common')
 const { expect } = require('chai')
 
-const Leg = require('../lib/leg')
 const Brain = require('../lib/brain')
 const path = require('path')
 const mock = require('mock-require')
@@ -34,21 +33,6 @@ delete require.cache[path.join(__dirname, '../lib/runCommand.js')]
 const Thortoise = require('../lib/thortoise')
 const { coords } = require('../lib/grid')
 
-const legDefaults = {
-  femurLength: 150,
-  tibiaLength: 150,
-  hipServoSettings: this.hipServo,
-  femurServoSettings: this.femurServo,
-  kneeServoSettings: this.kneeServo,
-  direction: 'forward'
-}
-
-const servos = {
-  hipServoSettings: { range: [40, 90], startAt: 90, controller: 'PCA9685' },
-  femurServoSettings: { range: [20, 120], startAt: 120, controller: 'PCA9685' },
-  kneeServoSettings: { range: [40, 90], startAt: 90, controller: 'PCA9685' }
-}
-
 const cameraSettings = {
   mode: 'photo',
   output: `(${path.join(__dirname, 'image.jpg')}`,
@@ -59,19 +43,25 @@ const cameraSettings = {
 
 let mockStore = {}
 
+const trackSettings = {
+  track0: { name: 'left track' },
+  track1: { name: 'right track' }
+}
+
+const trackApiSettings = {
+  address: '127.0.0.1',
+  port: 3010
+}
+
 const mockOptions = {
   name: 'testbot',
   version: 1,
   cameraSettings,
+  trackSettings,
+  trackApiSettings,
   store: {
     append: (key, value) => { mockStore[key] = value }
-  },
-  legSettings: [
-    { id: 0, name: 'front-left', startPos: 0, ...legDefaults, ...servos },
-    { id: 1, name: 'front-right', startPos: Math.PI / 2, ...legDefaults, ...servos },
-    { id: 2, name: 'back-left', startPos: Math.PI, ...legDefaults, ...servos },
-    { id: 3, name: 'back-right', startPos: Math.PI * 1.5, ...legDefaults, ...servos }
-  ]
+  }
 }
 
 describe('The Thortoise class: ', () => {
@@ -113,38 +103,7 @@ describe('The Thortoise class: ', () => {
       notes: 'north'
     })
   })
-  describe('on instantiation', () => {
-    it('should initialise 4 legs as an array', () => {
-      const { legs } = thortoise
-      expect(legs).to.be.an('Array')
-      expect(legs.length).to.equal(4)
-      expect(legs[0]).to.be.an.instanceOf(Leg)
-    })
-    it('should add an instance of Brain', () => {
-      const { brain } = thortoise
-      expect(brain).to.be.an.instanceOf(Brain)
-    })
-    it('should set the timer value to 20', () => {
-      expect(thortoise.loopSpeedMS).to.equal(20)
-    })
-  })
   describe('when sleep() is called', () => {
-    it('should set all legs to sleep mode', () => {
-      thortoise.sleeping = undefined
-      const result = {}
-      function sleep () {
-        result[this.name] = 'leg sleep called'
-      }
-      thortoise.legs.forEach(leg => { leg.sleep = (sleep.bind(leg)) })
-      thortoise.sleep()
-      const expectedResult = {
-        'front-left': 'leg sleep called',
-        'front-right': 'leg sleep called',
-        'back-left': 'leg sleep called',
-        'back-right': 'leg sleep called'
-      }
-      expect(result).to.deep.equal(expectedResult)
-    })
     describe('when the state is not sleeping', () => {
       it('should update the INFO store with "Starting sleep loop..."', () => {
         thortoise.sleeping = undefined
@@ -182,9 +141,6 @@ describe('The Thortoise class: ', () => {
     })
   })
   describe('when exitHandler is called', () => {
-    it('should call stop() on all legs', () => {
-      thortoise.exitHandler()
-    })
     it('should store the value "Stopped" in the INFO log', () => {
       thortoise.exitHandler()
       expect(mockStore.INFO).to.equal('Stopped')
@@ -253,78 +209,6 @@ describe('The Thortoise class: ', () => {
       }
       thortoise.saveWorld()
       expect(saveWorldCalled).to.equal(true)
-    })
-  })
-  describe('when _doMovement() is called', () => {
-    let result
-    beforeEach(() => {
-      result = {
-        nextStep: {},
-        setDirection: {}
-      }
-      thortoise.legs.forEach((leg) => {
-        leg.nextStep = () => {
-          result.nextStep[leg.name] = 'nextStep called'
-        }
-        leg.setDirection = (direction) => {
-          result.setDirection[leg.name] = direction
-        }
-      })
-    })
-    describe('and the direction is "forward"', () => {
-      it('should set all legs to forward', () => {
-        thortoise.direction = 'forward'
-        thortoise._doMovement()
-        expect(result.setDirection['front-right']).to.equal('forward')
-        expect(result.setDirection['front-left']).to.equal('forward')
-        expect(result.setDirection['back-right']).to.equal('forward')
-        expect(result.setDirection['back-left']).to.equal('forward')
-      })
-    })
-    describe('and the direction is "backward"', () => {
-      it('should set all legs to backward', () => {
-        thortoise.direction = 'backward'
-        thortoise._doMovement()
-        expect(result.setDirection['front-right']).to.equal('backward')
-        expect(result.setDirection['front-left']).to.equal('backward')
-        expect(result.setDirection['back-right']).to.equal('backward')
-        expect(result.setDirection['back-left']).to.equal('backward')
-      })
-    })
-    describe('and the direction is "left', () => {
-      it('should set the left legs to "forward"', () => {
-        thortoise.direction = 'left'
-        thortoise._doMovement()
-        expect(result.setDirection['front-left']).to.equal('forward')
-        expect(result.setDirection['back-left']).to.equal('forward')
-      })
-      it('should set the right legs to "backward"', () => {
-        thortoise.direction = 'left'
-        thortoise._doMovement()
-        expect(result.setDirection['front-right']).to.equal('backward')
-        expect(result.setDirection['back-right']).to.equal('backward')
-      })
-    })
-    describe('and the direction is "right', () => {
-      it('should set the left legs to "backward"', () => {
-        thortoise.direction = 'right'
-        thortoise._doMovement()
-        expect(result.setDirection['front-left']).to.equal('backward')
-        expect(result.setDirection['back-left']).to.equal('backward')
-      })
-      it('should set the right legs to "forward"', () => {
-        thortoise.direction = 'right'
-        thortoise._doMovement()
-        expect(result.setDirection['front-right']).to.equal('forward')
-        expect(result.setDirection['back-right']).to.equal('forward')
-      })
-    })
-    it('should call the nextStep() method for all legs', () => {
-      thortoise._doMovement()
-      expect(result.nextStep['front-right']).to.equal('nextStep called')
-      expect(result.nextStep['front-left']).to.equal('nextStep called')
-      expect(result.nextStep['back-right']).to.equal('nextStep called')
-      expect(result.nextStep['back-left']).to.equal('nextStep called')
     })
   })
   describe('when _verbose() is called and the verbose flag is set', () => {

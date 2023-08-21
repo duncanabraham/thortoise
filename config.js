@@ -68,15 +68,13 @@ const trackApiSettings = {
 const options = {
   name: 'ThortBot',
   version,
-  // legSettings,
-  wheelSettings,
   trackSettings,
   trackApiSettings,
   verbose: env.VERBOSE === 'true',
   dimensions: { // measure these, the navigation module will need to work out if it fits through/between/under a gap or obstacle
-    width: 300,
+    width: 600,
     height: 300,
-    length: 300
+    length: 600
   }
 }
 

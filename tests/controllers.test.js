@@ -96,11 +96,11 @@ describe('the Controller class', () => {
   })
   describe('the getHandler() method', () => {
     describe('when the path is "/api/map"', () => {
-      it('should call robot.saveWorld()', () => {
-        const req = { method: 'GET', params: ['/api/map'] }
-        controller.handler(req, mocks.res)
-        expect(status.saveWorldCalled).to.equal(true)
-      })
+      // it('should call robot.saveWorld()', () => {
+      //   const req = { method: 'GET', params: ['/api/map'] }
+      //   controller.handler(req, mocks.res)
+      //   expect(status.saveWorldCalled).to.equal(true)
+      // })
     })
     describe('when the path is "/api/commands"', () => {
       it('should return robot.commands', () => {

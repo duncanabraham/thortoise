@@ -3,7 +3,7 @@ const { expect } = require('chai')
 const Brain = require('../lib/brain')
 
 global.registry = {
-  register: () => {}
+  register: () => { }
 }
 
 describe('the Brain class', () => {
@@ -31,6 +31,18 @@ describe('the Brain class', () => {
     })
     it('should get the actualBearing', () => {
       expect('actualBearing' in brain).to.equal(true)
+    })
+    describe('on command execution', () => {
+      it('should process commands from the commandQueue', () => {
+        brain.commandQueue.push('testCommand')
+        brain.processCommands()
+        expect(brain.commands.includes('testCommand')).to.equal(true)
+      })
+      it('should update the actualBearing after command execution', () => {
+        brain.commandQueue.push({ type: 'rotate', value: 90 })
+        brain.processCommands()
+        expect(brain.actualBearing).to.equal(90)
+      })
     })
   })
 })
