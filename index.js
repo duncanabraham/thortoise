@@ -1,3 +1,16 @@
+/**
+████████ ██   ██  ██████  ██████  ████████  ██████  ██ ███████ ███████
+   ██    ██   ██ ██    ██ ██   ██    ██    ██    ██ ██ ██      ██
+   ██    ███████ ██    ██ ██████     ██    ██    ██ ██ ███████ █████
+   ██    ██   ██ ██    ██ ██   ██    ██    ██    ██ ██      ██ ██
+   ██    ██   ██  ██████  ██   ██    ██     ██████  ██ ███████ ███████
+
+   The thinking tortoise! Really? Maybe just another robot project
+
+   Author:  Duncan Abraham <duncan@tydusolutions.co.uk>
+   Date:    2022, 2023, ...
+*/
+
 const Registry = require('./lib/registry')
 global.registry = new Registry()
 
@@ -42,5 +55,15 @@ app.listen(api.port, () => {
     console.info(thortoise)
   }
 
+  console.log('Starting ...')
+  console.log()
+  console.log('████████ ██   ██  ██████  ██████  ████████  ██████  ██ ███████ ███████')
+  console.log('   ██    ██   ██ ██    ██ ██   ██    ██    ██    ██ ██ ██      ██')
+  console.log('   ██    ███████ ██    ██ ██████     ██    ██    ██ ██ ███████ █████')
+  console.log('   ██    ██   ██ ██    ██ ██   ██    ██    ██    ██ ██      ██ ██')
+  console.log('   ██    ██   ██  ██████  ██   ██    ██     ██████  ██ ███████ ███████')
+  console.log()
+  console.log(new Date().toISOString())
+  console.log()
   thortoise.start()
 })()

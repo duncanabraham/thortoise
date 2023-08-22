@@ -55,11 +55,6 @@ const wheelSettings = {
   backRight: { speedChannel: 3, fPin: 35, bPin: 37 } // GPIOAO_8 & GPIOAO_9
 }
 
-const trackSettings = {
-  track0: { name: 'left track' },
-  track1: { name: 'right track' }
-}
-
 const odriveSettings = {
   BANDWIDTH: 100,
   ENCODER_CPR: 4000,
@@ -78,7 +73,6 @@ const trackApiSettings = {
 const options = {
   name: 'ThortBot',
   version,
-  trackSettings,
   trackApiSettings,
   verbose: env.VERBOSE === 'true',
   dimensions: { // measure these, the navigation module will need to work out if it fits through/between/under a gap or obstacle
