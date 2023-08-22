@@ -21,6 +21,7 @@ store.attachHandler('INFO', (data) => {
 
 const init = async () => {
   // TODO: do I need to initialise anything here?
+  // Each module should be calling their init() methods on instantiation
 }
 
 const app = express()
