@@ -110,4 +110,19 @@ So with the power cables in place, and the ODrive connected to my PC for direct 
 
 <img width="474" alt="image" src="https://github.com/duncanabraham/thortoise/assets/5994927/0d35d6c8-5317-4f6c-968c-5672fca7fc26">
 
+There is a design flaw, which is not entirely of my making, but maybe I should have addressed it.  The gearbox housings are round and I'm going to apply torque to the end, what is going to happen to the gearbox!! My chassis design is a clamshell, so the upper section is a mirror of the lower section and when bolted in place, with some pads on the motors, I can apply a clamping force to the gearbox.  Only time will tell if this is going to be strong enough but in hindsight, when I was modifying the gearbox design I should have added lugs to allow it to be bolted in place ... I may still revisit this.
+
+So here we are, chassis complete, main power control in place, the next step will be to add an enclosure to fit inside the chassis to hold the odrive, pi zero (radxa not raspberry) and power supply. This will provide another level of protection to the important parts should I have water (I have dogs, it could be yellow water) ingress.
+
+I'm also going to reprint the drive cogs as I went with a hexagonal, work like a wrench, approach but again 20:20 hindsight shows that wheels should be round - who knew?
+
+Not round:
+<img width="627" alt="image" src="https://github.com/duncanabraham/thortoise/assets/5994927/06bad9c9-41b8-4a39-969d-f14911bf1a5c">
+
+Round:
+<img width="637" alt="image" src="https://github.com/duncanabraham/thortoise/assets/5994927/c9952655-4e2f-417e-b483-a84a64de3564">
+
+
+
+
 
