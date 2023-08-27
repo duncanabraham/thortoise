@@ -94,7 +94,7 @@ Soooo here we go, I've 3d printed two 64:1 gearboxes using the design from this 
 
 ![image](https://github.com/duncanabraham/thortoise/assets/5994927/992981a8-e5ef-4ea4-b507-a534ab9434ef)
 
-The motors are to be connected to an ODrive motor controller which needs feedback from an encoder. After a couple of minutes with a vernier caliper and OPENScad I'd knocked up an encoder mount that would use the motor mount bolts to secure it in place.  I was happy with this approach which and even happier when it was all installed and looking awesome.
+The motors are to be connected to an ODrive motor controller which needs feedback from an encoder. After a couple of minutes with a vernier caliper and OPENScad I'd knocked up an encoder mount that would use the motor mount bolts to secure it in place.  I was happy with this approach and even happier when it was all installed and looking awesome.  The encoder is an AS5047P which has a rated CPR of 4096 but requires the Odrive to be configured as 4000. A magnet is glued to the back of the motor shaft.
 
 <img width="453" alt="image" src="https://github.com/duncanabraham/thortoise/assets/5994927/f3414905-def1-4d4e-9745-8a3090ddb5a3">
 
