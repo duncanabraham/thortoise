@@ -117,10 +117,10 @@ So here we are, chassis complete, main power control in place, the next step wil
 I'm also going to reprint the drive cogs as I went with a hexagonal, work like a wrench, approach but again 20:20 hindsight shows that wheels should be round - who knew?
 
 Not round:
-<img width="627" alt="image" src="https://github.com/duncanabraham/thortoise/assets/5994927/06bad9c9-41b8-4a39-969d-f14911bf1a5c">
+<img width="300" alt="image" src="https://github.com/duncanabraham/thortoise/assets/5994927/06bad9c9-41b8-4a39-969d-f14911bf1a5c">
 
 Round:
-<img width="637" alt="image" src="https://github.com/duncanabraham/thortoise/assets/5994927/c9952655-4e2f-417e-b483-a84a64de3564">
+<img width="300" alt="image" src="https://github.com/duncanabraham/thortoise/assets/5994927/c9952655-4e2f-417e-b483-a84a64de3564">
 
 
 
