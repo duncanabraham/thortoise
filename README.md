@@ -100,3 +100,14 @@ The motors are to be connected to an ODrive motor controller which needs feedbac
 
 <img width="463" alt="image" src="https://github.com/duncanabraham/thortoise/assets/5994927/9e342a85-90bd-4868-ba22-eefbd4c4213e">
 
+After completion of the main chassis it was time start working on the eletrics.  The motors are high power, as in >30A, so I need to be careful that any switching can handle that sort of current.  To this end I'd bought a 24v 200A relay for the last robot and again was able to reuse this. A low current switch is mounted in the "carry handle" and the wiring routed through the handle to the relay. At present it's a simple case of when the switch is on the Odrive is on but this may change later to allow the "brain" to turn the ODrive off when in power save mode.
+
+<img width="488" alt="image" src="https://github.com/duncanabraham/thortoise/assets/5994927/0437dc84-802f-4529-b27e-56e7f398ec3a">
+
+It looks messy at the moment but there's a lot of baking soda to shake out of the frame when the gluing process has been completed.  The problem with baking soda is it falls through the cracks and I'm considering using hot glue to seal one side of the joints and baking soda and superglue the other.  I've also see a video showing graphite and superglue as an alternative and I may have a look into this to see if the results are better/stronger.
+
+So with the power cables in place, and the ODrive connected to my PC for direct control, I was finally able to get both motors working at the same time.  Here's a still from the video:
+
+<img width="474" alt="image" src="https://github.com/duncanabraham/thortoise/assets/5994927/0d35d6c8-5317-4f6c-968c-5672fca7fc26">
+
+
