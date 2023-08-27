@@ -88,3 +88,8 @@ Having tracks means the machine can be heavier and bigger and work is ongoing to
 As soon as the mechanics of it are constructed I'll get some photos on here and start talking about expectations and features.  Also from an electronics perspective there are some design ideas that will impact the way the code operates.
 
 Watch this space ....
+
+Soooo here we go, I've 3d printed two 64:1 gearboxes using the design from this video: https://www.youtube.com/watch?v=G0DcM60lWSw&t=14s and modified the design to house my motors.  The motors are GARTT ML 5010 300KV with a rated power output of 800W.  The motors were taller than those in the video requiring the black shim you see in the following image, the mounting holes had different spacing and I needed a bigger hole for the cables I'd already soldered 3-way xt60 sockets on and I didn't want to take them off!!
+
+
+![image](https://github.com/duncanabraham/thortoise/assets/5994927/992981a8-e5ef-4ea4-b507-a534ab9434ef)
