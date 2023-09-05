@@ -22,11 +22,11 @@ const run = async () => {
     await motorController.write('w axis1.requested_state 8\n')
     
     await motorController.write(`w axis0.controller.input_vel ${desiredVelocity}\n`)
-    await motorController.write(`w axis1.controller.input_vel ${desiredVelocity}\n`)
+    await motorController.write(`w axis1.controller.input_vel ${desiredVelocity * -1}\n`)
 
     await delay(5000)
     await motorController.write(`w axis0.controller.input_vel ${desiredVelocity * -1}\n`)
-    await motorController.write(`w axis1.controller.input_vel ${desiredVelocity * -1}\n`)
+    await motorController.write(`w axis1.controller.input_vel ${desiredVelocity}\n`)
 
     await delay(5000)
     await motorController.write('w axis0.requested_state 1\n')
