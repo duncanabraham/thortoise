@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/style.css">
+  <title>Real-Time Thortoise Telemetry</title>
+</head>
+
+<body>
+  <div id="full-screen-container">
+    <div id="top-bar">
+      <table width="100%" id="databar" cellpadding="5">
+        <tr class="odrv">
+          <th width="12.5%">Voltage:</th><td width="12.5%" id="odrvvoltage"></td>
+          <th width="12.5%">Current:</th><td width="12.5%" id="odrvcurrent"></td>
+          <th width="12.5%">Last Error:</th><td colspan="3" id="odrverror"></td>
+        </tr>
+        <tr>
+          <th colspan="4" class="head m0">Motor 0</th>
+          <th colspan="4" class="head m1">Motor 1</th>
+        </tr>
+        <tr>
+          <th width="12.5%" class="m0">Velocity:</th><td width="12.5%" id="motor0vel"></td>
+          <th width="12.5%" class="m0">Position:</th><td width="12.5%" id="motor0pos"></td>
+          <th width="12.5%" class="m1">Velocity:</th><td width="12.5%" id="motor1vel"></td>
+          <th width="12.5%" class="m1">Position:</th><td width="12.5%" id="motor1pos"></td>
+        </tr>
+        <tr>
+          <th class="m0">Mechanical:</th><td id="motor0mechanical"></td>
+          <th class="m0">Electrical:</th><td id="motor0electrical"></td>
+          <th class="m1">Mechanical:</th><td id="motor1mechanical"></td>
+          <th class="m1">Electrical:</th><td id="motor1electrical"></td>
+        </tr>
+      </table>
+    </div>
+    <div id="main-window"></div>
+    <table width="100%" id="controlbar">
+      <tr>
+        <td width="100" align="center">
+          <div class="range-container">
+            <input type="range" id="motor-control-left" class="vertical-range m0" min="-100" max="100" value="0">
+          </div>
+        </td>
+        <td width="10%" align="left">
+          <div class="value-display">
+            <span id="motor-value-left">0%</span>
+          </div>
+        </td>
+        <td align="center">
+          <button class="esbtn" id="esbtn">STOP</button>
+        </td>
+        <td width="10%" align="right">
+          <div class="value-display">
+            <span id="motor-value-right">0%</span>
+          </div>
+        </td>
+        <td width="100" align="center">
+          <div class="range-container">
+            <input type="range" id="motor-control-right" class="vertical-range m1" min="-100" max="100" value="0">
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/nipplejs/0.8.2/nipplejs.min.js"></script>
+  <script src="js/script.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,119 @@
+/* Reset default margin and padding */
+html, body, div {
+  margin: 0;
+  padding: 0;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  overscroll-behavior: none;
+  position: relative;
+  top:0;
+  left:0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Make the page full-screen */
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Style the full-screen container */
+#full-screen-container {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Style the top bar for server stats */
+#top-bar {
+  background-color: #ddd;
+  color: #000;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 3px solid #246;
+  height: 200px;  
+}
+
+.range-container {
+  margin: 0 20px;
+  overscroll-behavior: auto;
+}
+
+.vertical-range {
+  width: 50px; /* Adjust the width as needed */
+  height: 50px; /* Adjust the height as needed */
+  margin: 0;
+  padding: 0;
+  transform: rotate(90deg); /* Rotate the slider to be vertical */
+  scale: 400%;
+  position: relative;
+  z-index: 100;
+  top: +80px;
+}
+
+#controlbar{
+  position: absolute;
+  bottom:0;
+  height: 210px;
+  z-index: 100;
+  background-color: #ddd;
+  border-collapse: collapse;
+  border-top: 3px solid #246;
+}
+
+#databar{
+  border-collapse: collapse; 
+  border-bottom: 1px solid #222;
+}
+
+#main-window{
+  margin: 10px;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  margin-bottom: 210px;
+}
+
+.odrv{
+  background-color: #fff;
+}
+
+th{
+  background-color: #246;
+  color: #fff;
+  text-align: right;
+}
+
+td {
+  background-color: #fff;
+}
+
+.head{
+  text-align: center;
+  font-size: 2em;
+  background-color: #fff;
+  color: #246;
+}
+
+.esbtn{
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background-color: red;
+  color: #fff;
+}
+
+.m0{
+  color: #000;
+  background-color: #48d;
+}
+
+.m1{
+  background-color: #d84;
+  color: #000;
+}
