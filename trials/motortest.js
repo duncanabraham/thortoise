@@ -11,7 +11,7 @@ const desiredVelocity = 16 // Replace with your desired velocity in RPM
 const run = async () => {
   try {
     await motorController.init()
-    await motorController.calibrate()
+    // await motorController.calibrate()
 
     await delay(10000)
     
