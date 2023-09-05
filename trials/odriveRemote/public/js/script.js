@@ -1,4 +1,4 @@
-const socket = new WebSocket('ws://192.168.0.55/'); // Adjust the WebSocket URL
+const socket = new WebSocket('ws://thortoise/'); // Adjust the WebSocket URL
 
 socket.addEventListener('open', (event) => {
   // Connection is established
