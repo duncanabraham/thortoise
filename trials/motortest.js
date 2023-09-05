@@ -1,7 +1,10 @@
 const ODrive = require('../lib/odrive')
 const { delay } = require('../lib/utils')
 
-const motorController = new ODrive('/dev/ttyACM0', 115200)
+const uart= '/dev/ttyAML0'
+const baud=115200
+
+const motorController = new ODrive(uart, baud)
 
 const desiredVelocity = 16 // Replace with your desired velocity in RPM
 
