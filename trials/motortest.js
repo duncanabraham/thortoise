@@ -1,7 +1,7 @@
 const ODrive = require('../lib/odrive')
 const { delay } = require('../lib/utils')
 
-const uart= '/dev/ttyAML0'
+const uart= '/dev/ttyAML1'
 const baud=115200
 
 const motorController = new ODrive(uart, baud)
