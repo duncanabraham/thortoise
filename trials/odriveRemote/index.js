@@ -7,7 +7,7 @@ const remote = require('./lib/remote')
 const SC16IS752 = require('../../lib/i2c/SC16IS752')
 
 global.registry = {
-  register: () => {}
+  register: () => { }
 }
 
 const serialHat = new SC16IS752()
@@ -23,12 +23,14 @@ const wss = new WebSocket.Server({ server })
 
 const activeSessions = new Set()
 
-const sendDataToClient = (client) => {
-  client.send(JSON.stringify({ 
-    timestamp: new Date(), 
-    left: remote.motors.left, 
-    right: remote.motors.right, 
-    odrv: remote.odrv
+const sendDataToClient = async (client) => {
+  const status = await remote.getStatus()
+  client.send(JSON.stringify({
+    timestamp: new Date(),
+    left: remote.motors.left,
+    right: remote.motors.right,
+    odrv: remote.odrv,
+    status
   }))
 }
 
@@ -49,7 +51,16 @@ wss.on('connection', (ws) => {
   ws.on('message', (message) => {
     const data = JSON.parse(message)
     console.log('message: ', data)
-
+    if (data.code) {
+      switch (data.code) {
+        case 'ES':
+          console.log('Emergency Stop / Reset')
+          remote.stop()
+          break
+        default:
+          console.log(`Do what?  ${data.code}`)
+      }
+    }
     remote.setSpeed('left', data.leftMotor)
     remote.setSpeed('right', data.rightMotor)
 
