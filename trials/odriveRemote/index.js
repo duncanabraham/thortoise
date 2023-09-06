@@ -6,6 +6,10 @@ const app = express()
 const remote = require('./lib/remote')
 const SC16IS752 = require('../../lib/i2c/SC16IS752')
 
+global.registry = {
+  register: () => {}
+}
+
 const serialHat = new SC16IS752()
 
 serialHat.setAllOut()
