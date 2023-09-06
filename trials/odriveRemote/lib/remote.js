@@ -1,5 +1,5 @@
 const ODrive = require('../../../lib/odrive')
-const uart = '/dev/ttyAML1' // /dev/ttyAML0 = Radxa UART_A, /dev/ttyAML1 = Radxa UART_B
+const uart = '/dev/ttyAML0' // /dev/ttyAML0 = Radxa UART_A, /dev/ttyAML1 = Radxa UART_B
 const baud = 115200
 
 class Remote {
@@ -59,6 +59,7 @@ class Remote {
     await this.motorController.write('w axis0.requested_state 1\n')
     await this.motorController.write('w axis1.requested_state 1\n')
     this.runState = 0
+    await this.motorController.write('sc')
   }
 
   async init() {
