@@ -4,6 +4,12 @@ const express = require('express')
 const path = require('path') // Add this line
 const app = express()
 const remote = require('./lib/remote')
+const SC16IS752 = require('../../lib/i2c/SC16IS752')
+
+const serialHat = new SC16IS752()
+
+serialHat.setAllOut()
+serialHat.writeByte(0xAA) // 10101010
 
 // Serve static files from the "public" directory
 app.use(express.static(path.join(__dirname, 'public')))
