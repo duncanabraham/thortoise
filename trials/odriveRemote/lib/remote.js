@@ -59,7 +59,7 @@ class Remote {
     await this.motorController.write('w axis0.requested_state 1\n')
     await this.motorController.write('w axis1.requested_state 1\n')
     this.runState = 0
-    await this.motorController.write('sc')
+    await this.motorController.write('sc\n')
   }
 
   async init() {
