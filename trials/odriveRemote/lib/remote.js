@@ -1,6 +1,6 @@
 const ODrive = require('../../../lib/odrive')
 
-const uart = '/dev/ttyAML0' // /dev/ttyAML0 = Radxa UART_A, /dev/ttyAML1 = Radxa UART_B
+const uart = '/dev/ttyAML1' // /dev/ttyAML0 = Radxa UART_A, /dev/ttyAML1 = Radxa UART_B
 const baud = 115200
 
 class Remote {
