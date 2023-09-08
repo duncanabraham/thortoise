@@ -87,7 +87,7 @@ esbtn.addEventListener('click', () => {
 
 // Function to update the left motor value
 function updateLeftMotorValue (value) {
-  leftMotorValue = value * -1
+  leftMotorValue = value * 1
   leftValueDisplay.textContent = `${leftMotorValue}%`
   sendDataToServer()
 }
