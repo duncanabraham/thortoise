@@ -50,7 +50,9 @@ class Remote {
     const response = this.motorController.response
     await this.motorController.write('r vbus_voltage\n')
     const vbus = await this.motorController.read()
-    return { ...this.status, response, vbus }
+    await this.motorController.write('r ibus\n')
+    const ibus = await this.motorController.read()
+    return { ...this.status, response, vbus, ibus }
   }
 
   async setSpeed (motor, speed) {
