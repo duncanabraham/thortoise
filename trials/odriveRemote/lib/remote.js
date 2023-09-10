@@ -46,12 +46,12 @@ class Remote {
     return this._odrv
   }
 
-  async getErrors() {
+  async getErrors () {
     const error = {
       axis0: 0,
-      axis1:0,
-      encoder0:0,
-      encoder1:0,
+      axis1: 0,
+      encoder0: 0,
+      encoder1: 0,
       motor0: 0,
       motor1: 0
     }
@@ -73,16 +73,17 @@ class Remote {
   }
 
   async getStatus () {
-    
     const response = this.motorController.response
     await this.motorController.write('r vbus_voltage\n')
     const vbus = await this.motorController.read()
     await this.motorController.write('r ibus\n')
     const ibus = await this.motorController.read()
-    
     const error = await this.getErrors()
-    
     return { ...this.status, response, vbus, ibus, error }
+  }
+
+  setStatus (data) {
+
   }
 
   async setSpeed (motor, speed) {
