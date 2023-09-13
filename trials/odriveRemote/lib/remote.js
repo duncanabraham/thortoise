@@ -5,7 +5,7 @@ const baud = 115200
 
 class Remote {
   constructor () {
-    this.maxSpeed = 16
+    this.maxSpeed = 32
     this.runState = 0
     this.motorController = new ODrive(uart, baud)
     this._odrv = {
