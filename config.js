@@ -58,7 +58,7 @@ const wheelSettings = {
 const odriveSettings = {
   BANDWIDTH: 100,
   ENCODER_CPR: 4000,
-  CURRENT_LIMIT: 10,
+  CURRENT_LIMIT: 20,
   VEL_LIMIT: 200,
   VEL_GAIN: 0.05,
   POS_GAIN: 0.5,
