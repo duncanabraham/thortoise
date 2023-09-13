@@ -35,7 +35,7 @@ class Remote {
   async init () {
     await this.motorController.init()
     await this.motorController.calibrate()
-    await this.stop()
+    // await this.stop()
   }
 
   get motors () {
