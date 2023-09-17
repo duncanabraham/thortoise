@@ -1,11 +1,9 @@
 const ODrive = require('../../../lib/odrive')
-
-const uart = '/dev/ttyAML1' // /dev/ttyAML0 = Radxa UART_A, /dev/ttyAML1 = Radxa UART_B
-const baud = 115200
+const { uart, baud, maxSpeed } = require('../config')
 
 class Remote {
   constructor () {
-    this.maxSpeed = 32
+    this.maxSpeed = maxSpeed
     this.runState = 0
     this.motorController = new ODrive(uart, baud)
     this._odrv = {

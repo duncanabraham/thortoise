@@ -5,15 +5,15 @@ const path = require('path') // Add this line
 const app = express()
 const remote = require('./lib/remote')
 const SC16IS752 = require('../../lib/i2c/SC16IS752')
+const dataHandler = require('./lib/dataHandler')
 
 global.registry = {
   register: () => { }
 }
 
-const serialHat = new SC16IS752()
-
-serialHat.setAllOut()
-serialHat.writeByte(0xAA) // 10101010
+// will be determined by the state of a GPIO pin to ensure the raspberry pi is connected
+// if not then the motors are not allowed to move
+global.connected = true
 
 // Serve static files from the "public" directory
 app.use(express.static(path.join(__dirname, 'public')))
@@ -61,9 +61,11 @@ wss.on('connection', (ws) => {
           console.log(`Do what?  ${data.code}`)
       }
     }
-    remote.setSpeed('left', data.leftMotor)
-    remote.setSpeed('right', data.rightMotor)
-    remote.setStatus(data)
+    if (global.connected) { // This section sets the speed
+      remote.setSpeed('left', data.leftMotor)
+      remote.setSpeed('right', data.rightMotor)
+    }
+    remote.setStatus({ ...data, connected: global.connected })
 
     wss.clients.forEach((client) => {
       if (client.readyState === WebSocket.OPEN) {
@@ -82,6 +84,9 @@ wss.on('connection', (ws) => {
     activeSessions.delete(ws)
   })
 })
+
+// Define an end point for external control over http
+app.get('/data', dataHandler)
 
 // Start the HTTP server
 const PORT = process.env.PORT || 3000
