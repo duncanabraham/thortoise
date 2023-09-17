@@ -9,13 +9,17 @@ const stringFromArgs = (args = []) => {
   return result
 }
 
+const timestamp = () => {
+  return Date.now()
+}
+
 module.exports = {
   error: (...rest) => {
     const message = Array.from(rest)
-    console.error(stringFromArgs(message))
+    console.error(timestamp(), ':', stringFromArgs(message))
   },
   info: (...rest) => {
     const message = Array.from(rest)
-    console.info(stringFromArgs(message))
+    console.info(timestamp(), ':', stringFromArgs(message))
   }
 }
