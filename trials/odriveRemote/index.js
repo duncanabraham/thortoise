@@ -1,15 +1,26 @@
+/*
+exports = global
+*/
+
+const log = require('./lib/log')
+
+global.registry = {
+  register: () => { }
+}
+
+global.app = {
+  log
+}
+const remote = require('./lib/remote')
+global.app.remote = remote
+
 const WebSocket = require('ws')
 const http = require('http')
 const express = require('express')
 const path = require('path') // Add this line
 const app = express()
-const remote = require('./lib/remote')
-const SC16IS752 = require('../../lib/i2c/SC16IS752')
+const bodyParser = require('body-parser')
 const dataHandler = require('./lib/dataHandler')
-
-global.registry = {
-  register: () => { }
-}
 
 // will be determined by the state of a GPIO pin to ensure the raspberry pi is connected
 // if not then the motors are not allowed to move
@@ -17,6 +28,7 @@ global.connected = true
 
 // Serve static files from the "public" directory
 app.use(express.static(path.join(__dirname, 'public')))
+app.use(bodyParser.json())
 
 const server = http.createServer(app)
 const wss = new WebSocket.Server({ server })
@@ -46,19 +58,19 @@ wss.on('connection', (ws) => {
   activeSessions.add(ws)
   sendDataToClient(ws)
 
-  console.log('Client connected')
+  log.info('Client connected')
 
   ws.on('message', (message) => {
     const data = JSON.parse(message)
-    console.log('message: ', data)
+    log.info('message: ', data)
     if (data.code) {
       switch (data.code) {
         case 'ES':
-          console.log('Emergency Stop / Reset')
+          log.info('Emergency Stop / Reset')
           remote.stop()
           break
         default:
-          console.log(`Do what?  ${data.code}`)
+          log.info(`Do what?  ${data.code}`)
       }
     }
     if (global.connected) { // This section sets the speed
@@ -79,17 +91,17 @@ wss.on('connection', (ws) => {
   })
 
   ws.on('close', () => {
-    console.log('Client disconnected')
+    log.info('Client disconnected')
     remote.stop()
     activeSessions.delete(ws)
   })
 })
 
 // Define an end point for external control over http
-app.get('/data', dataHandler)
+app.post('/data', dataHandler)
 
 // Start the HTTP server
 const PORT = process.env.PORT || 3000
 server.listen(PORT, () => {
-  console.log(`Thortoise listening on port ${PORT}`)
+  log.info(`Thortoise listening on port ${PORT}`)
 })

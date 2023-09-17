@@ -1,5 +1,18 @@
 const ODrive = require('../../../lib/odrive')
 const { uart, baud, maxSpeed } = require('../config')
+const SC16IS752 = require('../../../lib/i2c/SC16IS752')
+const serialHat = new SC16IS752()
+serialHat.setAllOut()
+serialHat.writeByte(0xAA) // 10101010
+const { log } = global.app
+
+const rag = (object) => {
+  let status = serialHat.readByte()
+  status = status + object.red ? 1 : 0
+  status = status + object.yellow ? 2 : 0
+  status = status + object.green ? 4 : 0
+  serialHat.writeByte(status)
+}
 
 class Remote {
   constructor () {
@@ -80,8 +93,9 @@ class Remote {
     return { ...this.status, response, vbus, ibus, error }
   }
 
-  setStatus (data) {
-
+  setStatus (data) { // receive an object that looks like: {red: 0, yellow: 0, green: 0}
+    // need to check the object is valid
+    rag(data)
   }
 
   async setSpeed (motor, speed) {
@@ -101,7 +115,7 @@ class Remote {
         await this.motorController.write(`w axis1.controller.input_vel ${adjustedSpeed}\n`)
         break
       default:
-        console.log(`Do what? (motor: ${motor} to ${speed})`)
+        log.info(`Do what? (motor: ${motor} to ${speed})`)
     }
   }
 
