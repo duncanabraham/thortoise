@@ -22,10 +22,11 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const store = new Store()
 const { pad, niceDate } = require('./lib/utils')
+const log = require('./lib/log')
 
 // When an error is logged display it to the console
 store.attachHandler('ERRORS', (data) => {
-  console.error(data)
+  log.error(data)
 })
 
 store.attachHandler('INFO', (data) => {
@@ -55,15 +56,15 @@ app.listen(api.port, () => {
     console.info(thortoise)
   }
 
-  console.log('Starting ...')
-  console.log()
-  console.log('████████ ██   ██  ██████  ██████  ████████  ██████  ██ ███████ ███████')
-  console.log('   ██    ██   ██ ██    ██ ██   ██    ██    ██    ██ ██ ██      ██')
-  console.log('   ██    ███████ ██    ██ ██████     ██    ██    ██ ██ ███████ █████')
-  console.log('   ██    ██   ██ ██    ██ ██   ██    ██    ██    ██ ██      ██ ██')
-  console.log('   ██    ██   ██  ██████  ██   ██    ██     ██████  ██ ███████ ███████')
-  console.log()
-  console.log(new Date().toISOString())
-  console.log()
+  log.info('Starting ...')
+  log.info()
+  log.info('████████ ██   ██  ██████  ██████  ████████  ██████  ██ ███████ ███████')
+  log.info('   ██    ██   ██ ██    ██ ██   ██    ██    ██    ██ ██ ██      ██')
+  log.info('   ██    ███████ ██    ██ ██████     ██    ██    ██ ██ ███████ █████')
+  log.info('   ██    ██   ██ ██    ██ ██   ██    ██    ██    ██ ██      ██ ██')
+  log.info('   ██    ██   ██  ██████  ██   ██    ██     ██████  ██ ███████ ███████')
+  log.info()
+  log.info(new Date().toISOString())
+  log.info()
   thortoise.start()
 })()

@@ -6,12 +6,13 @@ serialHat.setAllOut()
 serialHat.writeByte(0xAA) // 10101010
 const { log } = global.app
 
-const rag = (object) => {
-  let status = serialHat.readByte()
-  status = status + object.red ? 1 : 0
-  status = status + object.yellow ? 2 : 0
-  status = status + object.green ? 4 : 0
+const rag = (data) => {
+  let status = 0 // serialHat.readByte() || 0
+  status |= data.red ? 1 << 0 : 0
+  status |= data.yellow ? 1 << 1 : 0
+  status |= data.green ? 1 << 2 : 0
   serialHat.writeByte(status)
+  log.info('LED Status', status)
 }
 
 class Remote {

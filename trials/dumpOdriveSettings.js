@@ -1,5 +1,6 @@
 const ODrive = require('../lib/odrive')
 const motorController = new ODrive('/dev/ttyACM0', 115200)
+const log = require('../lib/log')
 
 const dumpAxisSettings = async (axis) => {
   try {
@@ -8,7 +9,7 @@ const dumpAxisSettings = async (axis) => {
     const settings = await motorController.read(`d axis${axis}\n`)
     console.log(`Settings for axis${axis}:\n${settings}`)
   } catch (error) {
-    console.error('Error:', error)
+    log.error('Error:', error)
   } finally {
     motorController.close()
   }
@@ -17,4 +18,3 @@ const dumpAxisSettings = async (axis) => {
 // Dump settings for both axis0 and axis1
 dumpAxisSettings(0)
 dumpAxisSettings(1)
-

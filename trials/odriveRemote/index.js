@@ -2,14 +2,15 @@
 exports = global
 */
 
-const log = require('./lib/log')
+const log = require('../../lib/log')
 
 global.registry = {
   register: () => { }
 }
 
 global.app = {
-  log
+  log,
+  ready: false
 }
 const remote = require('./lib/remote')
 global.app.remote = remote
@@ -24,7 +25,7 @@ const dataHandler = require('./lib/dataHandler')
 
 // will be determined by the state of a GPIO pin to ensure the raspberry pi is connected
 // if not then the motors are not allowed to move
-global.connected = true
+global.app.connected = true
 
 // Serve static files from the "public" directory
 app.use(express.static(path.join(__dirname, 'public')))
@@ -73,7 +74,7 @@ wss.on('connection', (ws) => {
           log.info(`Do what?  ${data.code}`)
       }
     }
-    if (global.connected) { // This section sets the speed
+    if (global.app.connected) { // This section sets the speed
       remote.setSpeed('left', data.leftMotor)
       remote.setSpeed('right', data.rightMotor)
     }
