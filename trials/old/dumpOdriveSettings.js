@@ -1,6 +1,6 @@
-const ODrive = require('../lib/odrive')
+const ODrive = require('../../lib/odrive')
 const motorController = new ODrive('/dev/ttyACM0', 115200)
-const log = require('../lib/log')
+const log = require('../../lib/log')
 
 const dumpAxisSettings = async (axis) => {
   try {

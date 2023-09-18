@@ -1,12 +1,8 @@
 /*
 exports = global
 */
-
+require('../common')
 const log = require('../../lib/log')
-
-global.registry = {
-  register: () => { }
-}
 
 global.app = {
   log,

@@ -1,5 +1,5 @@
-const ODrive = require('../lib/odrive')
-const { delay } = require('../lib/utils')
+const ODrive = require('../../lib/odrive')
+const { delay } = require('../../lib/utils')
 
 const uart = '/dev/ttyAML1' // /dev/ttyAML0 = Radxa UART_A, /dev/ttyAML1 = Radxa UART_B
 const baud = 115200

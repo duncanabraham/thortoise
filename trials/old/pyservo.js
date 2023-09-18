@@ -1,7 +1,7 @@
-require('./common')
-const I2c = require('../lib/i2c/i2cBase')
+require('../common')
+const I2c = require('../../lib/i2c/i2cBase')
 const i2c = new I2c({ i2cAddress: 0x40 })
-const delay = require('../lib/utils').delay
+const delay = require('../../lib/utils').delay
 
 const run = async () => {
   i2c._writeByte(0xfe, 0x80) // prescale
