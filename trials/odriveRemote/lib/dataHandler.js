@@ -1,11 +1,12 @@
-/* accept the incoming request and determine what to do with it by passing requests to the remote control
+/* accept the incoming request and determine what to do with it by passing requests to the remote control module
     expected data structure:
     {
-      "speedLeft": 0, // % of left speed
-      "speedRight": 0, // % of right speed
+      "speedLeft": 0,
+      "speedRight": 0,
       "statusLEDS": { "red": 1, "yellow": 1, "green": 1 },
       "state": 0
     }
+    speeds are in % and range from -100% to +100%    
 */
 module.exports = async (req, res) => {
   const { log, remote, ready } = global.app
@@ -17,7 +18,7 @@ module.exports = async (req, res) => {
       await remote.setSpeed('right', command.speedRight || 0)
     }
     // If the state value is 0 or both speeds are 0, call the stop method to ensure the motor controller is placed in idle mode
-    (!command.state || (command.speedLeft === 0 && command.speedRight === 0)) && remote.stop()
+    (!command.state || (command.speedLeft === 0 && command.speedRight === 0)) && await remote.stop()
     await remote.setStatus(command.statusLEDS || { red: 0, yellow: 0, green: 0 })
     res.send('OK')
   } else {
