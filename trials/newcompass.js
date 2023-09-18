@@ -5,7 +5,7 @@ const compass = new Compass()
 
 const run = async () => {
   while (true) {
-    compass.read()    
+    compass.read()
     console.log('heading: ', compass.heading, '  temperature: ', compass.temperature)
     const azimuth = compass.getAzimuth()
     const bearing = compass.getBearing(azimuth)
