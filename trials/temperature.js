@@ -7,7 +7,7 @@ const TEMP_REG = 0x2B
 const PressureRegXL = 0x28
 const PressureRegL = 0x29
 const PressureRegH = 0x2A
-const i2cBus = 0x03
+const i2cBus = 0x01
 
 const toCelsius = rawData => {
   console.log('rawData: ', rawData, '  First 2 numbers . next 2 numbers ie 2145 = 21.45C')
