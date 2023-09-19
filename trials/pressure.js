@@ -7,10 +7,9 @@ const lps22hb = new LPS22HB()
 
 const run = async () => {
   while (true) {
-    lps22hb.update()
     const temp = lps22hb.getTemperature()
     const pressure = lps22hb.getPressure()
-    console.log('temp: ', temp,'   :   ', 'pressure: ', pressure)
+    console.log(`temp: ${temp}°C  :  pressure: ${pressure} hPa`)
     await delay(1000)
   }
 }
