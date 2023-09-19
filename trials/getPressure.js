@@ -20,6 +20,8 @@ setInterval(() => {
   // Check if new data is available
   const status = i2cBus.readByteSync(lps22hbAddress, statusReg);
   if ((status & 0x02) !== 0) {
+    console.log('New data available.');
+
     // Read pressure data (24 bits)
     const pressureBytes = i2cBus.readI2cBlockSync(lps22hbAddress, pressureDataReg, 3, Buffer.alloc(3));
     const pressureRaw = (pressureBytes[2] << 16) | (pressureBytes[1] << 8) | pressureBytes[0];
@@ -32,6 +34,8 @@ setInterval(() => {
 
     // Output the pressure and temperature
     console.log(`Pressure (hPa): ${pressure_hPa.toFixed(2)}, Temperature (°C): ${temperature_C.toFixed(2)}`);
+  } else {
+    console.log('No new data available.');
   }
 }, 1000); // Read data every 1 second
 
