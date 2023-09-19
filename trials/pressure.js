@@ -2,7 +2,7 @@ require('./common.js')
 const { delay } = require('../lib/utils')
 
 const LPS22HB = require('../lib/i2c/LPS22HB')
-const lps22hb = new LPS22HB({ i2cAddress: 0x5C })
+const lps22hb = new LPS22HB()
 
 
 const run = async () => {
