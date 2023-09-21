@@ -18,16 +18,7 @@ const setupRedis = async () => {
   redisClient = createClient({
     host: '127.0.0.1',
     port: 6379
-  }).connect()
-    .then(() => {
-      // Set up some global event listeners
-      redisClient.on('connect', () => { console.log('Redis client connected') })
-      redisClient.on('error', err => { console.log('Redis error', err) })
-      redisClient.on('subscribe', (channel, count) => { console.log(`Subscribed to channel: ${channel}, total subscriptions: ${count}`) })
-    })
-    .catch(e => {
-      console.error('Redis error: ', e)
-    })
+  })
 }
 
 const Registry = require('./lib/registry')
