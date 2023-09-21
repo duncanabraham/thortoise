@@ -50,10 +50,9 @@ app.listen(api.port, () => {
 });
 
 (async () => {
-  await init()
+  await init()  
   const thortoise = new Thortoise({ ...options, store, redisClient })
-  this.controller = new Controller({ robot: thortoise, app, store })
-  global.app = thortoise
+  this.controller = new Controller({ robot: thortoise, app, store })  
 
   if (thortoise.verbose) {
     console.info(thortoise)
