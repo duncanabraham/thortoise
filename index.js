@@ -11,16 +11,23 @@
    Date:    2022, 2023, ...
 */
 
-const redis = require('redis')
-const redisClient = redis.createClient({
+const { createClient } = require('redis')
+
+const redisClient = createClient({
   host: '127.0.0.1',
   port: 6379
 })
 
-// Set up some global event listeners
-redisClient.on('connect', () => { console.log('Redis client connected') })
-redisClient.on('error', (err) => { console.log('Redis error', err) })
-redisClient.on('subscribe', (channel, count) => { console.log(`Subscribed to channel: ${channel}, total subscriptions: ${count}`) })
+const setupRedis = async () => {
+  redisClient.connect().then(() => {
+    // Set up some global event listeners
+    redisClient.on('connect', () => { console.log('Redis client connected') })
+    redisClient.on('error', err => { console.log('Redis error', err) })
+    redisClient.on('subscribe', (channel, count) => { console.log(`Subscribed to channel: ${channel}, total subscriptions: ${count}`) })
+  })
+}
+
+setupRedis()
 
 const Registry = require('./lib/registry')
 global.registry = new Registry()
