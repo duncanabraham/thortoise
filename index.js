@@ -69,6 +69,7 @@ app.listen(api.port, () => {
 
 (async () => {
   await init()
+  console.log('index: redisClient: ', redisClient)
   const thortoise = new Thortoise({ ...options, store, redisClient })
   this.controller = new Controller({ robot: thortoise, app, store })
 
