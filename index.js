@@ -27,6 +27,11 @@ const log = require('./lib/log')
 const redis = require('redis')
 const redisClient = redis.createClient()
 
+// Set up some global event listeners
+redisClient.on('connect', () => { console.log('Redis client connected') })
+redisClient.on('error', (err) => { console.log('Redis error', err) })
+redisClient.on('subscribe', (channel, count) => { console.log(`Subscribed to channel: ${channel}, total subscriptions: ${count}`) })
+
 // When an error is logged display it to the console
 store.attachHandler('ERRORS', (data) => {
   log.error(data)
@@ -51,9 +56,9 @@ app.listen(api.port, () => {
 });
 
 (async () => {
-  await init()  
+  await init()
   const thortoise = new Thortoise({ ...options, store, redisClient })
-  this.controller = new Controller({ robot: thortoise, app, store })  
+  this.controller = new Controller({ robot: thortoise, app, store })
 
   if (thortoise.verbose) {
     console.info(thortoise)
