@@ -54,8 +54,7 @@ store.attachHandler('INFO', (data) => {
 
 const init = async () => {
   // TODO: do I need to initialise anything here?
-  // Each module should be calling their init() methods on instantiation
-  await setupRedis()
+  // Each module should be calling their init() methods on instantiation  
 }
 
 const app = express()
@@ -68,24 +67,27 @@ app.listen(api.port, () => {
 });
 
 (async () => {
-  await init()
-  console.log('index: redisClient: ', redisClient)
-  const thortoise = new Thortoise({ ...options, store, redisClient })
-  this.controller = new Controller({ robot: thortoise, app, store })
+  await setupRedis()
+  redisClient.connect().then(async () => {
+    await init()
+    console.log('index: redisClient: ', redisClient)
+    const thortoise = new Thortoise({ ...options, store, redisClient })
+    this.controller = new Controller({ robot: thortoise, app, store })
 
-  if (thortoise.verbose) {
-    console.info(thortoise)
-  }
+    if (thortoise.verbose) {
+      console.info(thortoise)
+    }
 
-  log.info('Starting ...')
-  log.info()
-  log.info('████████ ██   ██  ██████  ██████  ████████  ██████  ██ ███████ ███████')
-  log.info('   ██    ██   ██ ██    ██ ██   ██    ██    ██    ██ ██ ██      ██')
-  log.info('   ██    ███████ ██    ██ ██████     ██    ██    ██ ██ ███████ █████')
-  log.info('   ██    ██   ██ ██    ██ ██   ██    ██    ██    ██ ██      ██ ██')
-  log.info('   ██    ██   ██  ██████  ██   ██    ██     ██████  ██ ███████ ███████')
-  log.info()
-  log.info(new Date().toISOString())
-  log.info()
-  thortoise.start()
+    log.info('Starting ...')
+    log.info()
+    log.info('████████ ██   ██  ██████  ██████  ████████  ██████  ██ ███████ ███████')
+    log.info('   ██    ██   ██ ██    ██ ██   ██    ██    ██    ██ ██ ██      ██')
+    log.info('   ██    ███████ ██    ██ ██████     ██    ██    ██ ██ ███████ █████')
+    log.info('   ██    ██   ██ ██    ██ ██   ██    ██    ██    ██ ██      ██ ██')
+    log.info('   ██    ██   ██  ██████  ██   ██    ██     ██████  ██ ███████ ███████')
+    log.info()
+    log.info(new Date().toISOString())
+    log.info()
+    thortoise.start()
+  })
 })()
