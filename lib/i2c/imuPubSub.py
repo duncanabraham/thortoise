@@ -411,5 +411,5 @@ if __name__ == '__main__':
       'Mag2': Mag[2],
       'Heading': mag
     }
-    r.publish('sensor_data', str(data))
+    r.publish('ICM20948_data', str(data))
     
