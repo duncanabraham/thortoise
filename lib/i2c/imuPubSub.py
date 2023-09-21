@@ -385,7 +385,7 @@ if __name__ == '__main__':
     icm20948.icm20948_Gyro_Accel_Read()
     icm20948.icm20948MagRead()
     icm20948.icm20948CalAvgValue()
-    time.sleep(0.1)
+    time.sleep(0.5)
     icm20948.imuAHRSupdate(MotionVal[0] * 0.0175, MotionVal[1] * 0.0175,MotionVal[2] * 0.0175,
                 MotionVal[3],MotionVal[4],MotionVal[5], 
                 MotionVal[6], MotionVal[7], MotionVal[8])
@@ -398,7 +398,7 @@ if __name__ == '__main__':
     print('\r\nAcceleration:  X = %d , Y = %d , Z = %d\r\n'%(Accel[0],Accel[1],Accel[2]))  
     print('\r\nGyroscope:     X = %d , Y = %d , Z = %d\r\n'%(Gyro[0],Gyro[1],Gyro[2]))
     print('\r\nMagnetic:      X = %d , Y = %d , Z = %d'%((Mag[0]),Mag[1],Mag[2]))
-    print('\r\nHeading:       %d'%(mag))
+    print('\r\nHeading:       %d'%(mag))    
     data = {
       'Accel0': Accel[0],
       'Accel1': Accel[1],
