@@ -24,6 +24,9 @@ const store = new Store()
 const { pad, niceDate } = require('./lib/utils')
 const log = require('./lib/log')
 
+const redis = require('redis')
+const redisClient = redis.createClient()
+
 // When an error is logged display it to the console
 store.attachHandler('ERRORS', (data) => {
   log.error(data)
@@ -49,7 +52,7 @@ app.listen(api.port, () => {
 
 (async () => {
   await init()  
-  const thortoise = new Thortoise({ ...options, store })
+  const thortoise = new Thortoise({ ...options, store, redisClient })
   this.controller = new Controller({ robot: thortoise, app, store })  
 
   if (thortoise.verbose) {
