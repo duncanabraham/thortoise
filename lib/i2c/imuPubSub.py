@@ -1,6 +1,10 @@
 import time
 import smbus
 import math
+import redis
+
+r = redis.Redis(host='localhost', port=6379, db=0)
+
 Gyro  = [0,0,0]
 Accel = [0,0,0]
 Mag   = [0,0,0]
@@ -395,4 +399,17 @@ if __name__ == '__main__':
     print('\r\nGyroscope:     X = %d , Y = %d , Z = %d\r\n'%(Gyro[0],Gyro[1],Gyro[2]))
     print('\r\nMagnetic:      X = %d , Y = %d , Z = %d'%((Mag[0]),Mag[1],Mag[2]))
     print('\r\nHeading:       %d'%(mag))
+    data = {
+      'Accel0': Accel[0],
+      'Accel1': Accel[1],
+      'Accel2': Accel[2],
+      'Gyro0': Gyro[0],
+      'Gyro1': Gyro[1],
+      'Gyro2': Gyro[2],
+      'Mag0': Mag[0],
+      'Mag1': Mag[1],
+      'Mag2': Mag[2],
+      'Heading': mag
+    }
+    r.publish('sensor_data', str(data))
     
