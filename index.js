@@ -25,7 +25,10 @@ const { pad, niceDate } = require('./lib/utils')
 const log = require('./lib/log')
 
 const redis = require('redis')
-const redisClient = redis.createClient()
+const redisClient = redis.createClient({
+  host: '0.0.0.0',
+  port: 6379
+})
 
 // Set up some global event listeners
 redisClient.on('connect', () => { console.log('Redis client connected') })
