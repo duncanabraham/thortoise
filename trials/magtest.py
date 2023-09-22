@@ -1,5 +1,6 @@
 import smbus
 import time
+import math
 
 bus = smbus.SMBus(1)
 address = 0x0D  # default I2C address for QMC5883L
@@ -21,8 +22,16 @@ def read_data(reg_address):
 while True:
     mag_x = read_data(0x01)
     mag_y = read_data(0x03)
-    mag_z = read_data(0x05)
 
-    print(f"Magnetometer: X = {mag_x}, Y = {mag_y}, Z = {mag_z}")
+    heading = math.atan2(mag_y, mag_x)
+    
+    # Convert heading to degrees
+    heading = heading * (180 / math.pi)
+    
+    # Normalize heading to range [0, 360]
+    if heading < 0:
+        heading += 360
+
+    print(f"Magnetometer: X = {mag_x}, Y = {mag_y}, Heading = {heading:.2f}°")
 
     time.sleep(1)
