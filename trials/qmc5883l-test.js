@@ -46,6 +46,39 @@ class QMC5883L {
     sleep(10);
   }
 
+  async _getData() {
+    const status = await this._readByte(REG_STATUS);
+    let x, y, z;
+    
+    if (status & 1) {
+      // Data is ready
+      const buffer = await this._readBytes(REG_X_LSB, 6);
+      x = this._readWord(buffer, 0);
+      y = this._readWord(buffer, 2);
+      z = this._readWord(buffer, 4);
+    } else {
+      throw new Error("Data not ready");
+    }
+  
+    return { x, y, z };
+  }
+
+  async getBearing() {
+    try {
+      const { x, y, z } = await this._getData();
+      const bearing = Math.atan2(y, x);
+      if (bearing < 0) {
+        return bearing + 2 * Math.PI;
+      }
+      return bearing;
+    } catch (e) {
+      console.error(e.message);
+      return null;
+    }
+  }
+  
+  
+
   async getMagnet() {
     let status = this.i2c1.readByteSync(this.address, REG_STATUS_1);
     if (status & 0x01) {
@@ -68,7 +101,7 @@ class QMC5883L {
   
   // Repeatedly read sensor data every second (1000 milliseconds)
   setInterval(async () => {
-    const bearing = await sensor.getMagnet();
+    const bearing = await sensor.getBearing();
     if (bearing !== null) {
       console.log(`Bearing: ${bearing}`);
     } else {
