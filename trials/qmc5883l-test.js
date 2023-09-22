@@ -63,13 +63,18 @@ class QMC5883L {
   }
 }
 
-// Example usage
 (async () => {
   const sensor = new QMC5883L();
-  const bearing = await sensor.getMagnet();
-  if (bearing !== null) {
-    console.log(`Bearing: ${bearing}`);
-  } else {
-    console.log('Data not ready');
-  }
+  
+  // Repeatedly read sensor data every second (1000 milliseconds)
+  setInterval(async () => {
+    const bearing = await sensor.getMagnet();
+    if (bearing !== null) {
+      console.log(`Bearing: ${bearing}`);
+    } else {
+      console.log('Data not ready');
+    }
+  }, 1000);
+
 })();
+
