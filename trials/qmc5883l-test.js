@@ -56,16 +56,19 @@ class QMC5883L {
   async getBearing() {
     try {
       const { x, y, z } = await this._getData()
-      const bearing = Math.atan2(y, x)
+      let bearing = Math.atan2(y, x)
       if (bearing < 0) {
-        return bearing + 2 * Math.PI
+        bearing += 2 * Math.PI
       }
+      // Convert to degrees
+      bearing = bearing * (180 / Math.PI)
       return bearing
     } catch (e) {
       console.error(e.message)
       return null
     }
   }
+  
 }
 
 // module.exports = QMC5883L
