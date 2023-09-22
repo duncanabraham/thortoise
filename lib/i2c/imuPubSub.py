@@ -2,6 +2,7 @@ import time
 import smbus
 import math
 import redis
+import json
 
 r = redis.Redis(host='localhost', port=6379, db=0)
 
@@ -378,7 +379,7 @@ class ICM20948(object):
     
 if __name__ == '__main__':
   import time
-  print("\nSense HAT Test Program ...\n")
+  print("\nIMU Data Logger ...\n")
   MotionVal=[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]
   icm20948=ICM20948()
   while True:
@@ -411,5 +412,6 @@ if __name__ == '__main__':
       "Mag2": Mag[2],
       "Heading": mag
     }
-    r.publish('ICM20948_data', str(data))
+    data_json = json.dumps(data)
+    r.publish('ICM20948_data', str(data_json))
     
