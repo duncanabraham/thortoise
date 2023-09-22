@@ -11,16 +11,6 @@
    Date:    2022, 2023, ...
 */
 
-const { createClient } = require('redis')
-let redisClient
-
-const setupRedis = async () => {
-  redisClient = createClient({
-    host: '127.0.0.1',
-    port: 6379
-  })
-}
-
 const Registry = require('./lib/registry')
 global.registry = new Registry()
 
@@ -33,6 +23,7 @@ const bodyParser = require('body-parser')
 const store = new Store()
 const { pad, niceDate } = require('./lib/utils')
 const log = require('./lib/log')
+const redisPubSub = require('./lib/redisPubSub')
 
 // When an error is logged display it to the console
 store.attachHandler('ERRORS', (data) => {
@@ -40,12 +31,12 @@ store.attachHandler('ERRORS', (data) => {
 })
 
 store.attachHandler('INFO', (data) => {
-  console.info(`${pad(data.key, 10, true)} ${pad(data.value, 80, true)} ${niceDate(data.time)}`)
+  log.info(`${pad(data.key, 10, true)} ${pad(data.value, 80, true)} ${niceDate(data.time)}`)
 })
 
 const init = async () => {
   // TODO: do I need to initialise anything here?
-  // Each module should be calling their init() methods on instantiation  
+  // Each module should be calling their init() methods on instantiation
 }
 
 const app = express()
@@ -58,27 +49,24 @@ app.listen(api.port, () => {
 });
 
 (async () => {
-  await setupRedis()
-  redisClient.connect().then(async () => {
-    await init()
-    console.log('index: redisClient: ', redisClient)
-    const thortoise = new Thortoise({ ...options, store, redisClient })
-    this.controller = new Controller({ robot: thortoise, app, store })
+  await init()
+  const redisClient = await redisPubSub()
+  const thortoise = new Thortoise({ ...options, store, redisClient, verbose: true })
+  this.controller = new Controller({ robot: thortoise, app, store })
 
-    if (thortoise.verbose) {
-      console.info(thortoise)
-    }
+  if (thortoise.verbose) {
+    console.log(thortoise)
+  }
 
-    log.info('Starting ...')
-    log.info()
-    log.info('████████ ██   ██  ██████  ██████  ████████  ██████  ██ ███████ ███████')
-    log.info('   ██    ██   ██ ██    ██ ██   ██    ██    ██    ██ ██ ██      ██')
-    log.info('   ██    ███████ ██    ██ ██████     ██    ██    ██ ██ ███████ █████')
-    log.info('   ██    ██   ██ ██    ██ ██   ██    ██    ██    ██ ██      ██ ██')
-    log.info('   ██    ██   ██  ██████  ██   ██    ██     ██████  ██ ███████ ███████')
-    log.info()
-    log.info(new Date().toISOString())
-    log.info()
-    thortoise.start()
-  })
+  log.info('Starting ...')
+  log.info()
+  log.info('\x1b[32m████████ ██   ██  ██████  ██████  ████████  ██████  ██ ███████ ███████\x1b[0m')
+  log.info('\x1b[32m   ██    ██   ██ ██    ██ ██   ██    ██    ██    ██ ██ ██      ██\x1b[0m')
+  log.info('\x1b[32m   ██    ███████ ██    ██ ██████     ██    ██    ██ ██ ███████ █████\x1b[0m')
+  log.info('\x1b[32m   ██    ██   ██ ██    ██ ██   ██    ██    ██    ██ ██      ██ ██\x1b[0m')
+  log.info('\x1b[32m   ██    ██   ██  ██████  ██   ██    ██     ██████  ██ ███████ ███████\x1b[0m')
+  log.info()
+  log.info(new Date().toISOString())
+  log.info()
+  thortoise.start()
 })()

@@ -1,0 +1,2 @@
+Given the robot is approx 500mm square perhaps the grid dimensions should match so each square in 
+the grid represents one place where the robot can sit.

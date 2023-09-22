@@ -48,12 +48,12 @@ const env = {
 // ]
 
 // fPin and bPin are pins not GPIO numbers
-const wheelSettings = {
-  frontLeft: { speedChannel: 0, fPin: 7, bPin: 11 }, // GPIOAO_3 & GPIOAO_2
-  frontRight: { speedChannel: 1, fPin: 13, bPin: 19 }, // GPIOX_11 &  GPIOH_4
-  backLeft: { speedChannel: 2, fPin: 21, bPin: 23 }, // GPIOH_5 & GPIOH_7
-  backRight: { speedChannel: 3, fPin: 35, bPin: 37 } // GPIOAO_8 & GPIOAO_9
-}
+// const wheelSettings = {
+//   frontLeft: { speedChannel: 0, fPin: 7, bPin: 11 }, // GPIOAO_3 & GPIOAO_2
+//   frontRight: { speedChannel: 1, fPin: 13, bPin: 19 }, // GPIOX_11 &  GPIOH_4
+//   backLeft: { speedChannel: 2, fPin: 21, bPin: 23 }, // GPIOH_5 & GPIOH_7
+//   backRight: { speedChannel: 3, fPin: 35, bPin: 37 } // GPIOAO_8 & GPIOAO_9
+// }
 
 const odriveSettings = {
   BANDWIDTH: 100,
@@ -71,14 +71,14 @@ const trackApiSettings = {
 }
 
 const options = {
-  name: 'ThortBot',
+  name: 'Thortoise',
   version,
   trackApiSettings,
   verbose: env.VERBOSE === 'true',
   dimensions: { // measure these, the navigation module will need to work out if it fits through/between/under a gap or obstacle
-    width: 600,
-    height: 300,
-    length: 600
+    width: 500,
+    height: 400,
+    length: 500
   }
 }
 
@@ -86,7 +86,7 @@ const api = {
   port: 3000
 }
 
-const navigationSettings = {
+const navigationSettings = { // each square on the grid represents a 500x500mm square in the real world
   gridWidth: 500,
   gridLength: 500
 }
