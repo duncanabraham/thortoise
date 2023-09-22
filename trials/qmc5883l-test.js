@@ -1,104 +1,79 @@
-const i2c = require('i2c-bus');
-const { promisify } = require('util');
-const sleep = promisify(setTimeout);
+const i2c = require('i2c-bus')
 
-const DFLT_BUS = 1;
-const DFLT_ADDRESS = 0x0d;
-const REG_XOUT_LSB = 0x00;
-const REG_YOUT_LSB = 0x02;
-const REG_CONTROL_1 = 0x09;
-const REG_CONTROL_2 = 0x0a;
-const REG_RST_PERIOD = 0x0b;
-const REG_STATUS_1 = 0x06;
-
-const MODE_STBY = 0b00000000;
-const MODE_CONT = 0b00000001;
-const ODR_10HZ = 0b00000000;
-const RNG_2G = 0b00000000;
-const OSR_512 = 0b00000000;
+const REG_STATUS = 0x06  // The register address for the status, verify this in the sensor datasheet
+const REG_X_LSB = 0x00  // The starting register for data, verify this in the sensor datasheet
 
 class QMC5883L {
-  constructor(options = {}) {
-    this.busNumber = options.busNumber || DFLT_BUS;
-    this.address = options.address || DFLT_ADDRESS;
-    this.i2c1 = i2c.openSync(this.busNumber);
-    this.mode_cont = MODE_CONT | ODR_10HZ | RNG_2G | OSR_512;
-    this.mode_standby();
-    this.mode_continuous();
+  constructor(busNumber = 1, address = 0x0D) {
+    this.i2cBus = i2c.openSync(busNumber)
+    this.address = address
   }
 
-  mode_continuous() {
-    this._writeByte(REG_CONTROL_2, 0b10000000); // Soft reset
-    this._writeByte(REG_CONTROL_2, 0b00000001); // Disable interrupt
-    this._writeByte(REG_RST_PERIOD, 0x01); // Define SET/RESET period
-    this._writeByte(REG_CONTROL_1, this.mode_cont); // Set operation mode
+  async _readByte(register) {
+    return new Promise((resolve, reject) => {
+      this.i2cBus.readByte(this.address, register, (err, data) => {
+        if (err) {
+          return reject(err)
+        }
+        resolve(data)
+      })
+    })
   }
 
-  mode_standby() {
-    this._writeByte(REG_CONTROL_2, 0b10000000);
-    this._writeByte(REG_CONTROL_2, 0b00000001);
-    this._writeByte(REG_RST_PERIOD, 0x01);
-    this._writeByte(REG_CONTROL_1, MODE_STBY);
+  async _readBytes(register, length) {
+    return new Promise((resolve, reject) => {
+      const buffer = Buffer.alloc(length)
+      this.i2cBus.readI2cBlock(this.address, register, length, buffer, (err, bytesRead, data) => {
+        if (err) {
+          return reject(err)
+        }
+        resolve(data)
+      })
+    })
   }
 
-  _writeByte(registry, value) {
-    this.i2c1.writeByteSync(this.address, registry, value);
-    sleep(10);
+  _readWord(buffer, offset) {
+    return buffer.readInt16LE(offset)
   }
 
   async _getData() {
-    const status = await this._readByte(REG_STATUS_1);
-    let x, y, z;
-    
+    const status = await this._readByte(REG_STATUS)
+    let x, y, z
+
     if (status & 1) {
       // Data is ready
-      const buffer = await this._readBytes(REG_X_LSB, 6);
-      x = this._readWord(buffer, 0);
-      y = this._readWord(buffer, 2);
-      z = this._readWord(buffer, 4);
+      const buffer = await this._readBytes(REG_X_LSB, 6)
+      x = this._readWord(buffer, 0)
+      y = this._readWord(buffer, 2)
+      z = this._readWord(buffer, 4)
     } else {
-      throw new Error("Data not ready");
+      throw new Error('Data not ready')
     }
-  
-    return { x, y, z };
+
+    return { x, y, z }
   }
 
   async getBearing() {
     try {
-      const { x, y, z } = await this._getData();
-      const bearing = Math.atan2(y, x);
+      const { x, y, z } = await this._getData()
+      const bearing = Math.atan2(y, x)
       if (bearing < 0) {
-        return bearing + 2 * Math.PI;
+        return bearing + 2 * Math.PI
       }
-      return bearing;
+      return bearing
     } catch (e) {
-      console.error(e.message);
-      return null;
+      console.error(e.message)
+      return null
     }
-  }
-  
-  
-
-  async getMagnet() {
-    let status = this.i2c1.readByteSync(this.address, REG_STATUS_1);
-    if (status & 0x01) {
-      let x = this.i2c1.readWordSync(this.address, REG_XOUT_LSB);
-      let y = this.i2c1.readWordSync(this.address, REG_YOUT_LSB);
-      return this.calculateBearing(x, y);
-    }
-    return null;
-  }
-
-  calculateBearing(x, y) {
-    let bearing = Math.atan2(y, x) * (180 / Math.PI);
-    if (bearing < 0) bearing += 360;
-    return bearing;
   }
 }
 
+// module.exports = QMC5883L
+
+
 (async () => {
   const sensor = new QMC5883L();
-  
+
   // Repeatedly read sensor data every second (1000 milliseconds)
   setInterval(async () => {
     const bearing = await sensor.getBearing();
@@ -109,5 +84,5 @@ class QMC5883L {
     }
   }, 1000);
 
-})();
+})()
 
