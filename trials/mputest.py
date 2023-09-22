@@ -1,32 +1,36 @@
-import smbus
-import time
-import math
+const i2c = require('i2c-bus')
 
-bus = smbus.SMBus(1)
-address = 0x68  # default I2C address for MPU6050
+const MPU6050_ADDR = 0x68
+const PWR_MGMT_1 = 0x6B
+const ACCEL_XOUT_H = 0x3B
 
-# Initialize MPU-6050
-bus.write_byte_data(address, 0x6B, 0x00)  # Wake up MPU-6050
+async function readWord(bus, address, register) {
+  const high = await bus.readByte(address, register)
+  const low = await bus.readByte(address, register + 1)
+  return (high << 8) | low
+}
 
-def read_data(reg_address):
-    high = bus.read_byte_data(address, reg_address)
-    low = bus.read_byte_data(address, reg_address + 1)
-    value = (high << 8) + low
+async function getPitchAndRoll() {
+  const bus = await i2c.openPromisified(1)
 
-    if value >= 0x8000:
-        return -((65535 - value) + 1)
-    else:
-        return value
+  // Initialize the MPU6050
+  await bus.writeByte(MPU6050_ADDR, PWR_MGMT_1, 0)
 
-while True:
-    accel_x = read_data(0x3B) / 16384.0
-    accel_y = read_data(0x3D) / 16384.0
-    accel_z = read_data(0x3F) / 16384.0
+  // Read accelerometer data
+  const accelX = await readWord(bus, MPU6050_ADDR, ACCEL_XOUT_H)
+  const accelY = await readWord(bus, MPU6050_ADDR, ACCEL_XOUT_H + 2)
+  const accelZ = await readWord(bus, MPU6050_ADDR, ACCEL_XOUT_H + 4)
 
-    # Calculate pitch and roll based on accelerometer data
-    pitch = math.atan2(accel_y, math.sqrt(accel_x**2 + accel_z**2)) * (180 / math.pi)
-    roll = math.atan2(-accel_x, accel_z) * (180 / math.pi)
+  // Calculate pitch and roll
+  const pitch = Math.atan2(accelY, Math.sqrt(accelX * accelX + accelZ * accelZ))
+  const roll = Math.atan2(accelX, Math.sqrt(accelY * accelY + accelZ * accelZ))
 
-    print(f"Pitch: {pitch:.2f}°, Roll: {roll:.2f}°")
+  return { pitch, roll }
+}
 
-    time.sleep(0.1)
+getPitchAndRoll()
+  .then(({ pitch, roll }) => {
+    console.log(`Pitch: ${pitch * (180 / Math.PI)} degrees`)
+    console.log(`Roll: ${roll * (180 / Math.PI)} degrees`)
+  })
+  .catch(err => console.error(err))
