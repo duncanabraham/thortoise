@@ -47,7 +47,7 @@ class QMC5883L {
   }
 
   async _getData() {
-    const status = await this._readByte(REG_STATUS);
+    const status = await this._readByte(REG_STATUS_1);
     let x, y, z;
     
     if (status & 1) {
