@@ -88,7 +88,11 @@ const api = {
 
 const navigationSettings = { // each square on the grid represents a 500x500mm square in the real world
   gridWidth: 500,
-  gridLength: 500
+  gridLength: 500,
+  length: 9, 
+  width: 9, 
+  startX: 5, 
+  startY: 5 
 }
 
 const cameraSettings = {
