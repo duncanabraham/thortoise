@@ -10,27 +10,33 @@ async function readWord(bus, address, register) {
   return (high << 8) | low
 }
 
-async function getPitchAndRoll() {
-  const bus = await i2c.openPromisified(1)
-
-  // Initialize the MPU6050
-  await bus.writeByte(MPU6050_ADDR, PWR_MGMT_1, 0)
-
+async function getPitchAndRoll(bus) {
   // Read accelerometer data
   const accelX = await readWord(bus, MPU6050_ADDR, ACCEL_XOUT_H)
   const accelY = await readWord(bus, MPU6050_ADDR, ACCEL_XOUT_H + 2)
   const accelZ = await readWord(bus, MPU6050_ADDR, ACCEL_XOUT_H + 4)
 
   // Calculate pitch and roll
-  const pitch = Math.atan2(accelY, Math.sqrt(accelX * accelX + accelZ * accelZ))
-  const roll = Math.atan2(accelX, Math.sqrt(accelY * accelY + accelZ * accelZ))
+  const pitch = Math.atan2(accelY, Math.sqrt(accelX * accelX + accelZ * accelZ)) * (180 / Math.PI)
+  const roll = Math.atan2(accelX, Math.sqrt(accelY * accelY + accelZ * accelZ)) * (180 / Math.PI)
 
-  return { pitch, roll }
+  console.log(`Pitch: ${pitch} degrees`)
+  console.log(`Roll: ${roll} degrees`)
 }
 
-getPitchAndRoll()
-  .then(({ pitch, roll }) => {
-    console.log(`Pitch: ${pitch * (180 / Math.PI)} degrees`)
-    console.log(`Roll: ${roll * (180 / Math.PI)} degrees`)
-  })
-  .catch(err => console.error(err))
+async function main() {
+  const bus = await i2c.openPromisified(1)
+
+  // Initialize the MPU6050
+  await bus.writeByte(MPU6050_ADDR, PWR_MGMT_1, 0)
+
+  setInterval(async () => {
+    try {
+      await getPitchAndRoll(bus)
+    } catch (err) {
+      console.error(err)
+    }
+  }, 1000) // Update every 1 second
+}
+
+main().catch(err => console.error(err))
