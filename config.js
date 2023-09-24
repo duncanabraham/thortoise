@@ -70,6 +70,10 @@ const trackApiSettings = {
   port: 3010
 }
 
+const i2cSettings = {
+  i2cBus: 0x01
+}
+
 const options = {
   name: 'Thortoise',
   version,
@@ -89,10 +93,10 @@ const api = {
 const navigationSettings = { // each square on the grid represents a 500x500mm square in the real world
   gridWidth: 500,
   gridLength: 500,
-  length: 9, 
-  width: 9, 
-  startX: 5, 
-  startY: 5 
+  length: 9,
+  width: 9,
+  startX: 5,
+  startY: 5
 }
 
 const cameraSettings = {
@@ -113,6 +117,7 @@ module.exports = {
   api,
   navigationSettings,
   cameraSettings,
+  i2cSettings,
   odriveSettings,
   ATCOMMANDS
 }

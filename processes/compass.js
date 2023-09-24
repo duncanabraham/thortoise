@@ -1,4 +1,5 @@
 const i2c = require('i2c-bus')
+const redisPubSub = require('./lib/redisPubSub')
 
 const REG_STATUS = 0x06 // The register address for the status, verify this in the sensor datasheet
 const REG_X_LSB = 0x00 // The starting register for data, verify this in the sensor datasheet
@@ -74,14 +75,14 @@ class QMC5883L {
 
 (async () => {
   const sensor = new QMC5883L()
-
-  // Repeatedly read sensor data every second (1000 milliseconds)
+  const redisClient = await redisPubSub()
   setInterval(async () => {
-    const bearing = await sensor.getBearing()
-    if (bearing !== null) {
-      console.log(`Bearing: ${bearing}`)
+    const heading = await sensor.getBearing()
+    if (heading !== null) {
+      console.log(`Bearing: ${heading}`)
+      redisClient.publish('QMC5883L_data', JSON.stringify({ heading }))
     } else {
       console.log('Data not ready')
     }
-  }, 1000)
+  }, 500) // 2 reads per second, to be reviewed
 })()

@@ -21,17 +21,12 @@ const Controller = require('./lib/controller')
 const express = require('express')
 const bodyParser = require('body-parser')
 const store = new Store()
-const { pad, niceDate } = require('./lib/utils')
 const log = require('./lib/log')
 const redisPubSub = require('./lib/redisPubSub')
 
 // When an error is logged display it to the console
 store.attachHandler('ERRORS', (data) => {
   log.error(data)
-})
-
-store.attachHandler('INFO', (data) => {
-  log.info(`${pad(data.key, 10, true)} ${pad(data.value, 80, true)} ${niceDate(data.time)}`)
 })
 
 const init = async () => {
