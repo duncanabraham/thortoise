@@ -80,7 +80,7 @@ class QMC5883L {
     const heading = await sensor.getBearing()
     if (heading !== null) {
       console.log(`Bearing: ${heading}`)
-      redisClient.publish('QMC5883L_data', JSON.stringify({ heading }))
+      redisClient.pub.publish('QMC5883L_data', JSON.stringify({ heading }))
     } else {
       console.log('Data not ready')
     }
