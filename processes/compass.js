@@ -1,5 +1,5 @@
 const i2c = require('i2c-bus')
-const redisPubSub = require('./lib/redisPubSub')
+const redisPubSub = require('../lib/redisPubSub')
 
 const REG_STATUS = 0x06 // The register address for the status, verify this in the sensor datasheet
 const REG_X_LSB = 0x00 // The starting register for data, verify this in the sensor datasheet
