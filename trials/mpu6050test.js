@@ -3,11 +3,13 @@ const i2c = require('i2c-bus')
 const MPU6050_ADDR = 0x68
 const PWR_MGMT_1 = 0x6B
 const ACCEL_XOUT_H = 0x3B
+const GYRO_CONFIG = 0x1B
 
 const i2cBus = i2c.openSync(1) // Open I2C bus 1
 
 // Initialize the MPU6050
 i2cBus.writeByteSync(MPU6050_ADDR, PWR_MGMT_1, 0)
+i2cBus.writeByteSync(MPU6050_ADDR, GYRO_CONFIG, 0) // Set the gyroscope to ± 250 degrees/sec
 
 function readSensorData() {
   // Read 14 bytes starting from ACCEL_XOUT_H
