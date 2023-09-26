@@ -9,10 +9,10 @@ const i2cBus = i2c.openSync(1) // Open I2C bus 1
 // Initialize the MPU6050
 i2cBus.writeByteSync(MPU6050_ADDR, PWR_MGMT_1, 0)
 
-async function readSensorData() {
+function readSensorData() {
   // Read 14 bytes starting from ACCEL_XOUT_H
   const buffer = Buffer.alloc(14)
-  await i2cBus.i2cRead(MPU6050_ADDR, 14, buffer)
+  i2cBus.readI2cBlockSync(MPU6050_ADDR, ACCEL_XOUT_H, 14, buffer)
 
   const accelX = buffer.readInt16BE(0)
   const accelY = buffer.readInt16BE(2)
@@ -26,7 +26,8 @@ async function readSensorData() {
   console.log(`Gyro: ${gyroX}, ${gyroY}, ${gyroZ}`)
 }
 
-readSensorData()
-  .catch(err => {
-    console.error('Error reading sensor data:', err)
-  })
+try {
+  readSensorData()
+} catch (err) {
+  console.error('Error reading sensor data:', err)
+}
