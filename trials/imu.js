@@ -2,7 +2,12 @@ require('./common.js')
 const ICM20948 = require('../lib/i2c/ICM20948')
 const { delay } = require('../lib/utils')
 
-const imu = new ICM20948()
+const imuOptions = {
+  name: 'ICM20948', 
+  channel: 'ICM20948_data'
+}
+
+const imu = new ICM20948(imuOptions)
 
 const run = async () => {
   while (true) {
