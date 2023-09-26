@@ -16,3 +16,9 @@ to allow the robot to operate in a 3d world.
 
 For now this will be a fixed box model world as it's operating environment will be confined to my garden, but in future I'd like to develop the map in
 a MineCraft way to allow it to grow to fit the environment.
+
+
+3) 3D BROWSER VIEW
+Having had a little play with BABYLON.js I'm confident I can render the World of Thortoise as a 3D World that can be viewed and interacted with.
+This provides a First Person view of the world and provides methods for moving the camera to view the scene from any part of the world.
+
