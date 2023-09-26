@@ -27,7 +27,10 @@ function readSensorData() {
 }
 
 try {
-  readSensorData()
+  // Read data every 500ms
+  setInterval(() => {
+    readSensorData()
+  }, 500)
 } catch (err) {
   console.error('Error reading sensor data:', err)
 }
