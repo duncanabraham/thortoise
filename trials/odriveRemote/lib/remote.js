@@ -1,9 +1,6 @@
 const ODrive = require('../../../lib/odrive')
 const { uart, baud, maxSpeed } = require('../config')
-const SC16IS752 = require('../../../lib/i2c/SC16IS752')
-const serialHat = new SC16IS752()
-serialHat.setAllOut()
-serialHat.writeByte(0xAA) // 10101010
+
 const { log } = global.app
 
 const rag = (data) => {
@@ -11,7 +8,6 @@ const rag = (data) => {
   status |= data.red ? 1 << 0 : 0
   status |= data.yellow ? 1 << 1 : 0
   status |= data.green ? 1 << 2 : 0
-  serialHat.writeByte(status)
   log.info('LED Status', status)
 }
 
