@@ -49,6 +49,14 @@ app.listen(api.port, () => {
   const thortoise = new Thortoise({ ...options, store, redisClient, verbose: true })
   this.controller = new Controller({ robot: thortoise, app, store })
 
+  function gracefulShutdown () {
+    thortoise.shutdown()
+    process.exit(0)
+  }
+
+  process.on('SIGINT', gracefulShutdown)
+  process.on('SIGTERM', gracefulShutdown)
+
   if (thortoise.verbose) {
     console.log(thortoise)
   }

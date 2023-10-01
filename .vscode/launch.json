@@ -16,6 +16,15 @@
     {
       "type": "pwa-node",
       "request": "launch",
+      "name": "Launch DataLogger",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "program": "${workspaceFolder}/modules/datalogger/index.js"
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
       "name": "Remote Control",
       "skipFiles": [
         "<node_internals>/**"
