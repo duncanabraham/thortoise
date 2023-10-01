@@ -12,3 +12,4 @@ target/
 .nyc_output
 .trunk/
 .vscode/
+odometryData.json
