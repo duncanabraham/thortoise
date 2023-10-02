@@ -112,8 +112,7 @@ const ATCOMMANDS = {
 }
 
 const keyManagerSettings = {
-  // keyServerUrl: 'http://192.168.0.43:4433'
-  keyServerUrl: 'http://127.0.0.1:3050'
+  keyServerUrl: 'http://datalog:3050'
 }
 
 module.exports = {

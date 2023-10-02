@@ -1,7 +1,7 @@
 module.exports = {
   name: 'Thortoise Data Logger',
   server: {
-    host: 'datalog',
+    host: '127.0.0.1',
     port: 3050
   },
   cryptography: {
