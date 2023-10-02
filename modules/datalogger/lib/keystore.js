@@ -16,6 +16,7 @@ class ApiKeyDatabase {
 
   isValid (ip, key) {
     const ipKey = this.ipToKey(ip)
+    console.log('ipKey: ', ipKey)
     return this.keys[ipKey].key === key && !this.keys[ipKey].isExpired()
   }
 
