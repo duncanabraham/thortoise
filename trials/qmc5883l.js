@@ -1,6 +1,8 @@
 const i2c = require('i2c-bus')
 const i2cBus = i2c.openSync(1)  // Assuming you are using bus number 1
 
+const fs = require('fs')
+
 const MPU6050_ADDRESS = 0x68  // Replace with your MPU-6050's I2C address
 const QMC5883L_ADDRESS = 0x0D  // Replace with your QMC5883L's I2C address
 
@@ -19,6 +21,19 @@ function initializeSensors() {
   // Initialize MPU-6050
   // Wake up the MPU-6050 by writing 0x00 to the power management register at address 0x6B
   i2cBus.writeByteSync(MPU6050_ADDRESS, 0x6B, 0x00)
+
+  // Read calibration
+  if (fs.existsSync('calibrationData.json')) {
+    const data = fs.readFileSync('calibrationData.json', 'utf8')
+      ({ minX, maxX, minY, maxY } = JSON.parse(data))
+  } else {
+    storeMinMax()
+  }
+}
+
+const storeMinMax = () => {
+  const calibrationData = { minX, maxX, minY, maxY }
+  fs.writeFileSync('calibrationData.json', JSON.stringify(calibrationData))
 }
 
 function readHeading() {
@@ -45,6 +60,8 @@ function readHeading() {
   if (x > maxX) maxX = x
   if (y < minY) minY = y
   if (y > maxY) maxY = y
+
+  storeMinMax()
 
   // Calibrate magnetometer readings
   const calibratedX = 2 * (x - minX) / (maxX - minX) - 1
