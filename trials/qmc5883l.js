@@ -7,9 +7,9 @@ const MPU6050_ADDRESS = 0x68
 const QMC5883L_ADDRESS = 0x0D
 
 let lastHeading = 0
-let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity
+let minX = Infinity; let maxX = -Infinity; let minY = Infinity; let maxY = -Infinity
 
-async function initMinMax() {
+async function initMinMax () {
   const filePath = path.join(__dirname, 'calibrationData.json')
   try {
     const data = await fs.readFile(filePath, 'utf8')
@@ -23,19 +23,19 @@ async function initMinMax() {
   await storeMinMax()
 }
 
-async function storeMinMax() {
+async function storeMinMax () {
   const filePath = path.join(__dirname, 'calibrationData.json')
   const calibrationData = { minX, maxX, minY, maxY }
   await fs.writeFile(filePath, JSON.stringify(calibrationData))
 }
 
-function readHeading() {
+function readHeading () {
   // Read accelerometer data from MPU-6050
   const accelBuffer = Buffer.alloc(6)
   i2cBus.readI2cBlockSync(MPU6050_ADDRESS, 0x3B, 6, accelBuffer)
-  let ax = accelBuffer.readInt16BE(0)
-  let ay = accelBuffer.readInt16BE(2)
-  let az = accelBuffer.readInt16BE(4)
+  const ax = accelBuffer.readInt16BE(0)
+  const ay = accelBuffer.readInt16BE(2)
+  const az = accelBuffer.readInt16BE(4)
 
   // Calculate pitch and roll angles
   const pitch = Math.atan2(-ay, Math.sqrt(ax * ax + az * az))
@@ -44,15 +44,15 @@ function readHeading() {
   // Read magnetometer data from QMC5883L
   const magBuffer = Buffer.alloc(6)
   i2cBus.readI2cBlockSync(QMC5883L_ADDRESS, 0x00, 6, magBuffer)
-  let x = magBuffer.readInt16LE(0)
-  let y = magBuffer.readInt16LE(2)
-  let z = magBuffer.readInt16LE(4)
+  const x = magBuffer.readInt16LE(0)
+  const y = magBuffer.readInt16LE(2)
+  const z = magBuffer.readInt16LE(4)
 
   // Update min and max values for x and y for calibration
   if (x < minX) minX = x
   if (x > maxX) maxX = x
   if (y < minY) minY = y
-  if (y > maxY) maxY = y 
+  if (y > maxY) maxY = y
 
   // Calibrate magnetometer readings
   const calibratedX = 2 * (x - minX) / (maxX - minX) - 1
@@ -72,18 +72,18 @@ function readHeading() {
   lastHeading = Math.round(heading * (180 / Math.PI))
 }
 
-function outputHeading() {
+function outputHeading () {
   console.log(`Heading: ${lastHeading} degrees`)
 }
 
-async function initialize() {
+async function initialize () {
   await initMinMax()
   initializeSensors()
   setInterval(readHeading, 100)
   setInterval(outputHeading, 1000)
 }
 
-function initializeSensors() {
+function initializeSensors () {
   i2cBus.writeByteSync(QMC5883L_ADDRESS, 0x09, 0b00111101)
   i2cBus.writeByteSync(MPU6050_ADDRESS, 0x6B, 0x00)
 }

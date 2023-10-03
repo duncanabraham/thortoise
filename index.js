@@ -47,6 +47,7 @@ app.listen(api.port, () => {
   await init()
   const redisClient = await redisPubSub()
   const thortoise = new Thortoise({ ...options, store, redisClient, verbose: true })
+  await thortoise.init()
   this.controller = new Controller({ robot: thortoise, app, store })
 
   function gracefulShutdown () {
