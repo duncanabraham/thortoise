@@ -79,6 +79,7 @@ const options = {
   version,
   trackApiSettings,
   verbose: env.VERBOSE === 'true',
+  env: env.ENVIRONMENT,
   dimensions: { // measure these, the navigation module will need to work out if it fits through/between/under a gap or obstacle
     width: 500,
     height: 400,
