@@ -61,7 +61,7 @@ function readHeading() {
   }
 
   // Convert to degrees
-  lastHeading = Math.round(Math.degrees(heading))
+  lastHeading = Math.round(heading * (180 / Math.PI))
 }
 
 function outputHeading() {
