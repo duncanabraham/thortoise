@@ -1,39 +1,32 @@
 const i2c = require('i2c-bus')
-const i2cBus = i2c.openSync(1)  // Assuming you are using bus number 1
+const i2cBus = i2c.openSync(1)
+const fs = require('fs').promises
+const path = require('path')
 
-const fs = require('fs')
-
-const MPU6050_ADDRESS = 0x68  // Replace with your MPU-6050's I2C address
-const QMC5883L_ADDRESS = 0x0D  // Replace with your QMC5883L's I2C address
+const MPU6050_ADDRESS = 0x68
+const QMC5883L_ADDRESS = 0x0D
 
 let lastHeading = 0
-let minX = Infinity, maxX = -Infinity
-let minY = Infinity, maxY = -Infinity
+let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity
 
-function initializeSensors() {
-  // Set to Mode register to 0x09 for continuous measurement
-  // Operating mode (bits [1:0]) set to Continuous measurement mode (01)
-  // Output data rate (bits [3:2]) set to 10Hz (00)
-  // Full Scale (bits [5:4]) set to 8 Gauss (00)
-  // Over sample ratio (bits [7:6]) set to 512 (11)
-  i2cBus.writeByteSync(QMC5883L_ADDRESS, 0x09, 0b00111101)
-
-  // Initialize MPU-6050
-  // Wake up the MPU-6050 by writing 0x00 to the power management register at address 0x6B
-  i2cBus.writeByteSync(MPU6050_ADDRESS, 0x6B, 0x00)
-
-  // Read calibration
-  if (fs.existsSync('calibrationData.json')) {
-    const data = fs.readFileSync('calibrationData.json', 'utf8')
-      ({ minX, maxX, minY, maxY } = JSON.parse(data))
-  } else {
-    storeMinMax()
+async function initMinMax() {
+  const filePath = path.join(__dirname, 'calibrationData.json')
+  try {
+    const data = await fs.readFile(filePath, 'utf8')
+    const calibrationData = JSON.parse(data)
+    ;({ minX, maxX, minY, maxY } = calibrationData)
+  } catch (err) {
+    // File does not exist or other error
+    console.error(err)
+    process.exit(1)
   }
+  await storeMinMax()
 }
 
-const storeMinMax = () => {
+async function storeMinMax() {
+  const filePath = path.join(__dirname, 'calibrationData.json')
   const calibrationData = { minX, maxX, minY, maxY }
-  fs.writeFileSync('calibrationData.json', JSON.stringify(calibrationData))
+  await fs.writeFile(filePath, JSON.stringify(calibrationData))
 }
 
 function readHeading() {
@@ -59,9 +52,7 @@ function readHeading() {
   if (x < minX) minX = x
   if (x > maxX) maxX = x
   if (y < minY) minY = y
-  if (y > maxY) maxY = y
-
-  storeMinMax()
+  if (y > maxY) maxY = y 
 
   // Calibrate magnetometer readings
   const calibratedX = 2 * (x - minX) / (maxX - minX) - 1
@@ -85,10 +76,18 @@ function outputHeading() {
   console.log(`Heading: ${lastHeading} degrees`)
 }
 
-initializeSensors()
+async function initialize() {
+  await initMinMax()
+  initializeSensors()
+  setInterval(readHeading, 100)
+  setInterval(outputHeading, 1000)
+}
 
-// Read the compass every 100ms
-setInterval(readHeading, 100)
+function initializeSensors() {
+  i2cBus.writeByteSync(QMC5883L_ADDRESS, 0x09, 0b00111101)
+  i2cBus.writeByteSync(MPU6050_ADDRESS, 0x6B, 0x00)
+}
 
-// Output the result every 1 second
-setInterval(outputHeading, 1000)
+initialize().catch(err => {
+  console.error('Failed to initialize:', err)
+})
