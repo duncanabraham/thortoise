@@ -6,6 +6,9 @@ const QMC5883L_ADDRESS = 0x0D
 let minX = Infinity, maxX = -Infinity
 let minY = Infinity, maxY = -Infinity
 
+let lastHeading = 0
+
+
 function initializeSensor() {
   // Set to Mode register to 0x09 for continuous measurement
   // Operating mode (bits [1:0]) set to Continuous measurement mode (01)
@@ -39,12 +42,16 @@ function readHeading() {
   }
 
   const headingDegrees = heading * (180 / Math.PI)
-  return Math.round(headingDegrees)
+  lastHeading = Math.round(headingDegrees)
+}
+
+function outputLastHeading() {
+  console.log(`Last Heading: ${lastHeading} degrees`)
 }
 
 initializeSensor()
 
-setInterval(() => {
-  const heading = readHeading()
-  console.log(`Heading: ${heading} degrees`)
-}, 1000)
+
+setInterval(readHeading, 20)
+
+setInterval(outputLastHeading, 1000)
