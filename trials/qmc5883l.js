@@ -3,6 +3,9 @@ const i2cBus = i2c.openSync(1)
 
 const QMC5883L_ADDRESS = 0x0D
 
+let minX = Infinity, maxX = -Infinity
+let minY = Infinity, maxY = -Infinity
+
 function initializeSensor() {
   // Set to Mode register to 0x09 for continuous measurement
   // Operating mode (bits [1:0]) set to Continuous measurement mode (01)
