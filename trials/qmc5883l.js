@@ -15,22 +15,27 @@ function initializeSensor() {
 
 function readHeading() {
   const buffer = Buffer.alloc(6)
-
-  // Read the X, Y, Z values from the sensor
   i2cBus.readI2cBlockSync(QMC5883L_ADDRESS, 0x00, 6, buffer)
 
-  const x = buffer.readInt16LE(0)
-  const y = buffer.readInt16LE(2)
-  const z = buffer.readInt16LE(4)
+  let x = buffer.readInt16LE(0)
+  let y = buffer.readInt16LE(2)
 
-  let heading = Math.atan2(y, x)
-  
+  // Track min and max values for X and Y axes
+  if (x < minX) minX = x
+  if (x > maxX) maxX = x
+  if (y < minY) minY = y
+  if (y > maxY) maxY = y
+
+  // Calibrate readings
+  const calibratedX = 2 * (x - minX) / (maxX - minX) - 1
+  const calibratedY = 2 * (y - minY) / (maxY - minY) - 1
+
+  let heading = Math.atan2(calibratedY, calibratedX)
   if (heading < 0) {
     heading += 2 * Math.PI
   }
-  
-  const headingDegrees = heading * (180 / Math.PI)
 
+  const headingDegrees = heading * (180 / Math.PI)
   return Math.round(headingDegrees)
 }
 
