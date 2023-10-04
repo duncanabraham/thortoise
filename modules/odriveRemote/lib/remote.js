@@ -1,3 +1,4 @@
+const { expect } = require('chai')
 const ODrive = require('../../../lib/odrive')
 const { uart, baud, maxSpeed } = require('../config')
 const Gpio = require('onoff').Gpio
@@ -6,7 +7,12 @@ const { log } = global.app
 
 class LED {
   constructor(pin) {
-    this.gpio = new Gpio(pin, 'out')
+    try {
+      this.gpio = new Gpio(pin, 'out')
+    } catch (e) {
+      console.error('Failed to initialize pin ', pin)
+      console.error(e)
+    }
   }
 
   on() {
