@@ -1,18 +1,42 @@
 const ODrive = require('../../../lib/odrive')
 const { uart, baud, maxSpeed } = require('../config')
+const Gpio = require('onoff').Gpio
 
 const { log } = global.app
 
+class LED {
+  constructor(pin) {
+    this.gpio = new Gpio(pin, 'out')
+  }
+
+  on() {
+    this.gpio.writeSync(1)
+  }
+
+  off() {
+    this.gpio.writeSync(0)
+  }
+}
+
+const redLED = new LED(11)
+const yellowLED = new LED(10)
+const greenLED = new LED(4)
+
 const rag = (data) => {
-  let status = 0 // serialHat.readByte() || 0
-  status |= data.red ? 1 << 0 : 0
-  status |= data.yellow ? 1 << 1 : 0
-  status |= data.green ? 1 << 2 : 0
-  log.info('LED Status', status)
+  const { red, yellow, green } = data
+
+  if (typeof red !== 'number' || typeof yellow !== 'number' || typeof green !== 'number') {
+    throw new Error('Invalid LED status values')
+  }
+
+  // Set the LED status based on the data
+  red ? redLED.on() : redLED.off()
+  yellow ? yellowLED.on() : yellowLED.off()
+  green ? greenLED.on() : greenLED.off()
 }
 
 class Remote {
-  constructor () {
+  constructor() {
     this.maxSpeed = maxSpeed
     this.runState = 0
     this.motorController = new ODrive(uart, baud)
@@ -40,21 +64,21 @@ class Remote {
     this.init()
   }
 
-  async init () {
+  async init() {
     await this.motorController.init()
     await this.motorController.calibrate()
     // await this.stop()
   }
 
-  get motors () {
+  get motors() {
     return this._motors
   }
 
-  get odrv () {
+  get odrv() {
     return this._odrv
   }
 
-  async getErrors () {
+  async getErrors() {
     const error = {
       axis0: 0,
       axis1: 0,
@@ -80,7 +104,7 @@ class Remote {
     return error
   }
 
-  async getStatus () {
+  async getStatus() {
     const response = this.motorController.response
     await this.motorController.write('r vbus_voltage\n')
     const vbus = await this.motorController.read()
@@ -90,12 +114,15 @@ class Remote {
     return { ...this.status, response, vbus, ibus, error }
   }
 
-  setStatus (data) { // receive an object that looks like: {red: 0, yellow: 0, green: 0}
-    // need to check the object is valid
+  setStatus(data) { // receive an object that looks like: {red: 0, yellow: 0, green: 0}
+    // Validate data object
+    if (typeof data !== 'object' || data === null) {
+      throw new Error('Invalid LED data object')
+    }
     rag(data)
   }
 
-  async setSpeed (motor, speed) {
+  async setSpeed(motor, speed) {
     if (!this.runState) {
       // Set the MC to closed loop control mode
       await this.motorController.write('w axis0.requested_state 8\n')
@@ -116,7 +143,7 @@ class Remote {
     }
   }
 
-  async stop () {
+  async stop() {
     await this.setSpeed('left', 0)
     await this.setSpeed('right', 0)
 
