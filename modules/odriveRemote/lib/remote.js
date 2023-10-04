@@ -25,6 +25,14 @@ class LED extends GPIOPin {
     }
   }
 
+  long() {
+    this.startFlashing('long')
+  }
+
+  short() {
+    this.startFlashing('short')
+  }
+
   // Method to start flashing with the specified pattern
   startFlashing(pattern) {
     if (!this.isFlashing) {
