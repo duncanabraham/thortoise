@@ -74,7 +74,7 @@ wss.on('connection', (ws) => {
       remote.setSpeed('left', data.leftMotor)
       remote.setSpeed('right', data.rightMotor)
     }
-    remote.setStatus({ ...data, connected: global.connected })
+    // remote.setStatus({ ...data, connected: global.connected })
 
     wss.clients.forEach((client) => {
       if (client.readyState === WebSocket.OPEN) {
