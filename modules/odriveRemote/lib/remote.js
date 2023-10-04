@@ -42,11 +42,13 @@ class LED extends GPIOPin {
       const flasher = () => {
         if (this.onState) { this.turnOn() } else { this.turnOff() }
         this.onState = !this.onState
-        if (!this.isFlashing) { return }
+        
         const timeout = (pattern === 'long' && !this.onState) || (pattern === 'short' && this.onState) ? 1000 : 500
         console.log('onState: ', this.onState)
         console.log('timeout: ', timeout)
-        setTimeout(flasher, timeout)
+        console.log('flashing: ', this.isFlashing)
+        if (!this.isFlashing) { return }
+        setTimeout(flasher.bind(this), timeout)
       }
 
       flasher()
