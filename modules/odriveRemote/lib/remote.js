@@ -37,12 +37,11 @@ class LED extends GPIOPin {
   startFlashing(pattern) {
     if (!this.isFlashing) {
       this.isFlashing = true
-      this.pattern = pattern
       this.state = true
 
       const doFlasher = () => {
         if (!this.isFlashing) { return }
-        setTimeout(flasher.bind(this), (this.pattern === 'long' && !this.state) || (this.pattern === 'short' && this.state) ? 1000 : 500)
+        setTimeout(flasher, (pattern === 'long' && !this.state) || (pattern === 'short' && this.state) ? 1000 : 500)
       }
 
       const flasher = () => {
@@ -53,9 +52,6 @@ class LED extends GPIOPin {
 
       this.turnOn()
       doFlasher()
-
-      // Initially turn the LED on
-      this.turnOn()
     }
   }
 }
