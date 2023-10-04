@@ -157,7 +157,7 @@ class Remote {
     return { ...this.status, response, vbus, ibus, error }
   }
 
-  setStatus(data) { // receive an object that looks like: {red: 0, yellow: 0, green: 0} //  0=off, 1=on, 2=long, 3=short
+  setStatus(data) { // receive an object that looks like: {red: 0, yellow: 0, green: 0} //  0=off, 1=on, 2=long, 3=short, 4=fast, -1=unchanged
     // Validate data object
     if (typeof data !== 'object' || data === null) {
       throw new Error('Invalid LED data object')
