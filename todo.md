@@ -2,13 +2,13 @@
 
 Still lots to do. How is this going to work?
 
-* get bearing from IMU
-* DONE - get location from GPS
+* DONE - get bearing from IMU
+* DONE - get location from GPS ??
 * DONE - get direction from compass
 * DONE - read light levels from sensors
 * map location to internal map
-* provide a way to save and load the map to disk
-* provide a way to save and load the map from external server
+* DONE - provide a way to save and load the map to disk
+* DONE - provide a way to save and load the map from external server
 * add commands to the api controller for:
   - Navigate to North, South, East, West
   - Walk: giving the current bearing and direction command, what coords should I move to
@@ -27,3 +27,4 @@ Still lots to do. How is this going to work?
 * DONE - needs more work around charging times - Use the charge monitor to determine charge, charging rate etc
 
 
+** NOTE: I'm not sure this list is worth maintaining as it was written pre-legs!!

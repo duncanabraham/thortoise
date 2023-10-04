@@ -84,5 +84,5 @@ class QMC5883L {
     } else {
       console.log('Data not ready')
     }
-  }, 500) // TODO: 2 reads per second, to be reviewed
+  }, 200) // TODO: 5 reads per second, to be reviewed
 })()

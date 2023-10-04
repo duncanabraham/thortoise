@@ -72,5 +72,6 @@ app.listen(api.port, () => {
   log.info()
   log.info(new Date().toISOString())
   log.info()
+
   thortoise.start()
 })()
