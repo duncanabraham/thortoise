@@ -7,7 +7,7 @@ const GPIOPin = require('./GPIOPin')
 const { log } = global.app
 
 class LED extends GPIOPin {
-  constructor(pinNumber, name) {    
+  constructor(pinNumber, name) {
     super(pinNumber)
     this.name = name
     this.onState = false
@@ -19,36 +19,35 @@ class LED extends GPIOPin {
     await this.setState('1')
   }
 
-  async turnOff(flashing) {
+  async turnOff(flashing) { // turn it off and cancel flashing if it was running
     this.onState = false
     await this.setState('0')
-    if (this.isFlashing && !flashing) {      
+    if (this.isFlashing && !flashing) {
       this.isFlashing = false
       clearTimeout(this.flashInterval)
     }
   }
 
-  long() {
+  long() { // start a long flash
     this.startFlashing('long')
   }
 
-  short() {
+  short() { // start a short flash
     this.startFlashing('short')
   }
 
-  fast() {
+  fast() { // start a fast flash
     this.startFlashing('fast')
   }
 
-  // Method to start flashing with the specified pattern
   startFlashing(pattern) {
     if (!this.isFlashing) {
       this.isFlashing = true
 
-      const flasher = async () => {        
+      const flasher = async () => {
         if (this.onState) { await this.turnOn() } else { await this.turnOff(true) }
-        this.onState = !this.onState        
-        const timeout =pattern === 'fast' ? 100 : (pattern === 'long' && this.onState) || (pattern === 'short' && !this.onState) ? 1000 : 300
+        this.onState = !this.onState
+        const timeout = pattern === 'fast' ? 100 : (pattern === 'long' && this.onState) || (pattern === 'short' && !this.onState) ? 1000 : 300
         if (!this.isFlashing) { return }
         this.flashInterval = setTimeout(flasher, timeout)
       }
