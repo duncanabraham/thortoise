@@ -22,7 +22,7 @@ class LED extends GPIOPin {
     if (this.isFlashing) {
       this.isOn = false
       this.isFlashing = false
-      clearInterval(this.flashInterval)
+      clearTimeout(this.flashInterval)
     }
   }
 
@@ -51,7 +51,7 @@ class LED extends GPIOPin {
         console.log(`${this.name} : pattern: ${pattern}`)
         console.log(`${this.name} : flashing: ${this.isFlashing}`)
         if (!this.isFlashing) { return }
-        setTimeout(flasher.bind(this), timeout)
+        this.flashInterval = setTimeout(flasher, timeout)
       }
 
       flasher()
