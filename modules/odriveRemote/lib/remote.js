@@ -7,8 +7,9 @@ const GPIOPin = require('./GPIOPin')
 const { log } = global.app
 
 class LED extends GPIOPin {
-  constructor(pinNumber) {
+  constructor(pinNumber, name) {    
     super(pinNumber)
+    this.name = name
     this.setDirection('out')
   }
 
@@ -44,9 +45,9 @@ class LED extends GPIOPin {
         this.onState = !this.onState
         
         const timeout = (pattern === 'long' && !this.onState) || (pattern === 'short' && this.onState) ? 1000 : 500
-        console.log('onState: ', this.onState)
-        console.log('timeout: ', timeout)
-        console.log('flashing: ', this.isFlashing)
+        console.log(`${this.name} : onState: ${this.onState}`)
+        console.log(`${this.name} : timeout: ${timeout}`)
+        console.log(`${this.name} : flashing: ${this.isFlashing}`)
         if (!this.isFlashing) { return }
         setTimeout(flasher.bind(this), timeout)
       }
@@ -56,9 +57,9 @@ class LED extends GPIOPin {
   }
 }
 
-const redLED = new LED(11)
-const yellowLED = new LED(79) // Targetting a different GPIO Bank GPIOA_15
-const greenLED = new LED(4)
+const redLED = new LED(11, 'red')
+const yellowLED = new LED(79, 'yellow') // Targetting a different GPIO Bank GPIOA_15
+const greenLED = new LED(4, 'green')
 
 const rag = (data) => {
   const { red, yellow, green } = data // each can be 0=off, 1=on, 2=long flash, 3=short flash
