@@ -24,9 +24,9 @@ class LED {
   }
 }
 
-const redLED = new LED(11)
-const yellowLED = new LED(10)
-const greenLED = new LED(4)
+const redLED = new LED(487)
+const yellowLED = new LED(486)
+const greenLED = new LED(480)
 
 const rag = (data) => {
   const { red, yellow, green } = data
