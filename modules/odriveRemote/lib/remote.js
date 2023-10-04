@@ -37,30 +37,27 @@ class LED extends GPIOPin {
   startFlashing(pattern) {
     if (!this.isFlashing) {
       this.isFlashing = true
-      let onDuration, offDuration
+      this.pattern = pattern
+      this.state = true
 
-      if (pattern === 'long') {
-        onDuration = 1000  // 1 second
-        offDuration = 500  // 0.5 seconds
-      } else if (pattern === 'short') {
-        onDuration = 500   // 0.5 seconds
-        offDuration = 1000 // 1 second
+      const doFlasher = () => {
+        if (!this.isFlashing) { return }
+        setTimeout(flasher.bind(this), (this.pattern === 'long' && !this.state) || (this.pattern === 'short' && this.state) ? 1000 : 500)
       }
 
-      this.flashInterval = setInterval(() => {
-        if (this.isFlashing) {
-          this.turnOn();
-          setTimeout(() => {
-            this.turnOff();
-          }, onDuration);
-        }
-      }, onDuration + offDuration) // Total cycle duration
+      const flasher = () => {
+        if (this.state) { this.turnOn() } else { this.turnOff() }
+        this.state = !this.state
+        doFlasher()
+      }
+
+      this.turnOn()
+      doFlasher()
 
       // Initially turn the LED on
       this.turnOn()
     }
   }
-
 }
 
 const redLED = new LED(11)
@@ -76,9 +73,9 @@ const rag = (data) => {
 
   // Set the LED status based on the data
   const states = ['turnOff', 'turnOn', 'long', 'short']
-  if (red != -1) { redLED[states[red]]()}
-  if (yellow != -1) { yellowLED[states[yellow]]()}
-  if (green != -1) { greenLED[states[green]]()}
+  if (red != -1) { redLED[states[red]]() }
+  if (yellow != -1) { yellowLED[states[yellow]]() }
+  if (green != -1) { greenLED[states[green]]() }
 }
 
 class Remote {
