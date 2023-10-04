@@ -12,6 +12,7 @@ const { log } = global.app
 class LED extends GPIOPin {
   constructor(pinNumber) {
     super(pinNumber)
+    this.setDirection('out')
   }
 
   async turnOn() {
@@ -35,9 +36,9 @@ const rag = (data) => {
   }
 
   // Set the LED status based on the data
-  red ? redLED.on() : redLED.off()
-  yellow ? yellowLED.on() : yellowLED.off()
-  green ? greenLED.on() : greenLED.off()
+  red ? redLED.turnOn() : redLED.turnOff()
+  yellow ? yellowLED.turnOn() : yellowLED.turnOff()
+  green ? greenLED.turnOn() : greenLED.turnOff()
 }
 
 class Remote {
@@ -70,10 +71,10 @@ class Remote {
   }
 
   async init() {
-    rag({red: 1, yellow: 1, green: 1})
+    rag({ red: 1, yellow: 1, green: 1 })
     await this.motorController.init()
     await this.motorController.calibrate()
-    rag({red: 0, yellow: 0, green: 0})
+    rag({ red: 0, yellow: 0, green: 0 })
     // await this.stop()
   }
 
