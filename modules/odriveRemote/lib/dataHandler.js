@@ -6,7 +6,7 @@
       "statusLEDS": { "red": 1, "yellow": 1, "green": 1 },
       "state": 0
     }
-    speeds are in % and range from -100% to +100%    
+    speeds are in % and range from -100% to +100%
 */
 module.exports = async (req, res) => {
   const { log, remote, ready } = global.app

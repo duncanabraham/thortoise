@@ -4,13 +4,13 @@ const writeFile = util.promisify(fs.writeFile)
 const readFile = util.promisify(fs.readFile)
 
 class GPIOPin {
-  constructor(pinNumber) {
+  constructor (pinNumber) {
     this.base = 412
     this.gpio = this.base + pinNumber
     this._gpioPath = `/sys/class/gpio/gpio${this.gpio}/`
   }
 
-  async _writeFile(path, value) {
+  async _writeFile (path, value) {
     try {
       await writeFile(path, value, 'utf8')
     } catch (err) {
@@ -18,7 +18,7 @@ class GPIOPin {
     }
   }
 
-  async _readFile(path) {
+  async _readFile (path) {
     try {
       return await readFile(path, 'utf8')
     } catch (err) {
@@ -26,15 +26,15 @@ class GPIOPin {
     }
   }
 
-  async setDirection(direction) {
+  async setDirection (direction) {
     await this._writeFile(`${this._gpioPath}direction`, direction)
   }
 
-  async setState(state) {
+  async setState (state) {
     await this._writeFile(`${this._gpioPath}value`, state)
   }
 
-  async getState() {
+  async getState () {
     return await this._readFile(`${this._gpioPath}value`)
   }
 }
