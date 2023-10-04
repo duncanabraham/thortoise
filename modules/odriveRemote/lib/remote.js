@@ -1,61 +1,9 @@
-const { expect } = require('chai')
 const ODrive = require('../../../lib/odrive')
 const { uart, baud, maxSpeed } = require('../config')
 
-const GPIOPin = require('./GPIOPin')
+const LED = require('./LED')
 
 const { log } = global.app
-
-class LED extends GPIOPin {
-  constructor(pinNumber, name) {
-    super(pinNumber)
-    this.name = name
-    this.onState = false
-    this.setDirection('out')
-  }
-
-  async turnOn() {
-    this.onState = true
-    await this.setState('1')
-  }
-
-  async turnOff(flashing) { // turn it off and cancel flashing if it was running
-    this.onState = false
-    await this.setState('0')
-    if (this.isFlashing && !flashing) {
-      this.isFlashing = false
-      clearTimeout(this.flashInterval)
-    }
-  }
-
-  long() { // start a long flash
-    this.startFlashing('long')
-  }
-
-  short() { // start a short flash
-    this.startFlashing('short')
-  }
-
-  fast() { // start a fast flash
-    this.startFlashing('fast')
-  }
-
-  startFlashing(pattern) {
-    if (!this.isFlashing) {
-      this.isFlashing = true
-
-      const flasher = async () => {
-        if (this.onState) { await this.turnOn() } else { await this.turnOff(true) }
-        this.onState = !this.onState
-        const timeout = pattern === 'fast' ? 100 : (pattern === 'long' && this.onState) || (pattern === 'short' && !this.onState) ? 1000 : 300
-        if (!this.isFlashing) { return }
-        this.flashInterval = setTimeout(flasher, timeout)
-      }
-
-      flasher()
-    }
-  }
-}
 
 const redLED = new LED(11, 'red')
 const yellowLED = new LED(79, 'yellow') // Targetting a different GPIO Bank GPIOA_15
@@ -70,13 +18,13 @@ const rag = (data) => {
 
   // Set the LED status based on the data
   const states = ['turnOff', 'turnOn', 'long', 'short', 'fast']
-  if (red != -1) { redLED[states[red]]() }
-  if (yellow != -1) { yellowLED[states[yellow]]() }
-  if (green != -1) { greenLED[states[green]]() }
+  if (red !== -1) { redLED[states[red]]() }
+  if (yellow !== -1) { yellowLED[states[yellow]]() }
+  if (green !== -1) { greenLED[states[green]]() }
 }
 
 class Remote {
-  constructor() {
+  constructor () {
     this.maxSpeed = maxSpeed
     this.runState = 0
     this.motorController = new ODrive(uart, baud)
@@ -104,7 +52,7 @@ class Remote {
     this.init()
   }
 
-  async init() {
+  async init () {
     rag({ red: 2, yellow: 3, green: 4 })
     await this.motorController.init()
     await this.motorController.calibrate()
@@ -112,15 +60,15 @@ class Remote {
     // await this.stop()
   }
 
-  get motors() {
+  get motors () {
     return this._motors
   }
 
-  get odrv() {
+  get odrv () {
     return this._odrv
   }
 
-  async getErrors() {
+  async getErrors () {
     const error = {
       axis0: 0,
       axis1: 0,
@@ -146,7 +94,7 @@ class Remote {
     return error
   }
 
-  async getStatus() {
+  async getStatus () {
     const response = this.motorController.response
     await this.motorController.write('r vbus_voltage\n')
     const vbus = await this.motorController.read()
@@ -156,7 +104,7 @@ class Remote {
     return { ...this.status, response, vbus, ibus, error }
   }
 
-  setStatus(data) { // receive an object that looks like: {red: 0, yellow: 0, green: 0} //  0=off, 1=on, 2=long, 3=short, 4=fast, -1=unchanged
+  setStatus (data) { // receive an object that looks like: {red: 0, yellow: 0, green: 0} //  0=off, 1=on, 2=long, 3=short, 4=fast, -1=unchanged
     // Validate data object
     if (typeof data !== 'object' || data === null) {
       throw new Error('Invalid LED data object')
@@ -164,7 +112,7 @@ class Remote {
     rag(data)
   }
 
-  async setSpeed(motor, speed) {
+  async setSpeed (motor, speed) {
     if (!this.runState) {
       // Set the MC to closed loop control mode
       await this.motorController.write('w axis0.requested_state 8\n')
@@ -185,7 +133,7 @@ class Remote {
     }
   }
 
-  async stop() {
+  async stop () {
     await this.setSpeed('left', 0)
     await this.setSpeed('right', 0)
 
