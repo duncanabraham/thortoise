@@ -1,10 +1,7 @@
 const { expect } = require('chai')
 const ODrive = require('../../../lib/odrive')
 const { uart, baud, maxSpeed } = require('../config')
-const fs = require('fs')
-const util = require('util')
-const writeFile = util.promisify(fs.writeFile)
-const readFile = util.promisify(fs.readFile)
+
 const GPIOPin = require('./GPIOPin')
 
 const { log } = global.app

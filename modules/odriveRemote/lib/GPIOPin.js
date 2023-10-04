@@ -1,3 +1,8 @@
+const fs = require('fs')
+const util = require('util')
+const writeFile = util.promisify(fs.writeFile)
+const readFile = util.promisify(fs.readFile)
+
 class GPIOPin {
   constructor(pinNumber) {
     this.base = 412
