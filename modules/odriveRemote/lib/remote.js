@@ -41,6 +41,7 @@ class LED extends GPIOPin {
       this.onState = true
 
       const flasher = () => {
+        console.log('flasher called')
         if (this.onState) { this.turnOn() } else { this.turnOff() }
         this.onState = !this.onState
         
