@@ -10,17 +10,19 @@ class LED extends GPIOPin {
   constructor(pinNumber, name) {    
     super(pinNumber)
     this.name = name
+    this.onState = false
     this.setDirection('out')
   }
 
   async turnOn() {
+    this.onState = true
     await this.setState('1')
   }
 
   async turnOff() {
+    this.onState = false
     await this.setState('0')
-    if (this.isFlashing) {
-      this.isOn = false
+    if (this.isFlashing) {      
       this.isFlashing = false
       clearTimeout(this.flashInterval)
     }
@@ -40,9 +42,9 @@ class LED extends GPIOPin {
       this.isFlashing = true
       this.onState = true
 
-      const flasher = () => {
+      const flasher = async () => {
         console.log('flasher called')
-        if (this.onState) { this.turnOn() } else { this.turnOff() }
+        if (this.onState) { await this.turnOn() } else { await this.turnOff() }
         this.onState = !this.onState
         
         const timeout = (pattern === 'long' && this.onState) || (pattern === 'short' && !this.onState) ? 500 : 100
