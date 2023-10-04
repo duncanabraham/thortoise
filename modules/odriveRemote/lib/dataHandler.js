@@ -10,7 +10,6 @@
 */
 module.exports = async (req, res) => {  
   const { log, remote, ready } = global.app
-  remote.setStatus({red:-1, yellow: 4, green: -1}) // flash yellow when a command is recieved
   if (ready) {
     const command = req.body
     log.info('HTTP request:', JSON.stringify(command))
@@ -20,7 +19,7 @@ module.exports = async (req, res) => {
     }
     // If the state value is 0 or both speeds are 0, call the stop method to ensure the motor controller is placed in idle mode
     (!command.state || (command.speedLeft === 0 && command.speedRight === 0)) && await remote.stop()
-    await remote.setStatus(command.statusLEDS || { red: -1, yellow: 0, green: -1 })
+    await remote.setStatus(command.statusLEDS || { red: -1, yellow: -1, green: -1 })
     res.send('OK')
   } else {
     res.send('Not ready')
