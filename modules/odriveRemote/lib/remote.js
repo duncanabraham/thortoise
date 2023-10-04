@@ -18,7 +18,41 @@ class LED extends GPIOPin {
 
   async turnOff() {
     await this.setState('0')
+    if (this.isFlashing) {
+      this.isOn = false
+      this.isFlashing = false
+      clearInterval(this.flashInterval)
+    }
   }
+
+  // Method to start flashing with the specified pattern
+  startFlashing(pattern) {
+    if (!this.isFlashing) {
+      this.isFlashing = true
+      let onDuration, offDuration
+
+      if (pattern === 'long') {
+        onDuration = 1000  // 1 second
+        offDuration = 500  // 0.5 seconds
+      } else if (pattern === 'short') {
+        onDuration = 500   // 0.5 seconds
+        offDuration = 1000 // 1 second
+      }
+
+      this.flashInterval = setInterval(() => {
+        if (this.isFlashing) {
+          this.turnOn();
+          setTimeout(() => {
+            this.turnOff();
+          }, onDuration);
+        }
+      }, onDuration + offDuration) // Total cycle duration
+
+      // Initially turn the LED on
+      this.turnOn()
+    }
+  }
+
 }
 
 const redLED = new LED(11)
@@ -26,16 +60,17 @@ const yellowLED = new LED(79) // Targetting a different GPIO Bank GPIOA_15
 const greenLED = new LED(4)
 
 const rag = (data) => {
-  const { red, yellow, green } = data
+  const { red, yellow, green } = data // each can be 0=off, 1=on, 2=long flash, 3=short flash
 
   if (typeof red !== 'number' || typeof yellow !== 'number' || typeof green !== 'number') {
     throw new Error('Invalid LED status values')
   }
 
   // Set the LED status based on the data
-  red ? redLED.turnOn() : redLED.turnOff()
-  yellow ? yellowLED.turnOn() : yellowLED.turnOff()
-  green ? greenLED.turnOn() : greenLED.turnOff()
+  const states = ['turnOff', 'turnOn', 'long', 'short']
+  if (red != -1) { redLED[states[red]](states[red])}
+  if (yellow != -1) { yellowLED[states[yellow]](states[yellow])}
+  if (green != -1) { greenLED[states[green]](states[green])}
 }
 
 class Remote {
@@ -68,7 +103,7 @@ class Remote {
   }
 
   async init() {
-    rag({ red: 1, yellow: 1, green: 1 })
+    rag({ red: 2, yellow: 3, green: 1 })
     await this.motorController.init()
     await this.motorController.calibrate()
     rag({ red: 0, yellow: 0, green: 0 })
@@ -119,7 +154,7 @@ class Remote {
     return { ...this.status, response, vbus, ibus, error }
   }
 
-  setStatus(data) { // receive an object that looks like: {red: 0, yellow: 0, green: 0}
+  setStatus(data) { // receive an object that looks like: {red: 0, yellow: 0, green: 0} //  0=off, 1=on, 2=long, 3=short
     // Validate data object
     if (typeof data !== 'object' || data === null) {
       throw new Error('Invalid LED data object')
