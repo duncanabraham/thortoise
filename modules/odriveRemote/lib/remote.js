@@ -22,7 +22,7 @@ class LED extends GPIOPin {
 }
 
 const redLED = new LED(11)
-const yellowLED = new LED(78) // Targetting a different GPIO Bank GPIOA_14
+const yellowLED = new LED(79) // Targetting a different GPIO Bank GPIOA_15
 const greenLED = new LED(4)
 
 const rag = (data) => {
