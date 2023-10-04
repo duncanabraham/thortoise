@@ -1,26 +1,25 @@
 const { expect } = require('chai')
 const ODrive = require('../../../lib/odrive')
 const { uart, baud, maxSpeed } = require('../config')
-const Gpio = require('onoff').Gpio
+const fs = require('fs')
+const util = require('util')
+const writeFile = util.promisify(fs.writeFile)
+const readFile = util.promisify(fs.readFile)
+const GPIOPin = require('./GPIOPin')
 
 const { log } = global.app
 
-class LED {
-  constructor(pin) {
-    try {
-      this.gpio = new Gpio(pin, 'out')
-    } catch (e) {
-      console.error('Failed to initialize pin ', pin)
-      console.error(e)
-    }
+class LED extends GPIOPin {
+  constructor(pinNumber) {
+    super(pinNumber)
   }
 
-  on() {
-    this.gpio.writeSync(1)
+  async turnOn() {
+    await this.setState('1')
   }
 
-  off() {
-    this.gpio.writeSync(0)
+  async turnOff() {
+    await this.setState('0')
   }
 }
 
@@ -71,8 +70,10 @@ class Remote {
   }
 
   async init() {
+    rag({red: 1, yellow: 1, green: 1})
     await this.motorController.init()
     await this.motorController.calibrate()
+    rag({red: 0, yellow: 0, green: 0})
     // await this.stop()
   }
 
