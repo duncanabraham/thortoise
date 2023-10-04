@@ -22,7 +22,7 @@ class LED extends GPIOPin {
 }
 
 const redLED = new LED(11)
-const yellowLED = new LED(10)
+const yellowLED = new LED(9)
 const greenLED = new LED(4)
 
 const rag = (data) => {
