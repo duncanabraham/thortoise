@@ -112,7 +112,7 @@ class Remote {
     rag({ red: 2, yellow: 3, green: 1 })
     await this.motorController.init()
     await this.motorController.calibrate()
-    rag({ red: 0, yellow: 0, green: 0 })
+    // rag({ red: 0, yellow: 0, green: 0 })
     // await this.stop()
   }
 
