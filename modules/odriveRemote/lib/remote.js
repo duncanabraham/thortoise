@@ -76,9 +76,9 @@ const rag = (data) => {
 
   // Set the LED status based on the data
   const states = ['turnOff', 'turnOn', 'long', 'short']
-  if (red != -1) { redLED[states[red]](states[red])}
-  if (yellow != -1) { yellowLED[states[yellow]](states[yellow])}
-  if (green != -1) { greenLED[states[green]](states[green])}
+  if (red != -1) { redLED[states[red]]()}
+  if (yellow != -1) { yellowLED[states[yellow]]()}
+  if (green != -1) { greenLED[states[green]]()}
 }
 
 class Remote {
