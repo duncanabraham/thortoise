@@ -13,3 +13,5 @@ target/
 .trunk/
 .vscode/
 odometryData.json
+apiKeyDatabase.json
+mapdata.json
