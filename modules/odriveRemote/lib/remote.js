@@ -41,16 +41,10 @@ class LED extends GPIOPin {
     if (!this.isFlashing) {
       this.isFlashing = true
 
-      const flasher = async () => {
-        console.log('flasher called')
+      const flasher = async () => {        
         if (this.onState) { await this.turnOn() } else { await this.turnOff(true) }
-        this.onState = !this.onState
-        
-        const timeout = (pattern === 'long' && this.onState) || (pattern === 'short' && !this.onState) ? 500 : 100
-        console.log(`${this.name} : onState: ${this.onState}`)
-        console.log(`${this.name} : timeout: ${timeout}`)
-        console.log(`${this.name} : pattern: ${pattern}`)
-        console.log(`${this.name} : flashing: ${this.isFlashing}`)
+        this.onState = !this.onState        
+        const timeout = (pattern === 'long' && this.onState) || (pattern === 'short' && !this.onState) ? 1000 : 300
         if (!this.isFlashing) { return }
         this.flashInterval = setTimeout(flasher, timeout)
       }
@@ -111,7 +105,7 @@ class Remote {
     rag({ red: 2, yellow: 3, green: 1 })
     await this.motorController.init()
     await this.motorController.calibrate()
-    // rag({ red: 0, yellow: 0, green: 0 })
+    rag({ red: 0, yellow: 0, green: 0 })
     // await this.stop()
   }
 
