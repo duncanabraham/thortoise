@@ -1,4 +1,5 @@
 require('./common.js')
+process.env.ENVIRONMENT = 'live'
 const UPS = require('../lib/i2c/UPS')  // Assuming UPS.js is in the same directory
 const log = require('../lib/log') // Change to actual path
 
