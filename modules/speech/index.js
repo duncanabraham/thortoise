@@ -22,4 +22,5 @@ process.on('unhandledRejection', (reason, p) => {
   process.exit(1)
 })
 
+console.log('Running Thortoise Speech Engine.  Listening to redis queue "voice"')
 setInterval(() => {}, 100000) // just keep busy
