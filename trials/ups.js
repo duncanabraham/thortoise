@@ -4,7 +4,7 @@ const UPS = require('../lib/i2c/UPS')  // Assuming UPS.js is in the same directo
 const log = require('../lib/log') // Change to actual path
 
 async function testUPS() {
-  const ups = new UPS({i2cAddress: 0x40}) // You may need to provide options and additional arguments based on your constructor
+  const ups = new UPS({i2cAddress: 0x42}) // You may need to provide options and additional arguments based on your constructor
   
   try {
     console.log("Initializing...")
