@@ -4,10 +4,10 @@ const { exec } = require('child_process')
 const soundFiles = require('./sound.json')
 
 class SpeechQueue {
-  constructor(options = {}) {
+  constructor(redisClient) {
     this._queue = {}
     this.currentlySpeaking = false
-    this.subscriber = redis.createClient()
+    this.subscriber = redisClient.sub
     this._initializeRedis()
     this.maxAge = options.maxAge || 1000 * 60 * 3 // 3 minutes
     this.audioDevice = options.audioDevice || '-Dhw:3'

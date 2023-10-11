@@ -2,9 +2,11 @@
  * Speech reads text that has been published to the "voice" redis channel and says it out loud.
  */
 
+const redisPubSub = require('./lib/redisPubSub')
+
 const SpeechQueue = require('./lib/speechQueue')
 // eslint-disable-next-line no-unused-vars
-const speechQueue = new SpeechQueue() // speedhQueue is an event handler for the redis channel "voice"
+// speedhQueue is an event handler for the redis channel "voice"
 
 process.on('SIGINT', () => {
   console.log('Received SIGINT. Cleaning up before exit.')
@@ -22,5 +24,12 @@ process.on('unhandledRejection', (reason, p) => {
   process.exit(1)
 })
 
-console.log('Running Thortoise Speech Engine.  Listening to redis queue "voice"')
-setInterval(() => {}, 100000) // just keep busy
+
+
+(async () => {
+  const redisClient = await redisPubSub()
+  const speechQueue = new SpeechQueue(redicClient) 
+  console.log('Running Thortoise Speech Engine.  Listening to redis queue "voice"')
+  setInterval(() => {}, 100000) // just keep busy
+})()
+
