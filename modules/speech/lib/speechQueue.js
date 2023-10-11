@@ -19,11 +19,6 @@ class SpeechQueue {
     })
 
     this.subscriber.subscribe('voice', this._addMessageToQueue.bind(this))
-    console.log('subscriber be like: ', this.subscriber)
-    // (channel, message) => {
-    //   console.log('received: ', message)
-    //   this._addMessageToQueue(JSON.parse(message))
-    // })
   }
 
   _validateAndSanitizeText(text) {
@@ -49,7 +44,8 @@ class SpeechQueue {
   }
 
   _addMessageToQueue(channel, message) {
-    const voiceObject= JSON.parse(message)
+    console.log('received: ', message)
+    const voiceObject = JSON.parse(message)
     const { text, timestamp, command } = voiceObject
     if (command) {
       this._handleCommand(command)
