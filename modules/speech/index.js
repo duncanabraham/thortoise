@@ -27,7 +27,6 @@ const SpeechQueue = require('./lib/speechQueue')
     const redisClient = await redisPubSub()
     // eslint-disable-next-line no-unused-vars
     const speechQueue = new SpeechQueue({ redisClient })
-    console.log('\x1b[32mRunning Thortoise Speech Engine\x1b[0m.\nListening to redis queue "voice"')
-    setInterval(() => { }, 100000) // just keep busy
+    console.log('\x1b[32mRunning Thortoise Speech Engine\x1b[0m.\nListening to redis queue "voice"')    
   })()
 

@@ -15,14 +15,15 @@ class SpeechQueue {
 
   _initializeRedis() {
     this.subscriber.on('error', (err) => {
-      console.error(`Redis error: ${err}`)
+      console.error(`\x1b[31mRedis error:\x1b[0m ${err}`)
     })
 
     this.subscriber.subscribe('voice')
-    this.subscriber.on('message', (channel, message) => {
-      console.log('received: ', message)
-      this._addMessageToQueue(JSON.parse(message))
-    })
+    this.subscriber.on('message', this._addMessageToQueue.bind(this))
+    // (channel, message) => {
+    //   console.log('received: ', message)
+    //   this._addMessageToQueue(JSON.parse(message))
+    // })
   }
 
   _validateAndSanitizeText(text) {
@@ -47,7 +48,8 @@ class SpeechQueue {
     }
   }
 
-  _addMessageToQueue(voiceObject) {
+  _addMessageToQueue(channel, message) {
+    const voiceObject= JSON.parse(message)
     const { text, timestamp, command } = voiceObject
     if (command) {
       this._handleCommand(command)
