@@ -20,6 +20,7 @@ class SpeechQueue {
 
     this.subscriber.subscribe('voice')
     this.subscriber.on('message', this._addMessageToQueue.bind(this))
+    console.log('subscriber be like: ', this.subscriber)
     // (channel, message) => {
     //   console.log('received: ', message)
     //   this._addMessageToQueue(JSON.parse(message))
