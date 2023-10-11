@@ -63,7 +63,7 @@ class SpeechQueue {
 
   async _addMessageToQueue(message) {
     const voiceObject = JSON.parse(message)
-    const { text, timestamp, command, volume = 1 } = voiceObject
+    const { text, timestamp, command, volume } = voiceObject
     if (command) {
       await this.addToCommandQueue({ command, volume })
       return
