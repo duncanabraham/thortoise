@@ -55,7 +55,7 @@ class SpeechQueue {
       return
     }
     this._queue[timestamp] = sanitizedText
-    this._pruneOldMessages()
+    // this._pruneOldMessages()
     if (!this.currentlySpeaking) {    
       this._speak()
     }
