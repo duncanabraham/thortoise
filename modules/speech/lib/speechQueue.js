@@ -18,8 +18,7 @@ class SpeechQueue {
       console.error(`\x1b[31mRedis error:\x1b[0m ${err}`)
     })
 
-    this.subscriber.subscribe('voice')
-    this.subscriber.on('message', this._addMessageToQueue.bind(this))
+    this.subscriber.subscribe('voice', this._addMessageToQueue.bind(this))
     console.log('subscriber be like: ', this.subscriber)
     // (channel, message) => {
     //   console.log('received: ', message)
