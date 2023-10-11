@@ -1,4 +1,24 @@
 {
-  "BEEP": "sounds/beep.wav",
-  "BOOP": "sounds/boop.wav"
+  "ALARM": "alarm_beep.wav",
+  "BLIP": "blip.wav",
+  "BLOOP": "bloop_x.wav",
+  "BUZZER3": "buzzer3_x.wav",
+  "BUZZERX": "buzzer_x.wav",
+  "CARBEEP": "car_horn_x.wav",
+  "CHARGE": "charge.wav",
+  "CHIRP": "car_chirp_x.wav",
+  "CLICK": "click_x.wav",
+  "FLOOP": "floop2_x.wav",
+  "HONK": "honk_x.wav",
+  "LASER": "laser_x.wav",
+  "PHASER2": "phasesr2.wav",
+  "PHASER3": "phasers3.wav",
+  "PLUCK": "pluck.wav",
+  "STARTUP1": "startup1.wav",
+  "STARTUP2": "startup2.wav",
+  "TOOT": "toot2_x.wav",
+  "TRUCK": "truck_horn.wav",
+  "WARNING": "warning_whistle_x.wav",
+  "WARNINGHORN": "warning_horn.wav",
+  "ZAG": "zag_x.wav"
 }

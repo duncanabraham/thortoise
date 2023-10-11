@@ -27,18 +27,18 @@ class SpeechQueue {
   }
 
   _handleCommand(command) {
-    switch (command) {
-      case 'CLEAR':
-        this.clearQueue()
-        break
-      case 'BEEP':
-        exec(`aplay ${soundFiles.BEEP}`, this._postSoundCommand.bind(this))
-        break
-      case 'BOOP':
-        exec(`aplay ${soundFiles.Boop}`, this._postSoundCommand.bind(this))
-        break
-      default:
-        console.error(`Unknown command: ${command}`)
+    if (command === 'CLEAR') {
+      this.clearQueue()
+    } else {
+      if (soundFiles[command]) {
+        const soundFile = path.join(__dirname,'sounds', soundFiles[command])
+        exec(`aplay ${soundFile}`, (error) => {
+          if (error) {
+            console.error(`Error in speaking: ${error}`)
+            return
+          }
+        })
+      }
     }
   }
 
