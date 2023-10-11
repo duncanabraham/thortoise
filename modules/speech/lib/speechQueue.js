@@ -87,7 +87,7 @@ class SpeechQueue {
     delete this._queue[oldestTimestamp]
     console.log('deleted item from queue')
     console.log('about to exec espeak ...')
-    exec(`espeak "${textToSpeak}" --stdout | aplay ${this.audioDevice}`, (error, stdout, stderr) => {
+    exec(`espeak --stdout  "${textToSpeak}" | aplay ${this.audioDevice}`, (error, stdout, stderr) => {
       if (error) {
         console.error(`Error in speaking: ${error}`)
         return
