@@ -2,7 +2,7 @@
  * Speech reads text that has been published to the "voice" redis channel and says it out loud.
  */
 
-const redisPubSub = require('./lib/redisPubSub')
+const redisPubSub = require('../../lib/redisPubSub')
 
 const SpeechQueue = require('./lib/speechQueue')
 // eslint-disable-next-line no-unused-vars
