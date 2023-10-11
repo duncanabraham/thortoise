@@ -4,7 +4,7 @@ const { exec } = require('child_process')
 const soundFiles = require('./sound.json')
 
 class SpeechQueue {
-  constructor (options = {}) {
+  constructor(options = {}) {
     this._queue = {}
     this.currentlySpeaking = false
     this.subscriber = redis.createClient()
@@ -13,25 +13,25 @@ class SpeechQueue {
     this.audioDevice = options.audioDevice || '-Dhw:3'
   }
 
-  _initializeRedis () {
+  _initializeRedis() {
     this.subscriber.on('error', (err) => {
       console.error(`Redis error: ${err}`)
     })
 
     this.subscriber.subscribe('voice')
     this.subscriber.on('message', (channel, message) => {
+      console.log('received: ', message)
       this._addMessageToQueue(JSON.parse(message))
     })
   }
 
-  _validateAndSanitizeText (text) {
+  _validateAndSanitizeText(text) {
     // Escape double quotes and backslashes to prevent command injection
     const sanitizedText = text.replace(/(["\\])/g, '\\$1')
-
     return sanitizedText
   }
 
-  _handleCommand (command) {
+  _handleCommand(command) {
     switch (command) {
       case 'CLEAR':
         this.clearQueue()
@@ -47,7 +47,7 @@ class SpeechQueue {
     }
   }
 
-  _addMessageToQueue (voiceObject) {
+  _addMessageToQueue(voiceObject) {
     const { text, timestamp, command } = voiceObject
     if (command) {
       this._handleCommand(command)
@@ -65,7 +65,7 @@ class SpeechQueue {
     }
   }
 
-  _pruneOldMessages () {
+  _pruneOldMessages() {
     const old = Date.now() - this.maxAge
     Object.keys(this._queue).forEach(key => {
       if (key < old) {
@@ -74,7 +74,7 @@ class SpeechQueue {
     })
   }
 
-  _speak () {
+  _speak() {
     if (Object.keys(this._queue).length === 0) {
       return
     }
@@ -93,7 +93,7 @@ class SpeechQueue {
     })
   }
 
-  clearQueue () {
+  clearQueue() {
     this._queue = {}
   }
 }
