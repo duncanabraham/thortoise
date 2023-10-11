@@ -86,7 +86,7 @@ class SpeechQueue {
     delete this._queue[oldestTimestamp]
     console.log('deleted item from queue')
     console.log('about to exec espeak ...')
-    const espeakCommand = `espeak --stdout "${textToSpeak}" | sox -t wav - -c 2 -t wav - | aplay`
+    const espeakCommand = `espeak --stdout -s 80 -p 50 "${textToSpeak}" | sox -t wav - -c 2 -t wav - | aplay`
     exec(espeakCommand, (error, stdout, stderr) => {
       if (error) {
         console.error(`Error in speaking: ${error}`)
