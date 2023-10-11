@@ -43,8 +43,6 @@ class SpeechQueue {
   }
 
   _addMessageToQueue(message) {
-    console.log('message: ', message)
-    
     const voiceObject = JSON.parse(message)
     const { text, timestamp, command } = voiceObject
     if (command) {
@@ -57,10 +55,8 @@ class SpeechQueue {
       return
     }
     this._queue[timestamp] = sanitizedText
-    // this._pruneOldMessages()
-    console.log('about to speak')
-    if (!this.currentlySpeaking) {
-      console.log('calling _speak()')
+    this._pruneOldMessages()
+    if (!this.currentlySpeaking) {    
       this._speak()
     }
   }
