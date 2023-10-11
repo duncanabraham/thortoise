@@ -44,12 +44,13 @@ class SpeechQueue {
     return sanitizedText
   }
 
-  _handleCommand(command) {
+  _handleCommand(command, volume = 1) {
     if (command === 'CLEAR') {
       this.clearQueue()
     } else {
       if (soundFiles[command]) {
-        const soundFile = path.join(__dirname,'sounds', soundFiles[command])
+        const soundFile = path.join(__dirname, 'sounds', soundFiles[command])
+        const playCommand = `sox -v ${volume} ${soundFile} -d`
         exec(`aplay ${soundFile}`, (error) => {
           if (error) {
             console.error(`Error in speaking: ${error}`)
@@ -64,7 +65,7 @@ class SpeechQueue {
     const voiceObject = JSON.parse(message)
     const { text, timestamp, command } = voiceObject
     if (command) {
-      await this.addToCommandQueue(command)      
+      await this.addToCommandQueue(command)
       return
     }
     const sanitizedText = this._validateAndSanitizeText(text)
@@ -74,7 +75,7 @@ class SpeechQueue {
     }
     this._queue[timestamp] = sanitizedText
     // this._pruneOldMessages()
-    if (!this.currentlySpeaking) {    
+    if (!this.currentlySpeaking) {
       this._speak()
     }
   }
@@ -88,13 +89,13 @@ class SpeechQueue {
     })
   }
 
-  _speak() {    
+  _speak() {
     if (Object.keys(this._queue).length === 0) {
       return
     }
     this.currentlySpeaking = true
     const oldestTimestamp = Math.min(...Object.keys(this._queue))
-    const textToSpeak = this._queue[oldestTimestamp]    
+    const textToSpeak = this._queue[oldestTimestamp]
     delete this._queue[oldestTimestamp]
 
     const voicePath = path.join(__dirname, 'voice', 'mycroft_voice_4.0.flitevox')
