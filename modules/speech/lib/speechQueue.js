@@ -1,6 +1,6 @@
 const redis = require('redis')
 const { exec } = require('child_process')
-
+const path = require('path')
 const soundFiles = require('./sound.json')
 
 class SpeechQueue {
@@ -74,20 +74,18 @@ class SpeechQueue {
     })
   }
 
-  _speak() {
-    console.log('entered speak()')
+  _speak() {    
     if (Object.keys(this._queue).length === 0) {
       return
     }
     this.currentlySpeaking = true
     const oldestTimestamp = Math.min(...Object.keys(this._queue))
-    const textToSpeak = this._queue[oldestTimestamp]
-    console.log('textToSpeak: ', textToSpeak)
+    const textToSpeak = this._queue[oldestTimestamp]    
     delete this._queue[oldestTimestamp]
-    console.log('deleted item from queue')
-    console.log('about to exec espeak ...')
-    const espeakCommand = `espeak --stdout -s 80 -p 50 "${textToSpeak}" | sox -t wav - -c 2 -t wav - | aplay`
-    exec(espeakCommand, (error, stdout, stderr) => {
+
+    const voicePath = path.join(__dirname, 'voice', 'cmu_us_rxr.flitevox')
+    const speakCommand = `mimic -voice ${voicePath} -t "${textToSpeak}"`
+    exec(speakCommand, (error) => {
       if (error) {
         console.error(`Error in speaking: ${error}`)
         return
