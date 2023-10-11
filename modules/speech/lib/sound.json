@@ -20,5 +20,6 @@
   "TRUCK": "truck_horn.wav",
   "WARNING": "warning_whistle_x.wav",
   "WARNINGHORN": "warning_horn.wav",
+  "WOMP": "womp.wav",
   "ZAG": "zag_x.wav"
 }
