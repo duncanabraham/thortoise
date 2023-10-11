@@ -44,7 +44,8 @@ class SpeechQueue {
   }
 
   _addMessageToQueue(channel, message) {
-    console.log('received: ', message)
+    console.log('message: ', message)
+    console.log('channel: ', channel)
     const voiceObject = JSON.parse(message)
     const { text, timestamp, command } = voiceObject
     if (command) {
