@@ -6,10 +6,28 @@ const soundFiles = require('./sound.json')
 class SpeechQueue {
   constructor(options) {
     this._queue = {}
+    this.commandQueue = []
     this.currentlySpeaking = false
+    this.processingCommand = false
     this.subscriber = options.redisClient.sub
     this._initializeRedis()
     this.maxAge = options.maxAge || 1000 * 60 * 3 // 3 minutes
+  }
+
+  async addToCommandQueue(command) {
+    this.commandQueue.push(command)
+    await this.processCommandQueue()
+  }
+
+  async processCommandQueue() {
+    if (this.processingCommand || this.commandQueue.length === 0) {
+      return
+    }
+    this.processingCommand = true
+    const command = this.commandQueue.shift()
+    await this._handleCommand(command)
+    this.processingCommand = false
+    this.processCommandQueue()
   }
 
   _initializeRedis() {
@@ -42,11 +60,11 @@ class SpeechQueue {
     }
   }
 
-  _addMessageToQueue(message) {
+  async _addMessageToQueue(message) {
     const voiceObject = JSON.parse(message)
     const { text, timestamp, command } = voiceObject
     if (command) {
-      this._handleCommand(command)
+      await this.addToCommandQueue(command)      
       return
     }
     const sanitizedText = this._validateAndSanitizeText(text)
