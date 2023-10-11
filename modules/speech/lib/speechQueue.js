@@ -10,7 +10,6 @@ class SpeechQueue {
     this.subscriber = options.redisClient.sub
     this._initializeRedis()
     this.maxAge = options.maxAge || 1000 * 60 * 3 // 3 minutes
-    this.audioDevice = options.audioDevice || '-Dhw:3'
   }
 
   _initializeRedis() {
@@ -87,7 +86,8 @@ class SpeechQueue {
     delete this._queue[oldestTimestamp]
     console.log('deleted item from queue')
     console.log('about to exec espeak ...')
-    exec(`espeak --stdout  "${textToSpeak}" | aplay ${this.audioDevice}`, (error, stdout, stderr) => {
+    const espeakCommand = `espeak --stdout "${textToSpeak}" | sox -t wav - -c 2 -t wav - | aplay`
+    exec(espeakCommand, (error, stdout, stderr) => {
       if (error) {
         console.error(`Error in speaking: ${error}`)
         return
