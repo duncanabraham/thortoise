@@ -58,8 +58,10 @@ class SpeechQueue {
       return
     }
     this._queue[timestamp] = sanitizedText
-    this._pruneOldMessages()
+    // this._pruneOldMessages()
+    console.log('about to speak')
     if (!this.currentlySpeaking) {
+      console.log('calling _speak()')
       this._speak()
     }
   }
@@ -74,14 +76,17 @@ class SpeechQueue {
   }
 
   _speak() {
+    console.log('entered speak()')
     if (Object.keys(this._queue).length === 0) {
       return
     }
     this.currentlySpeaking = true
     const oldestTimestamp = Math.min(...Object.keys(this._queue))
     const textToSpeak = this._queue[oldestTimestamp]
-
+    console.log('textToSpeak: ', textToSpeak)
     delete this._queue[oldestTimestamp]
+    console.log('deleted item from queue')
+    console.log('about to exec espeak ...')
     exec(`espeak "${textToSpeak}" --stdout | aplay ${this.audioDevice}`, (error, stdout, stderr) => {
       if (error) {
         console.error(`Error in speaking: ${error}`)
