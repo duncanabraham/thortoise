@@ -25,7 +25,7 @@ class SpeechQueue {
     }
     this.processingCommand = true
     const command = this.commandQueue.shift()
-    await this._handleCommand(command)
+    await this._handleCommand(command.command, command.volume)
     this.processingCommand = false
     this.processCommandQueue()
   }
@@ -44,7 +44,7 @@ class SpeechQueue {
     return sanitizedText
   }
 
-  _handleCommand(command, volume = 1) {
+  _handleCommand(command, volume) {
     if (command === 'CLEAR') {
       this.clearQueue()
     } else {
@@ -63,9 +63,9 @@ class SpeechQueue {
 
   async _addMessageToQueue(message) {
     const voiceObject = JSON.parse(message)
-    const { text, timestamp, command } = voiceObject
+    const { text, timestamp, command, volume = 1 } = voiceObject
     if (command) {
-      await this.addToCommandQueue(command)
+      await this.addToCommandQueue({ command, volume })
       return
     }
     const sanitizedText = this._validateAndSanitizeText(text)
