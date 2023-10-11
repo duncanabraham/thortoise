@@ -79,7 +79,7 @@ class SpeechQueue {
     const textToSpeak = this._queue[oldestTimestamp]    
     delete this._queue[oldestTimestamp]
 
-    const voicePath = path.join(__dirname, 'voice', 'cmu_us_eey.flitevox')
+    const voicePath = path.join(__dirname, 'voice', 'mycroft_voice_4.0.flitevox')
     const speakCommand = `mimic -voice ${voicePath} -t "${textToSpeak}"`
     exec(speakCommand, (error) => {
       if (error) {
