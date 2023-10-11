@@ -51,7 +51,7 @@ class SpeechQueue {
       if (soundFiles[command]) {
         const soundFile = path.join(__dirname, 'sounds', soundFiles[command])
         const playCommand = `sox -v ${volume} ${soundFile} -d`
-        exec(`aplay ${soundFile}`, (error) => {
+        exec(playCommand, (error) => {
           if (error) {
             console.error(`Error in speaking: ${error}`)
             return
