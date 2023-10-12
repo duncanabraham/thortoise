@@ -13,7 +13,7 @@ target/
 .trunk/
 .vscode/
 ./odometryData.json
-apiKeyDatabase.json
+*.json
 mapdata.json
 llama-2-7b-chat.Q8_0.gguf
 *.wav
